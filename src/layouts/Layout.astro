@@ -1,0 +1,76 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Henry Bassey — Developer Marketer, Content & SEO Specialist' } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <title>{title}</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">henry<span class="dim">@bassey</span><span style="color:var(--green)">:~$</span></a>
+    <ul class="nav-links">
+      <li><a href="/#about">about</a></li>
+      <li><a href="/#portfolio">portfolio</a></li>
+      <li><a href="/#articles">writing</a></li>
+      <li><a href="/thoughts">thoughts</a></li>
+      <li><a href="/shorts">shorts</a></li>
+      <li><a href="/#proof">proof</a></li>
+      <li><a href="/#contact">contact</a></li>
+    </ul>
+    <div class="nav-badge">
+      <span class="pulse"></span>
+      <span>available for work</span>
+    </div>
+  </nav>
+
+  <main>
+    <slot />
+  </main>
+
+  <footer>
+    <div style="display:flex; align-items:center; gap:1.5rem;">
+      <span>henry@bassey <span style="color:var(--green)">main ⎇</span></span>
+      <span>© 2026 Henry Bassey</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:1.5rem;">
+      <span style="color:var(--amber)">INSERT</span>
+      <span>Built with code & conviction</span>
+      <span style="display:flex; align-items:center; gap:0.4rem;">
+        <span class="pulse"></span>
+        <span>All systems normal.</span>
+      </span>
+    </div>
+  </footer>
+
+  <script>
+    // Active nav link on scroll
+    document.querySelectorAll('section[id]').forEach(s => {
+      new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+            // Match href loosely to handle both "/#id" and "#id"
+            const a = document.querySelector(`.nav-links a[href$="#${e.target.id}"]`) as HTMLElement;
+            if (a) a.classList.add('active');
+          }
+        });
+      }, { rootMargin: '-25% 0px -35% 0px' }).observe(s);
+    });
+  </script>
+
+</body>
+</html>

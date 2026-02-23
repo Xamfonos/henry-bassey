@@ -1,0 +1,401 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const thoughts = (await getCollection('thoughts')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const shorts = (await getCollection('shorts')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Layout title="Henry Bassey — The Technical Marketer">
+
+<!-- ─── HERO ─── -->
+<div style="min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding:6rem 2.5rem 4rem; max-width:960px; margin:0 auto; position:relative;">
+
+  <div style="font-size:0.72rem; color:var(--green); letter-spacing:0.18em; text-transform:uppercase; margin-bottom:1.5rem; display:flex; align-items:center; gap:0.75rem; animation:fadeUp 0.6s ease 0.1s both;">
+    <span style="width:28px; height:1px; background:var(--green); display:inline-block;"></span>
+    Developer Marketer · Content Strategist · Technical Marketer
+  </div>
+
+  <h1 style="font-family:var(--font-sans); font-size:clamp(2.6rem,6.5vw,5.2rem); font-weight:800; line-height:1.06; color:#fff; letter-spacing:-0.025em; margin-bottom:0.3rem; animation:fadeUp 0.6s ease 0.2s both;">
+    Some say I'm a<br/>
+    <span style="color:var(--green)">badass technical</span><br/>
+    <span style="color:var(--green)">marketer.</span>
+  </h1>
+
+  <p style="font-family:var(--font-sans); font-size:clamp(1rem,2.2vw,1.35rem); font-weight:600; color:var(--text-dim); margin-bottom:1.75rem; animation:fadeUp 0.6s ease 0.3s both;">
+    What do you say?
+  </p>
+
+  <div style="display:flex; align-items:center; gap:0.5rem; font-size:0.9rem; margin-bottom:2rem; color:var(--text-dim); animation:fadeUp 0.6s ease 0.35s both;">
+    <span style="color:var(--green)">$</span>
+    <span>I help devtools companies&nbsp;</span>
+    <span id="typed" style="color:var(--amber)"></span>
+    <span style="display:inline-block; width:2px; height:1em; background:var(--amber); vertical-align:text-bottom; margin-left:1px; animation:blink 1s step-end infinite;"></span>
+  </div>
+
+
+
+  <div style="display:flex; gap:1rem; flex-wrap:wrap; animation:fadeUp 0.6s ease 0.5s both;">
+    <a href="#portfolio" class="btn btn-primary">↳ See my work</a>
+    <a href="#contact" class="btn btn-ghost">Work with me</a>
+  </div>
+
+  <div class="hero-photo-wrap">
+    <img src="https://henrybassey.com/wp-content/uploads/2025/04/Henry-Bassey-technical-marketer.png" alt="Henry Bassey" />
+  </div>
+
+  <div class="marquee-wrap" style="position:absolute; bottom:2.5rem; left:0; right:0; animation:fadeUp 0.6s ease 0.7s both;">
+    <div class="marquee-track">
+      {['Developer Marketing','Content Strategy','Technical Writing','SEO & Growth','GTM Strategy','Developer Relations','Community Building','API & DevTools','Product Marketing',
+        'Developer Marketing','Content Strategy','Technical Writing','SEO & Growth','GTM Strategy','Developer Relations','Community Building','API & DevTools','Product Marketing'
+      ].map(item => (
+        <span class="marquee-item">{item}<span class="dot"> ·</span></span>
+      ))}
+    </div>
+  </div>
+</div>
+
+<!-- ─── ABOUT ─── -->
+<section id="about" class="section-wrap">
+
+  <div style="display:grid; grid-template-columns:1.1fr 0.9fr; gap:3rem; align-items:start;">
+    <div>
+      <div class="section-tag" style="white-space: normal; margin-bottom: 0.5rem;"><span class="br">&lt;</span> Hi, I'm Henry Bassey <span class="br">/&gt;</span></div>
+      <div style="font-size:0.85rem; color:var(--text-dim); font-family:var(--font-mono); margin-bottom:1.5rem;">A Developer Marketer, Content & SEO Specialist, and a Cloud Engineering Student.</div>
+      <p style="font-size:0.88rem; line-height:2.1; color:var(--text); margin-bottom:1.1rem;">I started out in tech. Built things. Broke things. Learned a lot. Then I realized I was also good with words. And obsessed with storytelling.</p>
+      <p style="font-size:0.88rem; line-height:2.1; color:var(--text); margin-bottom:1.1rem;">So I wandered into marketing. Got curious. Got serious. Picked up an MBA (full scholarship, thank you) from a business school in Washington.</p>
+      <p style="font-size:0.88rem; line-height:2.1; color:var(--text); margin-bottom:1.1rem;">Later, I found technical marketing. Finally, a place where tech, creativity, and strategy could live in the same room.</p>
+      <p style="font-size:0.88rem; line-height:2.1; color:var(--text); margin-bottom:1.1rem;">These days, I lead content at a SaaS agency, helping teams talk to developers like humans. People often say I bring creativity into a space that usually feels rigid. I take that personally.</p>
+      <p style="font-size:0.88rem; line-height:2.1; color:var(--text); margin-bottom:2rem;">This is where I share my work, think out loud, and keep figuring it all out.</p>
+
+      <div class="section-tag" style="white-space: normal; font-size: clamp(1rem, 2vw, 1.25rem); margin-bottom: 1.25rem;"><span class="br">&lt;</span> Some brands I've worked with. Not a flex. Just context. <span class="br">/&gt;</span></div>
+      <div class="brands-grid">
+        {[
+          ['Hackmamba','https://hackmamba.io'],['Actian','#'],['Bitcloud','#'],['Aikido','#'],['MetalBear','https://metalbear.co'],
+          ['Neon','https://neon.tech'],['Code First Girls','https://codefirstgirls.com'],
+          ['Roadmap.sh','https://roadmap.sh'],['Mintlify','https://mintlify.com'],
+          ['Mia-Platform','https://mia-platform.eu'],['Cloudinary','https://cloudinary.com'],
+          ['Flutterwave','https://flutterwave.com'],['CodeRabbit','https://coderabbit.ai'],
+          ['Novu','https://novu.co'],['Sourcegraph','https://sourcegraph.com'],
+          ['Appwrite','https://appwrite.io'],['Replit','https://replit.com'],
+          ['Hygraph','https://hygraph.com'],['Localazy','https://localazy.com'],
+        ].map(([name, url]) => (
+          <a href={url} target="_blank" rel="noopener" class="brand-chip">{name}</a>
+        ))}
+      </div>
+    </div>
+
+    <div>
+      <div class="terminal-card">
+        <div class="tc-head">
+          <span class="wdot dr"></span><span class="wdot dy"></span><span class="wdot dg"></span>
+          <span class="tc-filename">henry_bassey.json</span>
+        </div>
+        <div class="tc-body">
+          <div class="tl"><span class="tp">$</span><span class="tc2">cat henry_bassey.json</span></div>
+          <div class="tb"></div>
+          <div class="tl"><span class="tg">{'{'}</span></div>
+          <div class="tl"><span class="ind"></span><span class="tk">"name"</span><span class="tc2">:&nbsp;</span><span class="tv">"Henry Bassey"</span><span class="tc2">,</span></div>
+          <div class="tl"><span class="ind"></span><span class="tk">"role"</span><span class="tc2">:&nbsp;</span><span class="tv">"Technical Marketer"</span><span class="tc2">,</span></div>
+          <div class="tl"><span class="ind"></span><span class="tk">"handle"</span><span class="tc2">:&nbsp;</span><span class="tv">"@xamfonos_"</span><span class="tc2">,</span></div>
+          <div class="tl"><span class="ind"></span><span class="tk">"education"</span><span class="tc2">: [</span></div>
+          <div class="tl"><span class="ind2"></span><span class="tv">"MBA (Full Scholarship)"</span><span class="tc2">,</span></div>
+          <div class="tl"><span class="ind2"></span><span class="tv">"Cloud Engineering (in progress)"</span></div>
+          <div class="tl"><span class="ind"></span><span class="tc2">],</span></div>
+          <div class="tl"><span class="ind"></span><span class="tk">"focus"</span><span class="tc2">: [</span></div>
+          <div class="tl"><span class="ind2"></span><span class="tv">"DevTools & APIs"</span><span class="tc2">,</span></div>
+          <div class="tl"><span class="ind2"></span><span class="tv">"SaaS Content"</span><span class="tc2">,</span></div>
+          <div class="tl"><span class="ind2"></span><span class="tv">"Developer Marketing"</span></div>
+          <div class="tl"><span class="ind"></span><span class="tc2">],</span></div>
+          <div class="tl"><span class="ind"></span><span class="tk">"available"</span><span class="tc2">:&nbsp;</span><span style="color:var(--green)">true</span></div>
+          <div class="tl"><span class="tg">{'}'}</span></div>
+        </div>
+      </div>
+
+      <div class="skill-group" style="margin-top:1.1rem;">
+        <div class="sg-title">Core Skills</div>
+        <div class="skill-tags">
+          {['Content Strategy','Developer Marketing','SEO','Technical Writing','GTM Strategy','Copywriting','Paid Media','Community','Product Marketing'].map(s => (
+            <span class="skill-tag">{s}</span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SERVICES ─── -->
+<section id="services" class="section-wrap">
+  <div class="section-tag" style="white-space: normal; margin-bottom: 0.5rem;"><span class="br">&lt;</span> What's going on here? <span class="br">/&gt;</span></div>
+  <div style="font-size:0.85rem; color:var(--text-dim); font-family:var(--font-mono); margin-bottom:2.5rem;">Honestly? A little bit of everything.</div>
+
+  <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:2.5rem;">
+    <div class="skill-group">
+      <div class="sg-title">If you're building something for developers, I can help you:</div>
+      <div style="display:grid; gap:0.1rem; margin-top:0.5rem;">
+        <div class="svc-item">Plan a content strategy that's not just "publish and pray."</div>
+        <div class="svc-item">Make your launch content hit the right people at the right time.</div>
+        <div class="svc-item">Write performance copy for ads, homepages, and docs.</div>
+        <div class="svc-item">Build SEO/GEO/AEO pages that’s both ranked and read.</div>
+        <div class="svc-item">Connect the dots between product, content, and GTM</div>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="sg-title">If you're a writer, editor, or technical marketer trying to level up:</div>
+      <div style="display:grid; gap:0.1rem; margin-top:0.5rem;">
+        <div class="svc-item">I share behind-the-scenes reviews of real projects (the good, the messy, the fixed)</div>
+        <div class="svc-item">I write about tone, structure, originality, and knowing when to shut up.</div>
+        <div class="svc-item">I break down how to balance dev-speak with clarity (without going full Clippy)</div>
+        <div class="svc-item">I post templates, frameworks, and little tricks I've picked up from the trenches.</div>
+        <div class="svc-item">And I talk a lot about the hard part: thinking like a strategist, not just a writer.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PORTFOLIO ─── -->
+<section id="portfolio" class="section-wrap">
+  <div class="section-tag" style="white-space: normal; margin-bottom: 0.5rem;"><span class="br">&lt;</span> Most of my work falls into strategy, messaging, and content operations. <span class="br">/&gt;</span></div>
+  <div style="font-size:0.85rem; color:var(--text-dim); font-family:var(--font-mono); margin-bottom:2.5rem;">But at the end of the day, it's all about helping you figure out how to win your customer’s heart. Here’s how that looks like in practice.</div>
+
+  <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:1.1rem;">
+    {[
+      { url:'https://www.hackmamba.io', type:'Developer Marketing Agency · SaaS', name:'Hackmamba', desc:"Joined when it was a side hustle — no roadmap, just belief. I rewrote landing pages, ran earliest ads, built lead funnels, shaped the brand voice, and stepped into leadership to define positioning and editorial standards that still guide the work.", tags:['Brand Leadership','Content Strategy','SEO','Dev Marketing'] },
+      { url:'#', type:'Enterprise Data Platform', name:'Actian', desc:"The biggest enterprise client I’ve ever worked with. They’re launching an on-prem vector database and I manned their GTM for dev content, SEO, copywriting and video strategy and briefs. I was able to rank each of their articles first page and got multiple AI citations.", tags:['GTM','SEO','Vector Database'] },
+      { url:'#', type:'AI Software Development', name:'Bitcloud', desc:"I managed their entire content strategy and helped them pivot their messaging multiple times as the AI software development market evolved. We became their most trusted GTM arm.", tags:['Content Strategy','Messaging Pivot'] },
+      { url:'https://thenewstack.io', type:'Tech Media · Developer Insights', name:'The New Stack', desc:"First media brand I collaborated with. Sharpened raw ideas into editorially rigorous articles. Became a contributor writing on developer marketing, GenAI, and data science for names like Boomi, BMC, Towards Data Science, and Plotly.", tags:['Thought Leadership','Technical Writing','SEO'] },
+      { url:'https://mia-platform.eu', type:'DevOps Platform · Backend Infrastructure', name:'Mia-Platform', desc:"One of our earliest long-term partners. Executed their content strategy — articles and whitepapers for a deeply technical audience. Their sustained trust became one of our strongest proof points.", tags:['Content Strategy','Whitepapers','Technical Messaging'] },
+      { url:'https://cloudinary.com', type:'Digital Asset Management · Media APIs', name:'Cloudinary', desc:"Translated their goals into structured content pillars, mapped SEO-driven topic clusters, and built briefs that matched technical expectations with search demand. Earned their trust and repeat projects.", tags:['SEO Strategy','Content Pillars','Briefs'] },
+      { url:'https://kitops.org', type:'AI/ML Platforms · DevTools', name:'Jozu / KitOps', desc:"Turned complex product ideas into focused, high-utility content. Shaped editorial direction, fine-tuned titles for discoverability, and built briefs that gave technical writers a strong foundation to work from.", tags:['AI/ML Content','Editorial Strategy','DevTools'] },
+      { url:'https://flutterwave.com', type:'Fintech API · Developer Marketing', name:'Flutterwave', desc:"First unicorn we worked with — and they had zero developer marketing content strategy. I stepped in to shape it from scratch, defined messaging for their developer audience, and launched content that supported product education and discovery.", tags:['Zero-to-One Strategy','Fintech','Dev Marketing'] },
+      { url:'https://www.coderabbit.ai', type:'AI Code Review · DevTools · SaaS', name:'CodeRabbit', desc:"Helped turn early topic drafts into structured briefs, refined themes for SEO and audience fit, and guided technical writers through execution — giving their product a clear, consistent voice in a fast-growing space.", tags:['AI DevTools','Content Briefs','SEO'] },
+      { url:'https://roadmap.sh', type:'Developer Education · SEO Strategy', name:'Roadmap.sh', desc:"Worked with their deeply experienced SEO team. Shaped raw keyword data into structured briefs and produced content that answered real developer questions. Their rigorous process made me a sharper operator.", tags:['SEO Strategy','Dev Education','Content Briefs'] },
+      { url:'https://mintlify.com', type:'Documentation Platform · Developer Tools', name:'Mintlify', desc:"Partnered with Tiffany Chen to shape abstract content goals into execution-ready assets. Co-developed titles, briefs, and outlines. Interviewed SMEs to deepen material and sharpen its perspective.", tags:['Docs Strategy','SME Interviews','Technical Content'] },
+      { url:'https://neon.tech', type:'Serverless Postgres · Database Tools', name:'Neon', desc:"Translated a sharp technical vision into structured strategy — from keyword research to briefs to final execution. Built content to engage developers, match search intent, and reflect Neon's next-gen database positioning.", tags:['Database Content','Dev Engagement','SEO'] },
+      { url:'https://novu.co', type:'Notification Infrastructure · Open Source', name:'Novu', desc:"Helped Novu stay top-of-mind for developers solving notification problems. From onboarding guides to integration tutorials — structured to reflect their open-source roots and real developer workflows.", tags:['Open Source','Dev Tutorials','Content Ops'] },
+      { url:'https://sourcegraph.com', type:'Code Search · Developer Tools', name:'Sourcegraph', desc:"Created content that reflected the depth of their platform without losing developers in complexity. Refined positioning, shaped strategy into clear briefs, and guided content from first draft to final edits.", tags:['Code Tools','Technical Accuracy','Dev-First Content'] },
+      { url:'https://hygraph.com', type:'Headless CMS · Developer Marketing', name:'Hygraph', desc:"Helped implement their developer marketing strategy, structured SEO efforts around technical topics, and produced content that competed at the top of the funnel — even on highly competitive React keywords.", tags:['Headless CMS','Dev Marketing','SEO'] },
+      { url:'https://appwrite.io', type:'Open Source Backend · Developer Tools', name:'Appwrite', desc:"A rare zero-to-one project. Built their content strategy from scratch, structuring it around product goals and a developer-first audience. We helped a dev-first brand find its rhythm and its voice.", tags:['Zero-to-One','Open Source','Brand Voice'] },
+      { url:'https://replit.com', type:'Cloud IDE · Developer Platform', name:'Replit', desc:"Supported with docs and video content. Writing the collaboration announcement sparked the invention of the Halo Signal Strategy and SHARE Framework — methods for showing proof of value without a formal case study.", tags:['DevRel','Halo Signal','SHARE Framework'] },
+      { url:'https://codefirstgirls.com', type:'Edutech · Community Mentorship', name:'Code First Girls', desc:"Joined as the only male instructor in my cohort, teaching React and JavaScript to an all-women group of aspiring developers. Built confidence, shared real-world experience, and helped more women break into tech.", tags:['React','JavaScript','Mentorship'] },
+      { url:'#', type:'Industrial Electricals · E-commerce SEO', name:'Detopsy Engineering', desc:"First and only marketing executive. Built the e-commerce website, optimized product listings for top-ranking search performance, and secured official Schneider Electric retailer approval. Also ranked for ABB, pulling organic traffic from across regions.", tags:['E-commerce SEO','Brand Partnerships','Web Development'] },
+    ].map(p => (
+      <a href={p.url} target="_blank" rel="noopener" class="p-card">
+        <div class="p-type">{p.type}</div>
+        <div class="p-name">{p.name}</div>
+        <div class="p-desc">{p.desc}</div>
+        <div class="p-tags">
+          {p.tags.map(t => <span class="p-tag">{t}</span>)}
+        </div>
+      </a>
+    ))}
+  </div>
+</section>
+
+<!-- ─── FEATURED WRITING ─── -->
+<section id="articles" class="section-wrap">
+  <div class="section-tag" style="white-space: normal; margin-bottom: 0.5rem;"><span class="br">&lt;</span> The point of all this? <span class="br">/&gt;</span></div>
+  <div style="font-size:0.85rem; color:var(--text-dim); font-family:var(--font-mono); margin-bottom:2.5rem;">Because most people either overthink developer marketing or copy what everyone else is doing. Because I believe technical content can be clear and creative. Because I want to share what I know, learn in the open, and keep experimenting.</div>
+
+  <div class="section-tag" style="white-space: normal; margin-bottom: 0.5rem;"><span class="br">&lt;</span> Some articles I’ve written <span class="br">/&gt;</span></div>
+  <div style="font-size:0.85rem; color:var(--text-dim); font-family:var(--font-mono); margin-bottom:2.5rem;">I've written, rewritten, ghostwritten, and edited hundreds of technical pieces — from DevOps to AI/ML, platform engineering to DevX, and nearly every developer-focused stack in between. But these ones deserve an honorable mention.</div>
+
+  <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:2.5rem;">
+    {[
+      { url:'https://thenewstack.io/sponsorship/developer-marketing-how-to-write-for-a-technical-audience/', pub:'The New Stack', title:'How to write for a technical audience', desc:"How technical audiences think, what content they trust, and how to promote your product without sounding like a pitch deck. Psychological insights, real examples, and frameworks for long-term credibility." },
+      { url:'https://thenewstack.io/sponsorship/developer-marketing/', pub:'The New Stack', title:'How to advertise to developers', desc:"Most ads fail because they interrupt instead of help. Smart targeting, platform picks, and copy that actually works — everything I've learned about paid dev marketing that doesn't get blocked, ignored, or dragged." },
+      { url:'https://thenewstack.io/building-a-realistic-pathway-to-production-ready-genai/', pub:'BMC Software × The New Stack', title:'Building a realistic pathway to production-ready GenAI', desc:"Genuine risks of using GenAI in service management — from flawed data to opaque decisions — and how BMC Helix GPT tackles them with composite AI, fine-tuning, and real reasoning." },
+      { url:'https://thenewstack.io/genai-wont-work-until-you-nail-these-4-fundamentals/', pub:'Boomi × HBR × The New Stack', title:"GenAI won't work until you nail these 4 fundamentals", desc:"Everyone's hyped about GenAI but skipping the hard part. Data, governance, culture — backed by insights from HBR, KPMG, and industry leaders. Sponsored by Boomi." },
+      { url:'https://hackmamba.io/blog/2025/02/the-halo-signal-and-share-framework/', pub:'Hackmamba', title:'No case study yet? Meet the "Halo Signal" and SHARE Framework', desc:"When results are under wraps, you need a new kind of proof. The Halo Signal strategy and SHARE Framework I developed help brands build trust without relying on metrics." },
+      { url:'https://hackmamba.io/blog/2025/03/developer-marketing-deep-dive/', pub:'Hackmamba', title:"If your developer marketing isn't working, read this", desc:"Real campaigns, community insights, and content systems to shift your mindset, build trust, and make developer outreach actually work. No fluff. No theory. Just results." },
+    ].map(a => (
+      <a href={a.url} target="_blank" rel="noopener" class="article-card">
+        <div class="article-pub">{a.pub}</div>
+        <div class="article-body">
+          <div class="article-title">{a.title}</div>
+          <div class="article-desc">{a.desc}</div>
+          <div class="article-link">Read on {a.pub.split(' ×')[0]} →</div>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>
+
+<!-- ─── THOUGHTS ─── -->
+{thoughts.length > 0 && (
+  <section id="thoughts-section" class="section-wrap">
+    <div class="thoughts-list">
+      {thoughts.slice(0,3).map(post => (
+        <a href={`/thoughts/${post.slug}`} class="thought-item">
+          <div>
+            <div class="thought-cat">{post.data.category}</div>
+            <div class="thought-title">{post.data.title}</div>
+            <div class="thought-excerpt">{post.data.excerpt}</div>
+          </div>
+          <span class="thought-badge">{post.data.badge}</span>
+        </a>
+      ))}
+    </div>
+    <div style="margin-top:1.5rem;">
+      <a href="/thoughts" class="btn btn-ghost">View all thoughts →</a>
+    </div>
+  </section>
+)}
+
+<!-- ─── SHORTS ─── -->
+{shorts.length > 0 && (
+  <section id="shorts" class="section-wrap">
+    <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(270px,1fr)); gap:2.5rem;">
+      {shorts.slice(0,6).map(s => (
+        <div class="short-card">
+          <div class="sh-head"><span class="sh-indicator">// SHORT</span></div>
+          <a href={`/shorts/${s.slug}`} class="sh-title">{s.data.title}</a>
+          <div class="sh-excerpt">{s.data.excerpt}</div>
+          <div class="sh-foot">
+            <span class="sh-pill">{s.data.tag}</span>
+            <a href={`/shorts/${s.slug}`} class="sh-link">Read →</a>
+          </div>
+        </div>
+      ))}
+    </div>
+    <div style="margin-top:1.5rem;">
+      <a href="/shorts" class="btn btn-ghost">View all shorts →</a>
+    </div>
+  </section>
+)}
+
+<!-- ─── PROOF ─── -->
+<section id="proof" class="section-wrap">
+  <div class="section-tag" style="white-space: normal; margin-bottom: 0.5rem;"><span class="br">&lt;</span> People read my stuff. They liked it. <span class="br">/&gt;</span></div>
+  <div style="font-size:0.85rem; color:var(--text-dim); font-family:var(--font-mono); margin-bottom:2.5rem;">Every now and then, someone messages me to say, "This hit." I collect those little moments here to remind myself I'm on the right track.</div>
+
+  <div class="proof-scroll">
+    {[
+      { src:'https://henrybassey.com/wp-content/uploads/2025/03/IMG_0594.jpg', w:180, h:280 },
+      { src:'https://henrybassey.com/wp-content/uploads/2025/03/IMG_09281-630x1024.png', w:170, h:280 },
+      { src:'https://henrybassey.com/wp-content/uploads/2025/03/feedback-for-halo.png', w:260, h:280 },
+      { src:'https://henrybassey.com/wp-content/uploads/2025/03/IMG_0801.jpg', w:220, h:280 },
+      { src:'https://henrybassey.com/wp-content/uploads/2025/03/IMG_0931-608x1024.png', w:170, h:280 },
+      { src:'https://henrybassey.com/wp-content/uploads/2025/03/IMG_09301-610x1024.png', w:170, h:280 },
+    ].map(img => (
+      <div class="proof-img-card" style={`width:${img.w}px; height:${img.h}px;`}>
+        <img src={img.src} alt="Reader feedback" loading="lazy" />
+      </div>
+    ))}
+  </div>
+
+  <div style="margin-top:5rem;">
+    <div class="section-tag" style="white-space: normal; margin-bottom: 0.5rem;"><span class="br">&lt;</span> Turns out Google likes my copies too <span class="br">/&gt;</span></div>
+    <div style="font-size:0.85rem; color:var(--text-dim); font-family:var(--font-mono); margin-bottom:2.5rem;">My SEO and copywriting efforts have helped generate monthly inbound leads from actual companies with real problems to solve.</div>
+    <div class="seo-grid">
+      {['my-seo-game','deuna','SEO-2'].map(img => (
+        <div class="seo-img-card">
+          <img src={`https://henrybassey.com/wp-content/uploads/2025/03/${img}.png`} alt="SEO results" loading="lazy" />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section id="contact" class="section-wrap">
+  <div class="section-tag" style="white-space: normal; margin-bottom: 0.5rem;"><span class="br">&lt;</span> Find me online (finally) <span class="br">/&gt;</span></div>
+  <div style="font-size:0.85rem; color:var(--text-dim); font-family:var(--font-mono); margin-bottom:2.5rem;">Damn. I've managed social media for lots of companies but been too lazy to grow mine. Follow me and let's put this embarrassing follower count to shame 😭</div>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start;">
+    <div>
+      <div style="display:grid; gap:0.55rem;">
+        {[
+          { icon:'𝕏', label:'@xamfonos_', href:'https://x.com/xamfonos_' },
+          { icon:'◎', label:'@xamfonos', href:'https://www.instagram.com/xamfonos/' },
+          { icon:'in', label:'linkedin.com/in/henrybassey', href:'https://www.linkedin.com/in/henrybassey/' },
+        ].map(link => (
+          <a href={link.href} target="_blank" rel="noopener" class="contact-link">
+            <span class="cl-icon">{link.icon}</span>
+            <span class="cl-label">{link.label}</span>
+            <span class="cl-arr">→</span>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <div class="hire-box">
+      <div class="hire-head"><span class="pulse"></span> AVAILABLE FOR PROJECTS</div>
+      <div class="hire-body">
+        <h3>Want to work together?</h3>
+        <p>Drop your email and a short note. I'll get back to you if it's a good fit. I work with developer-focused companies to clarify their message, grow their community, and ship content that actually converts.</p>
+        <ul class="hire-services">
+          <li>Content Strategy & Planning</li>
+          <li>Developer Marketing Consulting</li>
+          <li>Technical Copywriting</li>
+          <li>SEO & Performance Content</li>
+          <li>GTM & Launch Strategy</li>
+        </ul>
+        <a href="https://www.linkedin.com/in/henrybassey/" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%; justify-content:center;">Start a conversation →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── IMAGE OVERLAY MODAL ─── -->
+<div id="image-modal" class="modal">
+  <span class="modal-close">&times;</span>
+  <img class="modal-content" id="modal-img" />
+</div>
+
+</Layout>
+
+<script>
+  // Parallax logic
+  window.addEventListener('scroll', () => {
+    const photoWrap = document.querySelector('.hero-photo-wrap');
+    if (photoWrap) {
+      const scrollY = window.scrollY;
+      // move it slightly slower than scroll rate
+      (photoWrap as HTMLElement).style.transform = `translateY(${scrollY * 0.25}px)`;
+    }
+  });
+
+  const phrases = ['grow developer trust.','ship content that converts.','tell better technical stories.','build real community.','talk to devs like humans.','turn docs into pipeline.'];
+  let pi=0,ci=0,del=false;
+  const el=document.getElementById('typed');
+  if(el){
+    function type(){
+      const cur=phrases[pi];
+      if(del){el.textContent=cur.slice(0,--ci);if(ci===0){del=false;pi=(pi+1)%phrases.length;setTimeout(type,400);return;}setTimeout(type,38);}
+    }
+    setTimeout(type,900);
+  }
+
+  // Image Modal Logic
+  const modal = document.getElementById('image-modal');
+  const modalImg = document.getElementById('modal-img') as HTMLImageElement;
+  const closeBtn = document.querySelector('.modal-close');
+
+  if (modal && modalImg && closeBtn) {
+    document.querySelectorAll('.proof-img-card img, .seo-img-card img').forEach(img => {
+      img.addEventListener('click', function(this: HTMLImageElement) {
+        modal.style.display = 'flex';
+        // force reflow for opacity transition
+        void modal.offsetWidth;
+        modal.classList.add('show');
+        modalImg.src = this.src;
+      });
+    });
+
+    const closeModal = () => {
+      modal.classList.remove('show');
+      setTimeout(() => { modal.style.display = 'none'; }, 300);
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+    
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('show')) closeModal();
+    });
+  }
+</script>

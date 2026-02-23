@@ -1,0 +1,37 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const shorts = (await getCollection('shorts')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Layout title="Shorts — Henry Bassey" description="Quick observations from the trenches of developer marketing.">
+  <div class="section-wrap" style="padding-top:8rem;">
+
+    <p style="font-size:0.82rem; color:var(--text-dim); margin-bottom:2.5rem;">
+      <span style="color:var(--cyan)">stdout</span> — Too long for Twitter. Too short for a blog post. Quick observations from the trenches of developer marketing.
+    </p>
+
+    {shorts.length > 0 ? (
+      <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(270px,1fr)); gap:2.5rem;">
+        {shorts.map(s => (
+          <div class="short-card">
+            <div class="sh-head">
+              <span class="sh-indicator">// SHORT</span>
+              <span style="font-size:0.65rem; color:var(--text-dim);">
+                {s.data.date.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' })}
+              </span>
+            </div>
+            <a href={`/shorts/${s.slug}`} class="sh-title">{s.data.title}</a>
+            <div class="sh-excerpt">{s.data.excerpt}</div>
+            <div class="sh-foot">
+              <span class="sh-pill">{s.data.tag}</span>
+              <a href={`/shorts/${s.slug}`} class="sh-link">Read →</a>
+            </div>
+          </div>
+        ))}
+      </div>
+    ) : <div style="padding:2rem; border:1px solid var(--border); border-radius:8px; font-size:0.85rem; color:var(--text-dim); text-align:center; font-style:italic;">Nothing here yet. Still formatting the output.</div>}
+
+  </div>
+</Layout>

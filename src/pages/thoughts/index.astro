@@ -1,0 +1,27 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const thoughts = (await getCollection('thoughts')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Layout title="Thoughts — Henry Bassey" description="Thinking out loud on developer marketing, technical writing, and content strategy.">
+  <div class="section-wrap" style="padding-top:8rem;">
+
+    {thoughts.length > 0 ? (
+      <div class="thoughts-list">
+        {thoughts.map(post => (
+          <a href={`/thoughts/${post.slug}`} class="thought-item">
+            <div>
+              <div class="thought-cat">{post.data.category} · {post.data.date.toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' })}</div>
+              <div class="thought-title">{post.data.title}</div>
+              <div class="thought-excerpt">{post.data.excerpt}</div>
+            </div>
+            {post.data.badge && <span class="thought-badge">{post.data.badge}</span>}
+          </a>
+        ))}
+      </div>
+    ) : <div style="padding:2rem; border:1px solid var(--border); border-radius:8px; font-size:0.85rem; color:var(--text-dim); text-align:center; font-style:italic;">Nothing here yet. Still connecting the dots.</div>}
+
+  </div>
+</Layout>
