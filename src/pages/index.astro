@@ -363,6 +363,7 @@ const shorts = (await getCollection('shorts')).sort((a, b) => b.data.date.valueO
     function type(){
       const cur=phrases[pi];
       if(del){el.textContent=cur.slice(0,--ci);if(ci===0){del=false;pi=(pi+1)%phrases.length;setTimeout(type,400);return;}setTimeout(type,38);}
+      else{el.textContent=cur.slice(0,++ci);if(ci===cur.length){del=true;setTimeout(type,2200);return;}setTimeout(type,62);}
     }
     setTimeout(type,900);
   }
