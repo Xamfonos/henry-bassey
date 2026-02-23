@@ -68,25 +68,6 @@ Optional expanded content here.
 
 Available at `/shorts/your-filename`.
 
----
-
-## Deployment (Vercel + Namecheap)
-
-### First deploy
-
-1. Push this repo to GitHub
-2. Go to [vercel.com](https://vercel.com) → New Project → Import your repo
-3. Vercel auto-detects Astro — hit Deploy
-4. Your site is live on a `*.vercel.app` URL
-
-### Connect your Namecheap domain
-
-1. In Vercel: Project Settings → Domains → Add `henrybassey.com`
-2. In Namecheap DNS panel, set:
-   - **A Record**: `@` → `76.76.21.21`
-   - **CNAME**: `www` → `cname.vercel-dns.com`
-3. Wait 5–15 min for propagation
-4. Vercel auto-provisions SSL — done
 
 ### Future updates
 
