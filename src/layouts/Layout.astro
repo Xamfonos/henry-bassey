@@ -35,6 +35,17 @@ const { title, description = 'Henry Bassey — Developer Marketer, Content & SEO
       <span class="pulse"></span>
       <span>available for work</span>
     </div>
+    <button class="menu-toggle" aria-label="Toggle Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="icon-menu" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="icon-close" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
   </nav>
 
   <main>
@@ -70,6 +81,34 @@ const { title, description = 'Henry Bassey — Developer Marketer, Content & SEO
         });
       }, { rootMargin: '-25% 0px -35% 0px' }).observe(s);
     });
+
+    // Mobile nav toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    const iconMenu = document.querySelector('.icon-menu');
+    const iconClose = document.querySelector('.icon-close');
+
+    if (menuToggle && navLinks) {
+      menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('open');
+        const isOpen = navLinks.classList.contains('open');
+        if (iconMenu && iconClose) {
+          (iconMenu as HTMLElement).style.display = isOpen ? 'none' : 'block';
+          (iconClose as HTMLElement).style.display = isOpen ? 'block' : 'none';
+        }
+      });
+
+      // Close menu when clicking a link
+      document.querySelectorAll('.nav-links a').forEach(a => {
+        a.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+          if (iconMenu && iconClose) {
+            (iconMenu as HTMLElement).style.display = 'block';
+            (iconClose as HTMLElement).style.display = 'none';
+          }
+        });
+      });
+    }
   </script>
 
 </body>
