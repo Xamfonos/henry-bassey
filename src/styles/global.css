@@ -1130,10 +1130,34 @@ footer {
   margin-top: 0.05rem;
 }
 
+/* ─── LAYOUT GRIDS ─── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
 /* ─── MOBILE ─── */
 @media(max-width:860px) {
   .hero-photo-wrap {
     display: none;
+  }
+}
+
+@media(max-width:768px) {
+
+  .about-grid,
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
   }
 }
 

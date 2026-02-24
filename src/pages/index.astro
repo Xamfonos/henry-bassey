@@ -58,7 +58,7 @@ const shorts = (await getCollection('shorts')).sort((a, b) => b.data.date.valueO
 <!-- ─── ABOUT ─── -->
 <section id="about" class="section-wrap">
 
-  <div style="display:grid; grid-template-columns:1.1fr 0.9fr; gap:3rem; align-items:start;">
+  <div class="about-grid">
     <div>
       <div class="section-tag" style="white-space: normal; margin-bottom: 0.5rem;"><span class="br">&lt;</span> Hi, I'm Henry Bassey <span class="br">/&gt;</span></div>
       <div style="font-size:0.85rem; color:var(--text-dim); font-family:var(--font-mono); margin-bottom:1.5rem;">A Developer Marketer, Content & SEO Specialist, and a Cloud Engineering Student.</div>
@@ -302,7 +302,7 @@ const shorts = (await getCollection('shorts')).sort((a, b) => b.data.date.valueO
   <div class="section-tag" style="white-space: normal; margin-bottom: 0.5rem;"><span class="br">&lt;</span> Find me online (finally) <span class="br">/&gt;</span></div>
   <div style="font-size:0.85rem; color:var(--text-dim); font-family:var(--font-mono); margin-bottom:2.5rem;">Damn. I've managed social media for lots of companies but been too lazy to grow mine. Follow me and let's put this embarrassing follower count to shame 😭</div>
 
-  <div style="display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start;">
+  <div class="contact-grid">
     <div>
       <div style="display:grid; gap:0.55rem;">
         {[
