@@ -132,6 +132,11 @@ nav {
   cursor: pointer;
   padding: 0.25rem;
   margin-right: -0.5rem;
+  z-index: 1000;
+}
+
+.menu-toggle svg {
+  pointer-events: none;
 }
 
 .menu-toggle:hover {
