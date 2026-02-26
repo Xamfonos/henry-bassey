@@ -29,11 +29,13 @@ const shorts = (await getCollection('shorts')).sort((a, b) => b.data.date.valueO
     What do you say?
   </p>
 
-  <div style="display:flex; align-items:center; gap:0.5rem; font-size:0.9rem; margin-bottom:2rem; color:var(--text-dim); animation:fadeUp 0.6s ease 0.35s both;">
+  <div style="display:flex; align-items:center; flex-wrap:wrap; gap:0.5rem; font-size:clamp(0.85rem,2vw,0.9rem); line-height:1.5; margin-bottom:2rem; color:var(--text-dim); animation:fadeUp 0.6s ease 0.35s both;">
     <span style="color:var(--green)">$</span>
-    <span>I help devtools companies&nbsp;</span>
-    <span id="typed" style="color:var(--amber)"></span>
-    <span style="display:inline-block; width:2px; height:1em; background:var(--amber); vertical-align:text-bottom; margin-left:1px; animation:blink 1s step-end infinite;"></span>
+    <span>I help devtools companies</span>
+    <span style="display:inline-flex; align-items:center;">
+      <span id="typed" style="color:var(--amber)"></span>
+      <span style="display:inline-block; width:2px; height:1.2em; background:var(--amber); margin-left:2px; animation:blink 1s step-end infinite;"></span>
+    </span>
   </div>
 
 
@@ -469,13 +471,25 @@ const shorts = (await getCollection('shorts')).sort((a, b) => b.data.date.valueO
   ];
   let pi=0,ci=0,del=false;
   const el=document.getElementById('typed');
+  let hasStarted = false;
+
   if(el){
     function type(){
       const cur=phrases[pi];
       if(del){el.textContent=cur.slice(0,--ci);if(ci===0){del=false;pi=(pi+1)%phrases.length;setTimeout(type,400);return;}setTimeout(type,38);}
       else{el.textContent=cur.slice(0,++ci);if(ci===cur.length){del=true;setTimeout(type,2200);return;}setTimeout(type,62);}
     }
-    setTimeout(type,900);
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !hasStarted) {
+          hasStarted = true;
+          setTimeout(type, 300); // Small initial delay after appearing
+        }
+      });
+    }, { threshold: 0.1 });
+
+    observer.observe(el);
   }
 
   // Image Modal Logic
