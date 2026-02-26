@@ -2,7 +2,10 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
-const shorts = (await getCollection('shorts')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const posts = await getCollection('shorts');
+const sorted = posts.sort((a, b) =>
+  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
 ---
 
 <Layout title="Shorts — Henry Bassey" description="Quick observations from the trenches of developer marketing.">
@@ -12,22 +15,28 @@ const shorts = (await getCollection('shorts')).sort((a, b) => b.data.date.valueO
       <span style="color:var(--cyan)">stdout</span> — Too long for Twitter. Too short for a blog post. Quick observations from the trenches of developer marketing.
     </p>
 
-    {shorts.length > 0 ? (
+    {sorted.length > 0 ? (
       <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(270px,1fr)); gap:2.5rem;">
-        {shorts.map(s => (
+        {sorted.map(s => (
           <div class="short-card">
             <div class="sh-head">
               <span class="sh-indicator">// SHORT</span>
               <span style="font-size:0.65rem; color:var(--text-dim);">
-                {s.data.date.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' })}
+                {new Date(s.data.date).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' })}
               </span>
             </div>
             <a href={`/shorts/${s.slug}`} class="sh-title">{s.data.title}</a>
-            <div class="sh-excerpt">{s.data.excerpt}</div>
             <div class="sh-foot">
-              <span class="sh-pill">{s.data.tag}</span>
+              <span class="sh-pill">{s.data.category}</span>
               <a href={`/shorts/${s.slug}`} class="sh-link">Read →</a>
             </div>
+            {s.data.tags && s.data.tags.length > 0 && (
+              <div class="blog-tags">
+                {s.data.tags.map(tag => (
+                  <span class="blog-tag-small">{tag}</span>
+                ))}
+              </div>
+            )}
           </div>
         ))}
       </div>

@@ -5,8 +5,11 @@ import TestimonialCard from '../components/TestimonialCard.astro';
 import ThreadBlock from '../components/ThreadBlock.astro';
 import ResultCard from '../components/ResultCard.astro';
 
-const thoughts = (await getCollection('thoughts')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-const shorts = (await getCollection('shorts')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const thoughts_raw = await getCollection('thoughts');
+const thoughts = thoughts_raw.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const shorts_raw = await getCollection('shorts');
+const shorts = shorts_raw.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 ---
 
 <Layout title="Henry Bassey — The Technical Marketer">

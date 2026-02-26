@@ -4,10 +4,11 @@ const thoughts = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
-    date: z.date(),
+    date: z.string(),
+    excerpt: z.string().optional(),
     category: z.string(),
-    excerpt: z.string(),
-    badge: z.string().optional(),
+    tags: z.array(z.string()).default([]),
+    featured: z.boolean().default(false),
   }),
 });
 
@@ -15,9 +16,9 @@ const shorts = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
-    date: z.date(),
-    tag: z.string(),
-    excerpt: z.string(),
+    date: z.string(),
+    category: z.string(),
+    tags: z.array(z.string()).default([]),
   }),
 });
 
