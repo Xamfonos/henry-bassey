@@ -485,13 +485,18 @@ const shorts = (await getCollection('shorts')).sort((a, b) => b.data.date.valueO
 
   if (modal && modalImg && closeBtn) {
     document.querySelectorAll('.tc-screenshot, .rc-screenshot, .tb-img, .proof-img-card img, .seo-img-card img').forEach(img => {
-      img.addEventListener('click', function(this: HTMLImageElement) {
+      
+      const triggerModal = function(e: Event) {
+        e.preventDefault(); // Prevents both touch and click firing
         modal.style.display = 'flex';
         // force reflow for opacity transition
         void modal.offsetWidth;
         modal.classList.add('show');
-        modalImg.src = this.src;
-      });
+        modalImg.src = (e.currentTarget as HTMLImageElement).src;
+      };
+
+      img.addEventListener('click', triggerModal);
+      img.addEventListener('touchend', triggerModal);
     });
 
     const closeModal = () => {
