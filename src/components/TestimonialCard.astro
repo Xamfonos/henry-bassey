@@ -1,0 +1,47 @@
+---
+const { quote, attribution, screenshot } = Astro.props;
+---
+
+<div class="testimonial-card">
+  <div class="tc-quote">"{quote}"</div>
+  <div class="tc-attribution">{attribution}</div>
+  <img src={screenshot} alt="Testimonial proof" loading="lazy" class="tc-screenshot proof-img" />
+</div>
+
+<style>
+  .testimonial-card {
+    background: rgba(30, 30, 30, 0.4);
+    border-left: 3px solid #f5a623;
+    padding: 1.5rem;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: transform 0.2s ease;
+  }
+  .testimonial-card:hover {
+    transform: translateY(-2px);
+  }
+  .tc-quote {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .tc-attribution {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+  .tc-screenshot {
+    max-height: 120px;
+    width: auto;
+    object-fit: contain;
+    align-self: flex-start;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .tc-screenshot:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+</style>

@@ -6,7 +6,7 @@ interface Props {
   description?: string;
 }
 
-const { title, description = 'Henry Bassey — Developer Marketer, Content & SEO Specialist' } = Astro.props;
+const { title, description = 'Henry Bassey Developer Marketer, Content & SEO Specialist' } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -24,6 +24,7 @@ const { title, description = 'Henry Bassey — Developer Marketer, Content & SEO
     <a href="/" class="nav-logo">henry<span class="dim">@bassey</span><span style="color:var(--green)">:~$</span></a>
     <ul class="nav-links">
       <li><a href="/#about">about</a></li>
+      <li><a href="/#skills">skills</a></li>
       <li><a href="/#portfolio">portfolio</a></li>
       <li><a href="/#articles">writing</a></li>
       <li><a href="/thoughts">thoughts</a></li>
@@ -109,6 +110,50 @@ const { title, description = 'Henry Bassey — Developer Marketer, Content & SEO
         });
       });
     }
+  </script>
+
+  <!-- Lenis Smooth Scrolling -->
+  <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+  <script>
+    const lenis = new window.Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 2,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    // Patch Astro's default anchor scrolling to work nicely with Lenis
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if (targetId && targetId !== '#') {
+          lenis.scrollTo(targetId, { offset: -50, duration: 1.2 });
+        }
+      });
+    });
+    
+    // Also patch navigating from another page to an anchor hash
+    document.querySelectorAll('a[href^="/#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const id = this.getAttribute('href').replace('/', '');
+        const target = document.querySelector(id);
+        if (target && window.location.pathname === '/') {
+          e.preventDefault();
+          lenis.scrollTo(target, { offset: -50, duration: 1.2 });
+          // Update URL manually
+          window.history.pushState(null, '', id);
+        }
+      });
+    });
   </script>
 
 </body>
