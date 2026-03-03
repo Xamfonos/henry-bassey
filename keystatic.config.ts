@@ -2,9 +2,7 @@ import { config, collection, fields } from '@keystatic/core';
 
 export default config({
     storage: {
-        kind: 'github',
-        repo: 'Xamfonos/henry-bassey-portfolio',
-        branchPrefix: 'keystatic/',
+        kind: 'local',
     },
 
     collections: {
