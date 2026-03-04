@@ -5,7 +5,7 @@ export default config({
         ? { kind: 'local' }
         : {
             kind: 'github',
-            repo: 'Xamfonos/henry-bassey-portfolio',
+            repo: 'Xamfonos/henry-bassey',
         },
 
     collections: {
