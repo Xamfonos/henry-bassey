@@ -1,15 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import { getHashnodePosts } from '../lib/hashnode';
 import TestimonialCard from '../components/TestimonialCard.astro';
 import ThreadBlock from '../components/ThreadBlock.astro';
 import ResultCard from '../components/ResultCard.astro';
 
-const thoughts_raw = await getCollection('thoughts');
-const thoughts = thoughts_raw.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+const host = import.meta.env.HASHNODE_HOST || 'henrybassey.hashnode.dev';
+const posts = await getHashnodePosts(host);
 
-const shorts_raw = await getCollection('shorts');
-const shorts = shorts_raw.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+const thoughts = posts.filter(post => post.tags?.some(tag => tag.name.toLowerCase() !== 'short')).slice(0, 3);
+const shorts = posts.filter(post => post.tags?.some(tag => tag.name.toLowerCase() === 'short')).slice(0, 6);
 ---
 
 <Layout title="Henry Bassey — The Technical Marketer">
@@ -299,14 +299,13 @@ const shorts = shorts_raw.sort((a, b) => new Date(b.data.date).getTime() - new D
 {thoughts.length > 0 && (
   <section id="thoughts-section" class="section-wrap">
     <div class="thoughts-list">
-      {thoughts.slice(0,3).map(post => (
+      {thoughts.map(post => (
         <a href={`/thoughts/${post.slug}`} class="thought-item">
           <div>
-            <div class="thought-cat">{post.data.category}</div>
-            <div class="thought-title">{post.data.title}</div>
-            <div class="thought-excerpt">{post.data.excerpt}</div>
+            <div class="thought-cat">{new Date(post.publishedAt).toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' })}</div>
+            <div class="thought-title">{post.title}</div>
+            <div class="thought-excerpt">{post.brief}</div>
           </div>
-          <span class="thought-badge">{post.data.badge}</span>
         </a>
       ))}
     </div>
@@ -320,13 +319,13 @@ const shorts = shorts_raw.sort((a, b) => new Date(b.data.date).getTime() - new D
 {shorts.length > 0 && (
   <section id="shorts" class="section-wrap">
     <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(270px,1fr)); gap:2.5rem;">
-      {shorts.slice(0,6).map(s => (
+      {shorts.map(s => (
         <div class="short-card">
           <div class="sh-head"><span class="sh-indicator">// SHORT</span></div>
-          <a href={`/shorts/${s.slug}`} class="sh-title">{s.data.title}</a>
-          <div class="sh-excerpt">{s.data.excerpt}</div>
+          <a href={`/shorts/${s.slug}`} class="sh-title">{s.title}</a>
+          <div class="sh-excerpt">{s.brief}</div>
           <div class="sh-foot">
-            <span class="sh-pill">{s.data.tag}</span>
+            <span class="sh-pill">Article</span>
             <a href={`/shorts/${s.slug}`} class="sh-link">Read →</a>
           </div>
         </div>

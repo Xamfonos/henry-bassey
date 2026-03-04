@@ -1,39 +1,40 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import { getHashnodePosts } from '../../lib/hashnode';
 
-const posts = await getCollection('thoughts');
-const sorted = posts.sort((a, b) =>
-  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
-);
+// User's Hashnode public domain URL
+const host = import.meta.env.HASHNODE_HOST || 'henrybassey.hashnode.dev';
+const posts = await getHashnodePosts(host);
 ---
 
 <Layout title="Thoughts — Henry Bassey" description="Thinking out loud on developer marketing, technical writing, and content strategy.">
   <div class="section-wrap" style="padding-top:8rem;">
 
-    {sorted.length > 0 ? (
+    {posts.length > 0 ? (
       <div class="thoughts-list">
-        {sorted.map(post => (
+        {posts.map(post => (
           <a href={`/thoughts/${post.slug}`} class="thought-item">
             <div>
-              <div class="thought-cat">{post.data.category} · {new Date(post.data.date).toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' })}</div>
-              <div class="thought-title">{post.data.title}</div>
-              {post.data.excerpt && (
-                <div class="thought-excerpt">{post.data.excerpt}</div>
+              <div class="thought-cat">{new Date(post.publishedAt).toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' })}</div>
+              <div class="thought-title">{post.title}</div>
+              {post.brief && (
+                <div class="thought-excerpt">{post.brief}</div>
               )}
-              {post.data.tags && post.data.tags.length > 0 && (
+              {post.tags && post.tags.length > 0 && (
                 <div class="blog-tags">
-                  {post.data.tags.map(tag => (
-                    <span class="blog-tag-small">{tag}</span>
+                  {post.tags.map(tag => (
+                    <span class="blog-tag-small">{tag.name}</span>
                   ))}
                 </div>
               )}
             </div>
-            {post.data.featured && <span class="thought-badge">FEATURED</span>}
           </a>
         ))}
       </div>
     ) : <div style="padding:2rem; border:1px solid var(--border); border-radius:8px; font-size:0.85rem; color:var(--text-dim); text-align:center; font-style:italic;">Nothing here yet. Still connecting the dots.</div>}
+
+  </div>
+</Layout>
 
   </div>
 </Layout>

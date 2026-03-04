@@ -1,26 +1,34 @@
 ---
 import PostLayout from '../../layouts/PostLayout.astro';
-import { getCollection, getEntry } from 'astro:content';
+import { getHashnodePosts, getHashnodePost } from '../../lib/hashnode';
 
 export async function getStaticPaths() {
-  const thoughts = await getCollection('thoughts');
-  return thoughts.map(post => ({
+  const host = import.meta.env.HASHNODE_HOST || 'henrybassey.hashnode.dev';
+  const posts = await getHashnodePosts(host);
+  
+  return posts.map(post => ({
     params: { slug: post.slug },
     props: { post },
   }));
 }
 
 const { post } = Astro.props;
-const { Content } = await post.render();
+const host = import.meta.env.HASHNODE_HOST || 'henrybassey.hashnode.dev';
+// Fetch the full post content using the slug to ensure we have the HTML content
+const fullPost = await getHashnodePost(host, post.slug);
 ---
 
 <PostLayout
-  title={post.data.title}
-  date={post.data.date}
-  category={post.data.category}
-  excerpt={post.data.excerpt}
+  title={fullPost?.title || post.title}
+  date={fullPost?.publishedAt || post.publishedAt}
+  category="Article"
+  excerpt={fullPost?.brief || post.brief}
   backHref="/thoughts"
   backLabel="All Thoughts"
 >
-  <Content />
+  {fullPost?.content?.html ? (
+    <article set:html={fullPost.content.html} class="hashnode-content" />
+  ) : (
+    <p>Content could not be loaded.</p>
+  )}
 </PostLayout>
