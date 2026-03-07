@@ -7,9 +7,7 @@ import ResultCard from '../components/ResultCard.astro';
 
 const host = import.meta.env.HASHNODE_HOST || 'henrybassey.hashnode.dev';
 const posts = await getHashnodePosts(host);
-
-const thoughts = posts.filter(post => post.tags?.some(tag => tag.name.toLowerCase() !== 'short')).slice(0, 3);
-const shorts = posts.filter(post => post.tags?.some(tag => tag.name.toLowerCase() === 'short')).slice(0, 6);
+const recentPosts = posts.slice(0, 2);
 ---
 
 <Layout title="Henry Bassey — The Technical Marketer">
@@ -62,6 +60,49 @@ const shorts = posts.filter(post => post.tags?.some(tag => tag.name.toLowerCase(
     </div>
   </div>
 </div>
+
+<!-- ─── RECENT POSTS ─── -->
+{recentPosts.length > 0 && (
+  <section id="recent-posts" class="section-wrap" style="padding-top: 2rem;">
+    <div class="section-tag" style="white-space: normal; margin-bottom: 0.5rem;"><span class="br">&lt;</span> Latest thoughts <span class="br">/&gt;</span></div>
+    
+    <div class="recent-posts-grid">
+      {/* Primary Latest Post */}
+      {recentPosts[0] && (
+        <a href={`https://blog.henrybassey.com/${recentPosts[0].slug}`} target="_blank" rel="noopener" class="featured-post-card">
+          {recentPosts[0].coverImage && (
+            <div class="fp-image-wrap">
+              <img src={recentPosts[0].coverImage.url} alt={recentPosts[0].title} />
+            </div>
+          )}
+          <div class="fp-content">
+            <div class="fp-meta">
+              <span class="fp-date">{new Date(recentPosts[0].publishedAt).toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' })}</span>
+              <span class="fp-badge">NEW</span>
+            </div>
+            <h3 class="fp-title">{recentPosts[0].title}</h3>
+            <p class="fp-excerpt">{recentPosts[0].brief}</p>
+            <div class="fp-read">Read Article →</div>
+          </div>
+        </a>
+      )}
+
+      {/* Stacked Post */}
+      {recentPosts[1] && (
+        <a href={`https://blog.henrybassey.com/${recentPosts[1].slug}`} target="_blank" rel="noopener" class="stacked-post-card">
+          <div class="sp-content">
+            <div class="sp-meta">
+              <span class="sp-date">{new Date(recentPosts[1].publishedAt).toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' })}</span>
+            </div>
+            <h4 class="sp-title">{recentPosts[1].title}</h4>
+            <p class="sp-excerpt">{recentPosts[1].brief}</p>
+            <div class="sp-read">Read Article →</div>
+          </div>
+        </a>
+      )}
+    </div>
+  </section>
+)}
 
 <!-- ─── ABOUT ─── -->
 <section id="about" class="section-wrap">
@@ -295,47 +336,7 @@ const shorts = posts.filter(post => post.tags?.some(tag => tag.name.toLowerCase(
   </div>
 </section>
 
-<!-- ─── THOUGHTS ─── -->
-{thoughts.length > 0 && (
-  <section id="thoughts-section" class="section-wrap">
-    <div class="thoughts-list">
-      {thoughts.map(post => (
-        <a href={`/thoughts/${post.slug}`} class="thought-item">
-          <div>
-            <div class="thought-cat">{new Date(post.publishedAt).toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' })}</div>
-            <div class="thought-title">{post.title}</div>
-            <div class="thought-excerpt">{post.brief}</div>
-          </div>
-        </a>
-      ))}
-    </div>
-    <div style="margin-top:1.5rem;">
-      <a href="/thoughts" class="btn btn-ghost">View all thoughts →</a>
-    </div>
-  </section>
-)}
 
-<!-- ─── SHORTS ─── -->
-{shorts.length > 0 && (
-  <section id="shorts" class="section-wrap">
-    <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(270px,1fr)); gap:2.5rem;">
-      {shorts.map(s => (
-        <div class="short-card">
-          <div class="sh-head"><span class="sh-indicator">// SHORT</span></div>
-          <a href={`/shorts/${s.slug}`} class="sh-title">{s.title}</a>
-          <div class="sh-excerpt">{s.brief}</div>
-          <div class="sh-foot">
-            <span class="sh-pill">Article</span>
-            <a href={`/shorts/${s.slug}`} class="sh-link">Read →</a>
-          </div>
-        </div>
-      ))}
-    </div>
-    <div style="margin-top:1.5rem;">
-      <a href="/shorts" class="btn btn-ghost">View all shorts →</a>
-    </div>
-  </section>
-)}
 
 <!-- ─── PROOF ─── -->
 <section id="proof" class="section-wrap">
