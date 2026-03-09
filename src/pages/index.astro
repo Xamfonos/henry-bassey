@@ -1,13 +1,20 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getHashnodePosts } from '../lib/hashnode';
+import { getCollection } from 'astro:content';
 import TestimonialCard from '../components/TestimonialCard.astro';
 import ThreadBlock from '../components/ThreadBlock.astro';
 import ResultCard from '../components/ResultCard.astro';
 
-const host = import.meta.env.HASHNODE_HOST || 'henrybassey.hashnode.dev';
-const posts = await getHashnodePosts(host);
-const recentPosts = posts.slice(0, 2);
+const allPosts = (await getCollection('blog')).sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+const recentPosts = allPosts.slice(0, 2).map(p => ({
+  slug: p.id,
+  title: p.data.title,
+  brief: p.data.excerpt,
+  publishedAt: p.data.date,
+  coverImage: p.data.coverImage ? { url: p.data.coverImage } : undefined,
+}));
 ---
 
 <Layout title="Henry Bassey — The Technical Marketer">
