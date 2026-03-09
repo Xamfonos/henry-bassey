@@ -69,7 +69,7 @@ const recentPosts = posts.slice(0, 2);
     <div class="recent-posts-grid">
       {/* Primary Latest Post */}
       {recentPosts[0] && (
-        <a href={`https://blog.henrybassey.com/${recentPosts[0].slug}`} target="_blank" rel="noopener" class="featured-post-card">
+        <a href={`/blog/${recentPosts[0].slug}`} class="featured-post-card">
           {recentPosts[0].coverImage && (
             <div class="fp-image-wrap">
               <img src={recentPosts[0].coverImage.url} alt={recentPosts[0].title} />
@@ -89,7 +89,7 @@ const recentPosts = posts.slice(0, 2);
 
       {/* Stacked Post */}
       {recentPosts[1] && (
-        <a href={`https://blog.henrybassey.com/${recentPosts[1].slug}`} target="_blank" rel="noopener" class="stacked-post-card">
+        <a href={`/blog/${recentPosts[1].slug}`} class="stacked-post-card">
           <div class="sp-content">
             <div class="sp-meta">
               <span class="sp-date">{new Date(recentPosts[1].publishedAt).toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' })}</span>
