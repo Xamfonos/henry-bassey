@@ -10,15 +10,22 @@ interface Props {
   backHref: string;
   backLabel: string;
   ogImage?: string;
+  author?: string;
 }
 
-const { title, date, category, tag, excerpt, backHref, backLabel, ogImage } = Astro.props;
+const { title, date, category, tag, excerpt, backHref, backLabel, ogImage, author = 'Henry Bassey' } = Astro.props;
 
 const formatted = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+const isoDate = date.toISOString();
 const label = category || tag || '';
 ---
 
 <Layout title={`${title} — Henry Bassey`} description={excerpt} ogImage={ogImage}>
+  <!-- Article-specific OG overrides -->
+  <meta slot="head" property="og:type" content="article" />
+  <meta slot="head" property="article:published_time" content={isoDate} />
+  <meta slot="head" property="article:author" content={author} />
+  <meta slot="head" property="article:section" content="Blog" />
   <div style="max-width:720px; margin:0 auto; padding:8rem 2.5rem 5rem;">
 
     <div style="margin-bottom:2.5rem;">
