@@ -15,6 +15,7 @@ const { Content } = await render(post);
   title={post.data.title}
   date={new Date(post.data.date)}
   excerpt={post.data.excerpt}
+  category={post.data.category}
   backHref="/blog"
   backLabel="Back to Blog"
   ogImage={post.data.coverImage}

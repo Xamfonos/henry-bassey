@@ -27,6 +27,18 @@
           "type": "boolean",
           "default": false
         },
+        "category": {
+          "type": "string",
+          "enum": [
+            "Developer Marketing",
+            "Technical Reviews",
+            "Case Studies",
+            "Content Strategy",
+            "SEO & GEO",
+            "Uncategorized"
+          ],
+          "default": "Uncategorized"
+        },
         "$schema": {
           "type": "string"
         }
