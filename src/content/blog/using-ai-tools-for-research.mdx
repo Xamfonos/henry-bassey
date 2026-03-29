@@ -1,0 +1,188 @@
+---
+title: "Read This Before Using AI Tools for Research (+prompt template)"
+date: "2026-03-29"
+excerpt: "AI tools let you shortcut the research process without making the bias any less real. Learn how to catch these biases before they surface in your content."
+tags: ["AI", "Research", "Content Strategy", "Writing"]
+featured: false
+category: "Content Strategy"
+coverImage: "/assets/blog/ai-tools-research-cover.jpg"
+---
+
+I know how good it feels to type a few prompts, recline in your chair, and watch in selfish satisfaction as AI excavates the internet for everything you need to craft that piece that stops your audience in their tracks. Not so fast!
+
+I use Gemini’s Deep Research for most of my client research work due to its thoroughness, depth, and access to real-time data. Claude, for all its strengths, [has a higher likelihood of returning outdated information and hallucinated links](https://www.xda-developers.com/claude-isnt-just-for-coding/#:~:text=Trust%20but%20verify.,it's%20REALLY%20sure%20about%20something.) when conducting research. So Gemini does it for me, which is why I was stunned when I carefully examined the research plan it generated:
+
+```txt
+AI Agents, MCP, Secrets Governance Research
+Research Websites
+(1) Research the technical foundations of the Model Context Protocol (MCP) and how it enables AI agents to interact with local and remote data sources, specifically focusing on the security architecture and the risks of credential exposure. 
+(2) Analyze the 4WH framework for this topic: define what this shift entails (What), identify the primary audience such as DevSecOps and AI Engineers (Who), explain the security risks necessitating this knowledge (Why), define their Job To Be Done in securing autonomous agent workflows (JTBD), and investigate current manual or fragmented methods for managing agent secrets (How). 
+(3) Scour developer forums, Reddit, Hacker News, and technical blogs to find the general industry sentiment regarding MCP security, extracting direct quotes that highlight common anxieties, technical hurdles, or debated best practices. 
+(4) Identify Doppler's primary competitors in the secrets management space, including companies like HashiCorp Vault, Infisical, CyberArk, 1Password Developer Tools, and cloud-native services like AWS Secrets Manager or Azure Key Vault. 
+(5) Conduct a content audit of these competitors to see if and how they are addressing "AI agent security," "MCP server authentication," or "LLM secrets governance," noting specific themes they emphasize or overlook. 
+(6) Identify gaps in the current competitor landscape, looking for technical nuances they haven't covered, such as ephemeral identity for agents, the specific handshake between MCP clients and servers, or fine-grained access control for dynamic agent environments. 
+(7) Synthesize the findings to propose unique thought leadership angles for Doppler, focusing on how a secrets-first approach can accelerate MCP adoption while maintaining enterprise-grade security standards. 
+(8) Speculate on the future evolution of identity for AI agents (Machine-to-Machine identity) and how MCP might necessitate a transition from static secrets to short-lived, identity-based credentials.
+```
+
+On the surface, this is a perfect plan. But there are critical issues under the hood:
+
+- Point 2 assumes fragmentation is the dominant pattern before a single source confirms it. 
+- Point 3 pre-characterizes what forum discussions will contain before reading them. A neutral version would be ‘search for how developers discuss MCP security.’
+- Point 6 names specific gaps before the audit in point 5 has run. The plan is telling the research plan what to deliver.
+
+My first instinct was that this was a Gemini problem. So I ran the same brief through Claude and ChatGPT to find out. We’ll get to that comparison shortly.
+
+When a model builds a research plan with embedded assumptions, it looks for confirmation rather than the truth. The research process becomes an exercise in collecting evidence for a pre-written narrative. You’ll only get sources that fit your preconceived framing and miss the ones that challenge it.
+
+Ultimately, writing is a play of logic, and a logically sound argument begins with unbiased research. AI tools let you shortcut the process without making the bias any less real. This piece is about catching these biases before they surface in your content.
+
+PS: If you want to understand how AI agents search before you fix how they research, I covered the mechanics of query fan-out in: [What Google's Antigravity Taught Me About SEO for the Agentic Web](/blog/seo-for-agentic-web).
+
+## The 4 research principles AI tools routinely violate
+
+I spent 4 years in academic research before transitioning into marketing, and regardless of the discipline, these research principles still apply:
+
+- [**Falsifiability**](https://www.simplypsychology.org/karl-popper.html): A claim is only valid if the research process could have disproven it. You have to design your enquiry to ‘find out,’ rather than confirming it.
+- [**Theory follows data**](https://www.simplypsychology.org/grounded-theory.html): Frameworks and conclusions emerge from what sources reveal. Your data has to come first, pattern next.
+- [**Triangulation**](https://qualpage.com/2018/01/18/triangulation-in-qualitative-research/): A finding holds when multiple independent sources converge on it without being directed to. Use convergence to separate patterns from anecdotes.
+- [**Phase separation**](https://www.cochrane.org/authors/handbooks-and-manuals/handbook/current): Retrieval and synthesis are two distinct activities. You need to collect first and analyze and interpret later. Keeping them separate is what makes your findings trustworthy
+
+Here’s a table you can grab for a quick reference:
+
+| PRINCIPLE | HOW IT SHOULD WORK | WHAT GEMINI DID |
+| :--- | :--- | :--- |
+| **Falsifiability** | **`correct`**<br/>Design inquiry to find out. The outcome must be unknown before research runs. | **`violated`**<br/>Pre-decided fragmentation was the dominant pattern before reading a single source. |
+| **Theory follows data** | **`correct`**<br/>Let sources reveal the framework. Conclusions emerge from evidence, not before it. | **`violated`**<br/>Embedded the framework in step 2, directing research toward a pre-formed conclusion. |
+| **Triangulation** | **`correct`**<br/>Let independent sources converge. Convergence is what separates patterns from anecdotes. | **`violated`**<br/>Directed sources toward a predetermined conclusion rather than letting them converge independently. |
+| **Phase separation** | **`correct`**<br/>Retrieve first, synthesize after. Collection and interpretation are two distinct steps. | **`violated`**<br/>Named gaps in step 6 before the audit in step 5 had run. |
+
+Gemini violated all four of these, and it did so structurally. But not every assumption in a research plan is the same kind of problem. Before catching them, you need to know which type you’re looking at.
+
+## The types of assumptions in a research plan
+
+Some assumptions are structural while others are directional. You need to be able to tell them apart:
+
+**a. Structural assumption:** 
+This is a known fact you’re using as a starting condition for research. For instance…
+
+```txt
+Research Websites
+(1) Research the technical foundations of the Model Context Protocol (MCP) and how it enables AI agents to interact with local and remote data sources, specifically focusing on the security architecture and the risks of credential exposure. 
+```
+
+… is a structural assumption, and using it to orient your research doesn’t skew your findings. Same with the audience definition in outline 2 or competitors in outline 4. Knowing your target audience and competitors helps you narrow the scope of research and improve the precision of the result.
+
+**b. Directional assumption:**
+This is a finding that gets embedded in the research tasks before they run. Here’s an example from Gemini’s research plan above:
+
+```txt
+(2) ...and investigate current manual or fragmented methods for managing agent secrets (How). 
+```
+
+It assumes the dominant pattern is workarounds and manual handling before a single developer forum, documentation page, or GitHub issue has been read. This setup means it’ll go looking for a conclusion it has already reached.
+
+The difference matters because research tools don’t separate planning from retrieval the way a trained researcher would. When Gemini writes a research plan, it uses its training data to generate the most plausible-sounding structure for the topic. 
+
+That structure reflects patterns it’s already seen, which means it encodes what’s probably true rather than what’s actually happening. TBF, it’s a useful starting point for brainstorming; however, it’s a compromised starting point for research.
+
+## Is this a Gemini or a category problem?
+
+As I stated earlier, to find out, I ran the same research prompt through Claude and ChatGPT. Here’s what each tool produced.
+
+### Claude
+
+```txt
+# AI agents secrets governance research
+- Research plan created
+- This is a complex, multi-faceted research brief that requires extensive research across multiple dimensions. Let me break this down:
+- 4WH Analysis - Understanding MCP, AI agents, secrets governance
+- Industry Discussion - Finding real quotes and discussions from developer communities
+- Competitor Content Analysis - Researching 8+ competitors' content on this topic
+- Opportunity Analysis - Synthesizing gaps and positioning for Doppler
+- This is clearly a breadth-first query with multiple distinct research streams. Let me plan my subagents:
+- Subagent 1: MCP & AI Agents Technical Foundation
+- I need to understand what MCP is, how it works, how it extends AI agents, the security implications, and identity and access control in agentic AI systems.
+- Subagent 2: Industry Discussion & Community Sentiment I'm searching across Hacker News, Reddit, Twitter/X, and dev blogs for actual conversations about secrets governance and AI agents, plus security conference talks on this topic.
+- Subagent 3 & 4: Competitor Content Analysis I'm dividing the competitor research into two groups—the major cloud providers (HashiCorp Vault, AWS Secrets Manager, Azure Key Vault, Google Secret Manager) and the specialized secrets management platforms (Infisical, 1Password, Akeyless, CyberArk Conjur)—to search their blogs and content for any existing coverage on AI, MCP, or agents.
+- Subagent 5: Secrets Governance in AI Context I'm also examining current approaches to managing secrets in AI agent environments, identifying what's broken about existing solutions, and understanding the pain points security engineers and DevOps teams are facing.
+- Now I'm ready to deploy all five subagents in parallel to gather this research comprehensively.
+```
+
+TBVH, this structure is the most sophisticated of the three. Breaking research into named subagents with distinct scopes is the right instinct. This way, it keeps retrieval and synthesis from collapsing into each other in one sweep. 
+
+The only issue here was that Claude pre-listed all eight competitors from training data before launching the search. If the competitive landscape has shifted or if emerging players carry weight, the model has underweighted; that pre-formed list shapes every subsequent retrieval step without you ever seeing it happen.
+
+### ChatGPT
+ChatGPT produced the shortest plan of the three:
+
+```txt
+- Survey official docs and blogs from Doppler and competitor sites.
+- Collect industry commentary from security blogs, forums, and social media.
+- Analyze academic and standards literature on MCP, agents, and identity.
+- Map competitor content gaps and identify unique thought-leadership angles.
+- Synthesize findings into audience JTBD, motivations, and content opportunities.
+```
+
+Peeking into its internal research log revealed something the plan completely concealed:
+
+```txt
+Clarifying MCP in AI Agent Context
+I’m not entirely sure what "MCP" stands for in the context of AI agents, but it seems to be related to "Managed Chatbot Platforms" or "Management Container Platforms." Some of the search results mention "MCP servers" and "integration" for AI tools, which points towards towards something like a proxy or model-connected system. I’ll dig deeper to clarify.
+```
+
+ChatGPT misidentified the core subject of the brief and continued running competitor analysis, forum mining, and content auditing on that misidentification, regardless. You could imagine my shock!
+
+So, to answer the question… YES, THIS IS A CATEGORY PROBLEM.
+
+Gemini generated directional assumptions independently from training data, visible in the plan before the retrieval ran. Claude wrapped the pre-formed competitor list inside the research log. Most users seldom open the internal dialog to inspect, and bias can slip into the research. ChatGPT executed confidently on a misidentified subject while a five-bullet plan ensured you never saw it coming.
+
+Here’s how the failure mode stacks across each tool:
+
+| DIMENSION | GEMINI | CLAUDE | CHATGPT |
+| :--- | :--- | :--- | :--- |
+| **Plan visibility** | Full plan shown before retrieval runs | Plan buried inside internal dialog. You have to open it to find it. | Five bullets with almost no detail |
+| **Auditability** | **`high`**<br/>Assumptions visible and correctable upfront | **`low`**<br/>Most users never open the internal dialog to check | **`low`**<br/>Too sparse to audit before execution |
+| **Where bias lives** | Retrieval and synthesis steps | Pre-loaded competitor list from training data | Misidentified subject, hidden mid-execution |
+| **Source of bias** | Model training data | Model training data | Knowledge gap concealed by sparse plan |
+| **Failure mode** | Bias in plain sight | Bias behind structure | Bias behind opacity |
+| **Can you catch it before it runs** | **`yes`** | **`only if you look`** | **`rarely`** |
+
+Now, let’s fix this problem!
+
+## How to audit an AI research plan before running
+
+Before executing any research plan, run each step through these five tests:
+
+### Test 1: Retrieval or interpretation?
+Ask whether the outcome of each step is determined before the source is accessed. ‘Review Cloudflare Workers documentation to understand native secret handling” is open. “Investigate current manual workarounds” is not. If the step characterizes the finding before retrieving anything, rewrite it as an open retrieval task.
+
+### Test 2: Pattern named before sources are read?
+Flag these words anywhere in the plan before the retrieval step that would surface them. Words like ‘workarounds,’ ‘fragmented,’ ‘anxieties,’ ‘pain points,’ ‘gaps,’ ‘omissions.’ All characterizations belong in the synthesis phase and not in the task description.
+
+### Test 3: Gaps named before the audit runs?
+If the plan lists specific competitor omissions before the step that audits competitor content, those gaps were assumed. A clean synthesis step references prior retrieval steps explicitly, like:
+
+> "Based on the audit in step 5, identify topics no competitor covered at the depth found in step 7"
+
+### Test 4: What did the tool pre-load?
+Check whether the plan opens with a competitor list, audience definition, or framework, the model supplied from training data rather than your brief. If you didn’t supply those names, verify them independently before the research runs. They may be outdated or missing emerging players entirely.
+
+### Test 5: Any issues with your prompt?
+One contamination source in this article was from the client’s topic description, which said: “…requires new approaches to secret governance.” These pre-decided existing approaches were insufficient. Read your own prompts and topic description for directional language before sending either to the tool. Rewrite conclusions disguised as context into open questions.
+
+## Prompt template for a bias-free AI research
+
+Wheew! Because you made it all the way to this point, here’s your gift. Use this prompt when commissioning a research plan from any AI research tool:
+
+```txt
+Before writing the plan, follow these constraints strictly:
+Do not characterize how the target audience currently behaves, what tools they use, what problems they have, or what workarounds they rely on. These are research outputs, not inputs.
+Do not name competitor gaps, omissions, or weaknesses in the research plan. Gaps are findings. They belong in the synthesis phase, after the audit steps have run.
+Do not describe community sentiment, developer pain points, or industry anxieties in the task description. These are outputs of retrieval steps that search forums, documentation, and technical discussions. Describe what to retrieve and from where. Leave the characterization for after the sources are read.
+Do not pre-list competitors, frameworks, or audience segments from prior knowledge. If the brief supplies them, use them. If it does not, include a retrieval step to identify them from current sources.
+Each step in the plan should specify one of the following: a source to retrieve, a document or set of documents to audit, or a synthesis task that references only what the prior steps will have found.
+If a step requires characterizing behavior, sentiment, or gaps, split it into two steps: one retrieval step and one synthesis step. The synthesis step must reference the retrieval step explicitly.
+```
+
+Hope this helps!
