@@ -9,4 +9,10 @@ export default defineConfig({
   output: 'static',
   adapter: vercel(),
   integrations: [tailwind(), react(), mdx()],
+  redirects: {
+    '/blog/using-ai-tools-for-research': {
+      status: 301,
+      destination: '/blog/ai-research-tool-bias',
+    },
+  },
 });
