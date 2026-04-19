@@ -1237,15 +1237,138 @@ footer {
   background: var(--bg2);
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 1.25rem;
-  overflow-x: auto;
+  padding: 2.75rem 1.25rem 1.25rem;
+  overflow: auto;
   margin: 1.5rem 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-height: 480px;
+  font-size: 0.82rem;
+  line-height: 1.7;
 }
 
 .prose pre code {
   background: none;
   border: none;
   padding: 0;
+  font-size: inherit;
+  color: var(--text);
+}
+
+/* ─── CODE BLOCK WRAPPER + COPY BUTTON ─── */
+.code-wrap {
+  position: relative;
+  margin: 1.5rem 0;
+}
+
+.code-wrap pre {
+  margin: 0;
+}
+
+.code-copy {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.55rem;
+  background: var(--bg3);
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.28rem 0.65rem;
+  font-size: 0.66rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.code-copy:hover {
+  color: var(--green);
+  border-color: var(--green);
+  background: var(--green-dim);
+}
+
+.code-copy.copied {
+  color: var(--green);
+  border-color: var(--green);
+  background: var(--green-dim);
+}
+
+/* ─── PROSE TABLES ─── */
+.prose .table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1.75rem 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg2);
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  min-width: 560px;
+}
+
+.prose thead {
+  background: var(--bg3);
+}
+
+.prose th,
+.prose td {
+  padding: 0.7rem 0.85rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.6;
+}
+
+.prose th:not(:last-child),
+.prose td:not(:last-child) {
+  border-right: 1px solid var(--border);
+}
+
+.prose th {
+  color: var(--green);
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.prose tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.prose td code {
+  font-size: 0.78em;
+}
+
+@media (max-width: 680px) {
+  .prose table {
+    font-size: 0.72rem;
+    min-width: 480px;
+  }
+  .prose th,
+  .prose td {
+    padding: 0.5rem 0.6rem;
+  }
+  .prose th {
+    font-size: 0.58rem;
+  }
+  .prose pre {
+    font-size: 0.76rem;
+    padding: 2.6rem 1rem 1rem;
+  }
+  .code-copy {
+    font-size: 0.6rem;
+    padding: 0.22rem 0.5rem;
+  }
 }
 
 .prose ul,

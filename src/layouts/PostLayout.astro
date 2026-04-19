@@ -61,4 +61,50 @@ const label = category || tag || '';
     </div>
 
   </div>
+
+  <script>
+    // Wrap tables in a horizontally-scrollable container
+    document.querySelectorAll('.prose table').forEach((table) => {
+      if (table.parentElement?.classList.contains('table-wrap')) return;
+      const wrap = document.createElement('div');
+      wrap.className = 'table-wrap';
+      table.parentNode?.insertBefore(wrap, table);
+      wrap.appendChild(table);
+    });
+
+    // Add a copy button to every code block
+    const copyIcon = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+
+    document.querySelectorAll('.prose pre').forEach((pre) => {
+      if (pre.parentElement?.classList.contains('code-wrap')) return;
+      const wrap = document.createElement('div');
+      wrap.className = 'code-wrap';
+      pre.parentNode?.insertBefore(wrap, pre);
+      wrap.appendChild(pre);
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'code-copy';
+      btn.setAttribute('aria-label', 'Copy code');
+      btn.innerHTML = `${copyIcon}<span>Copy</span>`;
+
+      btn.addEventListener('click', async () => {
+        const code = pre.querySelector('code');
+        const text = (code?.textContent ?? pre.textContent ?? '').replace(/\n$/, '');
+        try {
+          await navigator.clipboard.writeText(text);
+          btn.classList.add('copied');
+          btn.querySelector('span')!.textContent = 'Copied';
+          setTimeout(() => {
+            btn.classList.remove('copied');
+            btn.querySelector('span')!.textContent = 'Copy';
+          }, 1800);
+        } catch {
+          btn.querySelector('span')!.textContent = 'Error';
+        }
+      });
+
+      wrap.appendChild(btn);
+    });
+  </script>
 </Layout>
