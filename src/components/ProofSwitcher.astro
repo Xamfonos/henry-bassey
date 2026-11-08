@@ -1,0 +1,176 @@
+---
+/**
+ * Hero proof switcher: tabs for the four kinds of work, each animating in its evidence.
+ * Every figure, quote and line comes from Henry's homepage or /work copy.
+ * Without JavaScript all four panels show, stacked.
+ */
+import ResponsiveImage from './ResponsiveImage.astro';
+import images from '../data/images.json';
+
+const tabs = [
+  { id: 'paid', label: 'Paid' },
+  { id: 'organic', label: 'Organic' },
+  { id: 'tools', label: 'Tools' },
+  { id: 'ai', label: 'AI workflows' },
+];
+
+const sources = ['GitHub', 'Stack Overflow', 'Reddit', 'Hacker News', 'Industry coverage'];
+---
+
+<section class="proof" aria-label="Selected proof">
+  <div class="proof-tabs" role="tablist" aria-label="Kinds of work" hidden>
+    {tabs.map((t, i) => (
+      <button
+        type="button"
+        role="tab"
+        id={`proof-tab-${t.id}`}
+        aria-controls={`proof-panel-${t.id}`}
+        aria-selected={i === 0 ? 'true' : 'false'}
+        tabindex={i === 0 ? 0 : -1}
+      >
+        {t.label}
+      </button>
+    ))}
+    <span class="proof-tab-marker" aria-hidden="true"></span>
+  </div>
+
+  <div class="proof-panels">
+    <div class="proof-panel is-active" id="proof-panel-paid" role="tabpanel" aria-labelledby="proof-tab-paid">
+      <div class="proof-copy">
+        <p class="proof-eyebrow">Paid media · Actian VectorAI DB</p>
+        <p class="proof-stat" data-count="5000" data-suffix="+">5,000+</p>
+        <p class="proof-label">newsletter clicks from sponsorships</p>
+        <p class="proof-note">Across more than a dozen publications, including AlphaSignal, DataTalks.Club and Real Python.</p>
+        <p class="proof-link"><a href="/work#paid-media">See the paid and organic work</a></p>
+      </div>
+      <figure class="proof-visual proof-quote">
+        <blockquote><p>The last Actian campaign performed really well … far exceeding our 500-click benchmark!</p></blockquote>
+        <figcaption>Jana Marinovic, Account Manager, AlphaSignal</figcaption>
+      </figure>
+    </div>
+
+    <div class="proof-panel" id="proof-panel-organic" role="tabpanel" aria-labelledby="proof-tab-organic">
+      <div class="proof-copy">
+        <p class="proof-eyebrow">Organic search · OpenRouter</p>
+        <p class="proof-stat" data-count="110" data-suffix="K+">110K+</p>
+        <p class="proof-label">organic blog clicks for OpenRouter in 126 days</p>
+        <p class="proof-note">More than 63,000 from Hackmamba articles.</p>
+        <p class="proof-link"><a href="/work#openrouter">Read the OpenRouter story</a></p>
+      </div>
+      <figure class="proof-visual proof-bars">
+        <figcaption>Blog search clicks, over two periods of the same length</figcaption>
+        <div class="proof-bar-row">
+          <span class="proof-bar-label">Before the programme</span>
+          <span class="proof-bar-track"><span class="proof-bar" style="--w: 1%"></span></span>
+          <span class="proof-bar-value">under 100</span>
+        </div>
+        <div class="proof-bar-row">
+          <span class="proof-bar-label">June to October 2026</span>
+          <span class="proof-bar-track"><span class="proof-bar" style="--w: 100%"></span></span>
+          <span class="proof-bar-value">over 110,000</span>
+        </div>
+      </figure>
+    </div>
+
+    <div class="proof-panel" id="proof-panel-tools" role="tabpanel" aria-labelledby="proof-tab-tools">
+      <div class="proof-copy">
+        <p class="proof-eyebrow">Tools as marketing · Actian VectorAI DB</p>
+        <p class="proof-title">Free tools developers could use without talking to sales.</p>
+        <p class="proof-note">The sizing calculator. Sometimes it tells you to skip the vector database.</p>
+        <p class="proof-link"><a href="/work#actian">Read the Actian story</a></p>
+      </div>
+      <figure class="proof-visual proof-shot">
+        <ResponsiveImage
+          image={images.calculator}
+          alt="The Actian VectorAI DB sizing calculator. For a workload of 100,000 vectors, its verdict reads: You don't need a vector database yet."
+          sizes="(max-width: 980px) 100vw, 640px"
+        />
+      </figure>
+    </div>
+
+    <div class="proof-panel" id="proof-panel-ai" role="tabpanel" aria-labelledby="proof-tab-ai">
+      <div class="proof-copy">
+        <p class="proof-eyebrow">AI workflows · ZenRows</p>
+        <p class="proof-title">An AI-assisted content-intelligence workflow.</p>
+        <p class="proof-note">It turns signals from GitHub, Stack Overflow, Reddit, Hacker News and industry coverage into sourced briefings and content opportunities.</p>
+        <p class="proof-link"><a href="/work#zenrows">Read the ZenRows story</a></p>
+      </div>
+      <figure class="proof-visual proof-flow" aria-label="Signals from GitHub, Stack Overflow, Reddit, Hacker News and industry coverage become sourced briefings and content opportunities.">
+        <ul class="flow-sources" aria-hidden="true">
+          {sources.map((s, i) => <li style={`--i: ${i}`}>{s}</li>)}
+        </ul>
+        <span class="flow-arrow" aria-hidden="true">→</span>
+        <ul class="flow-outputs" aria-hidden="true">
+          <li style="--i: 6">Sourced briefings</li>
+          <li style="--i: 7">Content opportunities</li>
+        </ul>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<script>
+  const root = document.querySelector<HTMLElement>('.proof');
+  const list = root?.querySelector<HTMLElement>('[role="tablist"]');
+  if (root && list) {
+    const tabs = [...list.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+    const panels = tabs.map((t) => document.getElementById(t.getAttribute('aria-controls') || '')!);
+    const marker = list.querySelector<HTMLElement>('.proof-tab-marker');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    root.classList.add('is-enhanced');
+    list.hidden = false;
+
+    const countUp = (el: HTMLElement) => {
+      const target = Number(el.dataset.count);
+      const suffix = el.dataset.suffix || '';
+      if (!target || reduce) return;
+      const fmt = (n: number) => Math.round(n).toLocaleString('en-GB') + suffix;
+      const start = performance.now();
+      const dur = 900;
+      const step = (now: number) => {
+        const t = Math.min((now - start) / dur, 1);
+        el.textContent = fmt(target * (1 - Math.pow(1 - t, 3)));
+        if (t < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+
+    const moveMarker = (tab: HTMLElement) => {
+      if (!marker) return;
+      marker.style.width = `${tab.offsetWidth}px`;
+      marker.style.transform = `translateX(${tab.offsetLeft}px)`;
+    };
+
+    const select = (i: number, focus = false) => {
+      tabs.forEach((t, k) => {
+        const on = k === i;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.tabIndex = on ? 0 : -1;
+        panels[k].inert = !on;
+        panels[k].setAttribute('aria-hidden', on ? 'false' : 'true');
+        panels[k].classList.toggle('is-active', on);
+      });
+      moveMarker(tabs[i]);
+      const stat = panels[i].querySelector<HTMLElement>('[data-count]');
+      if (stat) countUp(stat);
+      if (focus) tabs[i].focus();
+    };
+
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => select(i));
+      t.addEventListener('keydown', (e) => {
+        const k = e.key;
+        if (k === 'ArrowRight' || k === 'ArrowLeft' || k === 'Home' || k === 'End') {
+          e.preventDefault();
+          const n = tabs.length;
+          const next = k === 'Home' ? 0 : k === 'End' ? n - 1 : (i + (k === 'ArrowRight' ? 1 : -1) + n) % n;
+          select(next, true);
+        }
+      });
+    });
+
+    select(0);
+    window.addEventListener('resize', () => moveMarker(tabs.find((t) => t.getAttribute('aria-selected') === 'true')!));
+  }
+</script>

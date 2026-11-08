@@ -4,6 +4,7 @@ import ResponsiveImage from '../components/ResponsiveImage.astro';
 import PullQuote from '../components/PullQuote.astro';
 import TalkMedia from '../components/TalkMedia.astro';
 import ConsultingClose from '../components/ConsultingClose.astro';
+import ProofSwitcher from '../components/ProofSwitcher.astro';
 import { site } from '../data/site';
 import { getCollection } from 'astro:content';
 import { externalWriting } from '../data/writing';
@@ -47,7 +48,7 @@ const stages = ['Discover', 'Evaluate', 'Integrate', 'Advocate', 'Compound'];
       <div class="hero-grid">
         <div class="hero-copy">
           <h1 class="site-title">{site.h1}</h1>
-          <p class="hook">{site.hook}</p>
+          <p class="hook" data-words>{site.hook}</p>
           <div class="intro-copy">
             <p>
               I’m Henry. I lead developer marketing at Hackmamba. My work for Actian VectorAI DB has reached over 5 million developers.
@@ -71,24 +72,45 @@ const stages = ['Discover', 'Evaluate', 'Integrate', 'Advocate', 'Compound'];
           />
         </figure>
       </div>
+      <ProofSwitcher />
       <div class="byline">
         <p class="byline-lead">I’ve worked with teams at</p>
-        <ul class="logo-row">
-          {companies.map((c) => (
-            <li>
-              {c.logo ? (
-                <span
-                  class="logo"
-                  role="img"
-                  aria-label={c.name}
-                  style={`--logo: url(/images/logos/${c.logo}.svg); height: ${c.h}px; width: ${Math.round((c.h ?? 22) * (c.ratio ?? 5))}px;`}
-                ></span>
-              ) : (
-                <span class="logo-text">{c.name}</span>
-              )}
-            </li>
-          ))}
+        <div class="ticker">
+          <div class="ticker-track">
+            <ul class="logo-row">
+              {companies.map((c) => (
+                <li>
+                  {c.logo ? (
+                    <span
+                      class="logo"
+                      role="img"
+                      aria-label={c.name}
+                      style={`--logo: url(/images/logos/${c.logo}.svg); height: ${c.h}px; width: ${Math.round((c.h ?? 22) * (c.ratio ?? 5))}px;`}
+                    ></span>
+                  ) : (
+                    <span class="logo-text">{c.name}</span>
+                  )}
+                </li>
+              ))}
         </ul>
+            <ul class="logo-row" aria-hidden="true">
+              {companies.map((c) => (
+                <li>
+                  {c.logo ? (
+                    <span
+                      class="logo"
+                      role="presentation"
+                      aria-label={c.name}
+                      style={`--logo: url(/images/logos/${c.logo}.svg); height: ${c.h}px; width: ${Math.round((c.h ?? 22) * (c.ratio ?? 5))}px;`}
+                    ></span>
+                  ) : (
+                    <span class="logo-text">{c.name}</span>
+                  )}
+                </li>
+              ))}
+        </ul>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -103,7 +125,7 @@ const stages = ['Discover', 'Evaluate', 'Integrate', 'Advocate', 'Compound'];
         <header>
           <div class="chapter-n" aria-hidden="true">01</div>
           <p class="chapter-label reveal">Make something useful</p>
-          <h2 class="reveal" id="ch1-title">What if the marketing was a tool?</h2>
+          <h2 data-words id="ch1-title">What if the marketing was a tool?</h2>
           <p class="chapter-subtitle reveal">Leading developer marketing for Actian VectorAI DB</p>
         </header>
         <div class="chapter-body reveal">
@@ -117,7 +139,7 @@ const stages = ['Discover', 'Evaluate', 'Integrate', 'Advocate', 'Compound'];
           </div>
           <aside class="evidence-col" aria-label="Chapter 01 in numbers">
             <div class="evidence">
-              <div class="big-stat">~5M</div>
+              <div class="big-stat" data-count="5" data-prefix="~" data-suffix="M">~5M</div>
               <p>developers reached across the Actian launch so far</p>
               <small>Starting from 300K+ on launch day.</small>
             </div>
@@ -128,11 +150,11 @@ const stages = ['Discover', 'Evaluate', 'Integrate', 'Advocate', 'Compound'];
         </div>
         <figure class="figure reveal">
           <ResponsiveImage
-            image={images.calculator}
-            alt="The Actian VectorAI DB sizing calculator. For a workload of 100,000 vectors, its verdict reads: You don't need a vector database yet."
+            image={images.landingPage}
+            alt="The rebuilt Actian VectorAI DB landing page. The headline reads: Deploy AI agents with persistent memory. Ship them anywhere."
             sizes="(max-width: 800px) 100vw, 960px"
           />
-          <figcaption>The sizing calculator. Sometimes it tells you to skip the vector database.</figcaption>
+          <figcaption>The rebuilt VectorAI DB landing page.</figcaption>
         </figure>
         <!-- One image per chapter on the homepage. Agent Memory Hub, awesome-selfhosted-ai, the rebuilt landing page (images.landingPage) and the on-prem SERP (images.serpOnPrem) are reserved for /work#actian and /work#content-search. -->
         <p class="chapter-link reveal"><a href="/work#actian">Read the Actian story</a></p>
@@ -148,7 +170,7 @@ const stages = ['Discover', 'Evaluate', 'Integrate', 'Advocate', 'Compound'];
         <header>
           <div class="chapter-n" aria-hidden="true">02</div>
           <p class="chapter-label reveal">Run the full funnel</p>
-          <h2 class="reveal" id="ch2-title">A useful tool still has to be found.</h2>
+          <h2 data-words id="ch2-title">A useful tool still has to be found.</h2>
           <p class="chapter-subtitle reveal">Paid and organic growth for developer tools</p>
         </header>
         <div class="chapter-body has-spotlight reveal">
@@ -162,7 +184,7 @@ const stages = ['Discover', 'Evaluate', 'Integrate', 'Advocate', 'Compound'];
           </div>
           <aside class="evidence-col" aria-label="Chapter 02 in numbers">
             <div class="evidence">
-              <div class="big-stat">5,000+</div>
+              <div class="big-stat" data-count="5000" data-suffix="+">5,000+</div>
               <p>newsletter clicks from sponsorships</p>
               <small>Across more than a dozen publications, including AlphaSignal, DataTalks.Club and Real Python.</small>
             </div>
@@ -180,11 +202,11 @@ const stages = ['Discover', 'Evaluate', 'Integrate', 'Advocate', 'Compound'];
             </p>
             <dl class="spotlight-stats">
               <div>
-                <dt>7,000+</dt>
+                <dt data-count="7000" data-suffix="+">7,000+</dt>
                 <dd>blog search clicks, up more than 50%</dd>
               </div>
               <div>
-                <dt>30%+</dt>
+                <dt data-count="30" data-suffix="%+">30%+</dt>
                 <dd>of the AI answers in our tracked prompt set included ZenRows</dd>
               </div>
             </dl>
@@ -200,7 +222,7 @@ const stages = ['Discover', 'Evaluate', 'Integrate', 'Advocate', 'Compound'];
         <header>
           <div class="chapter-n" aria-hidden="true">03</div>
           <p class="chapter-label reveal">Give the work a system</p>
-          <h2 class="reveal" id="ch3-title">The fix wasn’t another piece of content.</h2>
+          <h2 data-words id="ch3-title">The fix wasn’t another piece of content.</h2>
           <p class="chapter-subtitle reveal">Developer Adoption Architecture</p>
         </header>
         <div class="chapter-body reveal">
@@ -247,7 +269,7 @@ const stages = ['Discover', 'Evaluate', 'Integrate', 'Advocate', 'Compound'];
         <header>
           <div class="chapter-n" aria-hidden="true">04</div>
           <p class="chapter-label reveal">Teach the system to write</p>
-          <h2 class="reveal" id="ch4-title">Good writing shouldn’t depend on luck.</h2>
+          <h2 data-words id="ch4-title">Good writing shouldn’t depend on luck.</h2>
           <p class="chapter-subtitle reveal">A technical writing skill for people and AI agents</p>
         </header>
         <div class="chapter-body reveal">
@@ -261,7 +283,7 @@ const stages = ['Discover', 'Evaluate', 'Integrate', 'Advocate', 'Compound'];
           </div>
           <aside class="evidence-col" aria-label="Chapter 04 in numbers">
             <div class="evidence">
-              <div class="big-stat">26</div>
+              <div class="big-stat" data-count="26">26</div>
               <p>writing principles across 5 areas</p>
               <small>Open source under the MIT licence.</small>
             </div>
@@ -288,7 +310,7 @@ const stages = ['Discover', 'Evaluate', 'Integrate', 'Advocate', 'Compound'];
         <header>
           <div class="chapter-n" aria-hidden="true">05</div>
           <p class="chapter-label reveal">Take it on stage</p>
-          <h2 class="reveal" id="ch5-title">I test these ideas on stage, too.</h2>
+          <h2 data-words id="ch5-title">I test these ideas on stage, too.</h2>
           <p class="chapter-subtitle reveal">Talks and panels on developer marketing</p>
         </header>
         <div class="chapter-body is-single reveal">
@@ -312,7 +334,7 @@ const stages = ['Discover', 'Evaluate', 'Integrate', 'Advocate', 'Compound'];
         <header>
           <div class="chapter-n" aria-hidden="true">06</div>
           <p class="chapter-label reveal">Ask a question closer to home</p>
-          <h2 class="reveal" id="ch6-title">I do this from Lagos.<br />What does that change?</h2>
+          <h2 data-words id="ch6-title">I do this from Lagos.<br />What does that change?</h2>
           <p class="chapter-subtitle reveal">Developer marketing in Africa and the diaspora</p>
         </header>
         <div class="chapter-body reveal">
@@ -324,7 +346,7 @@ const stages = ['Discover', 'Evaluate', 'Integrate', 'Advocate', 'Compound'];
           </div>
           <aside class="evidence-col" aria-label="Chapter 06 in numbers">
             <div class="evidence">
-              <div class="big-stat">30.2%</div>
+              <div class="big-stat" data-count="30.2" data-decimals="1" data-suffix="%">30.2%</div>
               <p>of African developers have a say in tool purchases</p>
               <small>Compared with 21.7% globally. Stack Overflow 2024, small sample.</small>
             </div>

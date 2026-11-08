@@ -66,6 +66,9 @@ const person = {
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex" />}
     <meta name="theme-color" content="#f7f9fc" />
+    <script is:inline>
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('has-motion');
+    </script>
 
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={site.name} />
@@ -135,6 +138,10 @@ const person = {
         <p>Henry Bassey · Developer marketing and AI automation · Working with teams worldwide · © {new Date().getFullYear()}</p>
       </div>
     </footer>
+
+    <script>
+      import '../scripts/motion.ts';
+    </script>
 
     <script>
       const toggle = document.querySelector('.menu-toggle');

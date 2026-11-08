@@ -2071,7 +2071,7 @@ header + .case {
   }
 
   .client-row {
-    gap: 6px;
+    gap: 18px;
   }
 }
 
@@ -2379,6 +2379,745 @@ header + .case {
   .gallery {
     grid-template-columns: minmax(0, 1fr);
     gap: 40px;
+  }
+}
+
+/* ===== Client logos on /work ===== */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.client-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.client-logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 20px;
+}
+
+.client-logo {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.client-meta .client-name:not(.sr-only) {
+  font-size: 15px;
+}
+
+.rail-logo {
+  margin: 0 0 22px;
+}
+
+.rail-logo img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ===== Breathing room =====
+   More generous text rhythm and section spacing across every page. */
+.prose {
+  font-size: 17px;
+  line-height: 1.85;
+}
+
+.prose p,
+.lede {
+  margin-bottom: 1.4em;
+}
+
+.tension {
+  margin-bottom: 1.1em !important;
+  line-height: 1.5;
+}
+
+.intro-copy p {
+  margin-bottom: 24px;
+}
+
+.chapter-subtitle {
+  margin-top: 18px;
+}
+
+.chapter-body {
+  margin-top: 44px;
+}
+
+.chapter-link {
+  margin-top: 40px;
+}
+
+.evidence p {
+  margin: 16px 0;
+}
+
+.annotation {
+  margin-top: 28px;
+  padding-top: 20px;
+}
+
+.case-body h3 {
+  margin: 64px 0 20px;
+}
+
+.case-body h4 {
+  margin: 44px 0 12px;
+}
+
+.case-body .figure,
+.case-body .figure-pair,
+.case-body .talk-media,
+.case-body .chart {
+  margin-top: 44px;
+  margin-bottom: 20px;
+}
+
+.case-body .work-quote {
+  margin: 56px 0;
+}
+
+.results-list li {
+  padding: 16px 0;
+  line-height: 1.75;
+}
+
+.rail-block {
+  padding: 18px 0 26px;
+}
+
+.rail-stat {
+  margin-bottom: 20px;
+}
+
+.client-row {
+  padding: 36px 0 40px;
+}
+
+.client-group {
+  margin-top: 80px;
+}
+
+.client-group-title {
+  padding-bottom: 18px;
+}
+
+.client-text p {
+  font-size: 16.5px;
+  line-height: 1.85;
+}
+
+.client-text .chart {
+  margin-top: 28px;
+}
+
+.essay-body .prose > p:first-child {
+  line-height: 1.65;
+}
+
+.love-item {
+  padding: 26px 0 30px;
+}
+
+.love-item blockquote p {
+  line-height: 1.7;
+}
+
+.love-group {
+  margin-top: 56px;
+}
+
+.love-chat li + li {
+  margin-top: 12px;
+}
+
+.writing-list a {
+  padding: 22px 0;
+}
+
+.writing-note {
+  margin-top: 8px;
+  line-height: 1.6;
+}
+
+.close p {
+  line-height: 1.85;
+}
+
+.close-actions {
+  margin-top: 20px;
+}
+
+.gallery-excerpt {
+  line-height: 1.7;
+}
+
+@media (min-width: 981px) {
+  .hero {
+    padding: 96px 0 72px;
+  }
+
+  .chapter {
+    padding-top: 112px;
+    padding-bottom: 56px;
+  }
+
+  .chapter-n {
+    top: 114px;
+  }
+
+  .pullquote {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  .next,
+  .love,
+  .callout,
+  .writing-block {
+    padding-top: 80px;
+    padding-bottom: 40px;
+  }
+
+  .case {
+    padding: 104px 0 64px;
+  }
+
+  .case-head {
+    margin-bottom: 72px;
+  }
+
+  .essay {
+    padding: 104px 0 88px;
+  }
+
+  .about-hero {
+    padding-bottom: 80px;
+  }
+
+  .close {
+    padding: 104px 0;
+  }
+
+  .gallery {
+    gap: 72px 48px;
+    margin-top: 64px;
+  }
+}
+
+@media (max-width: 980px) {
+  .chapter {
+    padding-top: 88px;
+  }
+
+  .chapter-n {
+    top: 90px;
+  }
+
+  .case {
+    padding: 72px 0 48px;
+  }
+
+  .essay {
+    padding: 72px 0 56px;
+  }
+
+  .client-row {
+    padding: 28px 0 32px;
+  }
+}
+
+/* ===== Motion (set up by src/scripts/motion.ts; off with reduced motion) ===== */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Headings rise in word by word. Until the script splits them they stay hidden,
+   with a failsafe that shows them anyway if the script never runs. */
+@keyframes words-failsafe {
+  to {
+    opacity: 1;
+  }
+}
+
+.has-motion [data-words]:not(.is-split) {
+  opacity: 0;
+  animation: words-failsafe 0s 2.5s forwards;
+}
+
+.has-motion [data-words] .word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.45em);
+  transition:
+    opacity 0.6s ease,
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: calc(var(--i) * 45ms);
+}
+
+.has-motion [data-words].is-in .word {
+  opacity: 1;
+  transform: none;
+}
+
+/* The chapter timeline draws in accent as you read down it. */
+@keyframes draw-line {
+  from {
+    transform: scaleY(0);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .chapter::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -1px;
+      width: 1px;
+      background: var(--accent);
+      transform-origin: top;
+      animation: draw-line linear both;
+      animation-timeline: view();
+      animation-range: entry 30% exit 70%;
+      pointer-events: none;
+    }
+
+    .chapter-n {
+      z-index: 1;
+    }
+  }
+}
+
+/* ===== Hero proof switcher ===== */
+.proof {
+  margin-top: 48px;
+  border-top: 1px solid var(--ink);
+}
+
+.proof-tabs {
+  position: relative;
+  display: flex;
+  gap: 36px;
+  border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.proof-tabs[hidden] {
+  display: none;
+}
+
+.proof-tabs button {
+  flex: none;
+  padding: 18px 0 16px;
+  border: 0;
+  background: none;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.proof-tabs button:hover,
+.proof-tabs button[aria-selected='true'] {
+  color: var(--ink);
+}
+
+.proof-tab-marker {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: var(--accent);
+  transition:
+    transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1),
+    width 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.proof-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 56px;
+  align-items: center;
+  padding: 32px 0 36px;
+}
+
+.proof-panel + .proof-panel {
+  border-top: 1px solid var(--line);
+}
+
+/* Enhanced: panels share one cell so switching never changes the height. */
+.proof.is-enhanced .proof-panels {
+  display: grid;
+}
+
+.proof.is-enhanced .proof-panel {
+  grid-area: 1 / 1;
+  border-top: 0;
+  opacity: 0;
+  transform: translateY(14px);
+  visibility: hidden;
+  transition:
+    opacity 0.45s ease,
+    transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1),
+    visibility 0s linear 0.45s;
+}
+
+.proof.is-enhanced .proof-panel.is-active {
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+  transition:
+    opacity 0.45s ease 0.08s,
+    transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) 0.08s,
+    visibility 0s;
+}
+
+.proof-eyebrow {
+  margin: 0 0 14px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.proof-stat {
+  margin: 0;
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 520;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+}
+
+.proof-label {
+  margin: 10px 0 0;
+  font-size: 17px;
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+.proof-title {
+  margin: 0;
+  max-width: 20ch;
+  font-size: clamp(1.7rem, 2.8vw, 2.3rem);
+  font-weight: 520;
+  letter-spacing: -0.035em;
+  line-height: 1.12;
+  color: var(--ink);
+}
+
+.proof-note {
+  margin: 14px 0 0;
+  max-width: 46ch;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.proof-link {
+  margin: 20px 0 0;
+  font-size: 14px;
+}
+
+.proof-link a::after {
+  content: '→';
+  margin-left: 0.3em;
+  color: var(--accent);
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.proof-link a:hover::after {
+  transform: translateX(3px);
+}
+
+.proof-visual {
+  margin: 0;
+  min-width: 0;
+}
+
+.proof-quote {
+  padding: 4px 0 4px 26px;
+  border-left: 2px solid var(--accent);
+}
+
+.proof-quote blockquote {
+  margin: 0;
+}
+
+.proof-quote p {
+  margin: 0;
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  font-weight: 450;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  color: var(--accent);
+}
+
+.proof-quote p::before {
+  content: '“';
+}
+
+.proof-quote p::after {
+  content: '”';
+}
+
+.proof-quote figcaption {
+  margin-top: 16px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.proof-bars figcaption {
+  margin-bottom: 18px;
+  font-size: 13px;
+  font-weight: 560;
+  color: var(--ink);
+}
+
+.proof-bar-row {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr) 110px;
+  gap: 14px;
+  align-items: center;
+  padding: 9px 0;
+}
+
+.proof-bar-label {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.proof-bar-track {
+  display: block;
+  border-left: 1px solid var(--line);
+}
+
+.proof-bar {
+  display: block;
+  height: 22px;
+  width: max(var(--w), 3px);
+  background: var(--accent);
+  border-radius: 0 4px 4px 0;
+}
+
+.proof.is-enhanced .proof-bar {
+  width: 3px;
+  transition: width 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) 0.25s;
+}
+
+.proof.is-enhanced .is-active .proof-bar {
+  width: max(var(--w), 3px);
+}
+
+.proof-bar-value {
+  font-size: 13px;
+  font-weight: 560;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+.proof-shot img {
+  width: 100%;
+  max-height: 340px;
+  object-fit: cover;
+  object-position: top left;
+  border: 1px solid var(--line);
+  background: white;
+}
+
+.proof-flow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 20px;
+  align-items: center;
+}
+
+.flow-sources,
+.flow-outputs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.flow-sources li,
+.flow-outputs li {
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.flow-outputs li {
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 560;
+}
+
+.flow-arrow {
+  font-size: 26px;
+  color: var(--accent);
+}
+
+.proof.is-enhanced .flow-sources li,
+.proof.is-enhanced .flow-outputs li,
+.proof.is-enhanced .flow-arrow {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition:
+    opacity 0.4s ease,
+    transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.proof.is-enhanced .is-active .flow-sources li,
+.proof.is-enhanced .is-active .flow-outputs li,
+.proof.is-enhanced .is-active .flow-arrow {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(var(--i, 5) * 80ms + 150ms);
+}
+
+/* ===== Logo ticker ===== */
+.byline {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.ticker {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker 45s linear infinite;
+}
+
+.ticker-track .logo-row {
+  flex-wrap: nowrap;
+  gap: 0 56px;
+  padding-right: 56px;
+}
+
+.ticker:hover .ticker-track {
+  animation-play-state: paused;
+}
+
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 980px) {
+  .proof-panel {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    align-items: start;
+  }
+
+  .proof-bar-row {
+    grid-template-columns: 120px minmax(0, 1fr) 90px;
+  }
+}
+
+@media (max-width: 640px) {
+  .proof-tabs {
+    gap: 24px;
+  }
+
+  /* On phones the panels differ too much in height to share one cell. */
+  .proof.is-enhanced .proof-panel:not(.is-active) {
+    display: none;
+  }
+
+  .proof-flow {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .flow-arrow {
+    transform: rotate(90deg);
+    justify-self: start;
+  }
+
+  .proof-bar-row {
+    grid-template-columns: minmax(0, 1fr) 90px;
+  }
+
+  .proof-bar-label {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .ticker-track {
+    animation: none;
+    width: auto;
+  }
+
+  .ticker-track .logo-row {
+    flex-wrap: wrap;
+    gap: 18px 30px;
+    padding-right: 0;
+  }
+
+  .ticker-track .logo-row[aria-hidden='true'] {
+    display: none;
+  }
+
+  .proof.is-enhanced .proof-panel,
+  .proof.is-enhanced .proof-bar,
+  .proof.is-enhanced .flow-sources li,
+  .proof.is-enhanced .flow-outputs li,
+  .proof.is-enhanced .flow-arrow,
+  .proof-tab-marker {
+    transition: none;
   }
 }
 
