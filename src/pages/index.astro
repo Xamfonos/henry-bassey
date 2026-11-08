@@ -14,17 +14,19 @@ const posts = (await getCollection('blog')).sort(
   (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
 );
 
-// TODO(henry): swap these names for logos if you have them. LangChain and Fireworks AI were editing work through Growth Plays.
-const companies = [
-  'Actian',
-  'OpenRouter',
-  'Databricks',
-  'LangChain',
-  'Fireworks AI',
-  'DoiT',
-  'ZenRows',
-  'Doppler',
-  'Infisical',
+// Logos are the companies' own wordmarks (from their sites, brand pages or public repos), shown in ink via CSS masks.
+// DoiT's site offers only its "d" icon, not a wordmark, so DoiT stays as text.
+// LangChain and Fireworks AI were editing work through Growth Plays.
+const companies: { name: string; logo?: string; ratio?: number; h?: number }[] = [
+  { name: 'Actian', logo: 'actian', ratio: 240 / 56, h: 27 },
+  { name: 'OpenRouter', logo: 'openrouter', ratio: 1024 / 169, h: 19 },
+  { name: 'Databricks', logo: 'databricks', ratio: 132 / 22, h: 19 },
+  { name: 'LangChain', logo: 'langchain', ratio: 131 / 24, h: 20 },
+  { name: 'Fireworks AI', logo: 'fireworks', ratio: 110 / 20, h: 20 },
+  { name: 'DoiT' },
+  { name: 'ZenRows', logo: 'zenrows', ratio: 7495 / 1080, h: 17 },
+  { name: 'Doppler', logo: 'doppler', ratio: 563 / 108, h: 20 },
+  { name: 'Infisical', logo: 'infisical', ratio: 554 / 112, h: 19 },
 ];
 
 const chapters = [
@@ -69,15 +71,25 @@ const stages = ['Discover', 'Evaluate', 'Integrate', 'Advocate', 'Compound'];
           />
         </figure>
       </div>
-      <p class="byline">
-        <span class="byline-lead">I’ve worked with teams at</span>
-        {companies.map((name, i) => (
-          <>
-            <span class="byline-name">{name}</span>
-            {i < companies.length - 1 && <span class="byline-sep" aria-hidden="true"> · </span>}
-          </>
-        ))}
-      </p>
+      <div class="byline">
+        <p class="byline-lead">I’ve worked with teams at</p>
+        <ul class="logo-row">
+          {companies.map((c) => (
+            <li>
+              {c.logo ? (
+                <span
+                  class="logo"
+                  role="img"
+                  aria-label={c.name}
+                  style={`--logo: url(/images/logos/${c.logo}.svg); height: ${c.h}px; width: ${Math.round((c.h ?? 22) * (c.ratio ?? 5))}px;`}
+                ></span>
+              ) : (
+                <span class="logo-text">{c.name}</span>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
 
     <nav class="journey-index" aria-label="Chapters">

@@ -1483,27 +1483,61 @@ a:hover {
   border-color: var(--accent);
 }
 
-/* Hero byline: companies as a quiet text row */
+/* Hero byline: the companies as a quiet row of wordmarks, all in ink */
 .byline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px 40px;
   margin: 0;
-  padding-top: 18px;
+  padding-top: 22px;
   border-top: 1px solid var(--line);
-  font-size: 13px;
-  line-height: 1.9;
-  color: var(--muted);
 }
 
 .byline-lead {
-  margin-right: 10px;
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
 }
 
-.byline-name {
+.logo-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px 30px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.logo-row li {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  display: block;
+  background: var(--ink);
+  -webkit-mask: var(--logo) center / contain no-repeat;
+  mask: var(--logo) center / contain no-repeat;
+  opacity: 0.82;
+}
+
+.logo-text {
+  font-size: 17px;
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  line-height: 1;
   color: var(--ink);
-  white-space: nowrap;
+  opacity: 0.82;
 }
 
-.byline-sep {
-  color: var(--line);
+/* Windows high contrast drops backgrounds; fall back to the name. */
+@media (forced-colors: active) {
+  .logo {
+    background: CanvasText;
+    forced-color-adjust: none;
+  }
 }
 
 /* Each chapter ends with one text link to its /work anchor */
@@ -1725,8 +1759,12 @@ main:has(> .close:last-child) + .site-footer {
     display: inline-block;
   }
 
-  .byline-lead {
-    display: block;
+  .byline {
+    gap: 14px;
+  }
+
+  .logo-row {
+    gap: 16px 28px;
   }
 }
 
