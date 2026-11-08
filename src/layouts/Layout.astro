@@ -9,8 +9,10 @@ interface Props {
   ogImage?: string;
   ogType?: 'website' | 'article';
   noindex?: boolean;
-  /** Adds the Person JSON-LD. Homepage only. */
+  /** Adds the Person and WebSite JSON-LD. Homepage only. */
   isHome?: boolean;
+  /** Marks the page as Henry's profile page (ProfilePage JSON-LD). /about only. */
+  isProfile?: boolean;
 }
 
 const {
@@ -20,20 +22,25 @@ const {
   ogType = 'website',
   noindex = false,
   isHome = false,
+  isProfile = false,
 } = Astro.props;
 
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const current = (href: string) => (path === href || path.startsWith(`${href}/`) ? 'page' : undefined);
 
 const siteUrl = site.url;
-const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
+// Canonical URLs never end in a slash (except the homepage), matching trailingSlash: 'never'.
+const canonicalPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
 const imageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, siteUrl).toString();
 
+const personId = `${siteUrl}/#person`;
 const person = {
-  '@context': 'https://schema.org',
   '@type': 'Person',
+  '@id': personId,
   name: site.name,
-  url: site.url,
+  alternateName: site.handle,
+  url: siteUrl,
   jobTitle: site.jobTitle,
   description: site.description,
   image: new URL('/images/og/henry-bassey.jpg', siteUrl).toString(),
@@ -54,8 +61,20 @@ const person = {
     'Developer Adoption Architecture',
     'Technical writing systems',
   ],
-  sameAs: [site.linkedin, site.x, site.github, 'https://hackmamba.io'],
+  sameAs: site.profiles,
 };
+
+const schema = isHome
+  ? {
+      '@context': 'https://schema.org',
+      '@graph': [
+        person,
+        { '@type': 'WebSite', '@id': `${siteUrl}/#website`, url: siteUrl, name: site.name, publisher: { '@id': personId } },
+      ],
+    }
+  : isProfile
+    ? { '@context': 'https://schema.org', '@type': 'ProfilePage', url: canonicalUrl, mainEntity: person }
+    : null;
 ---
 
 <!doctype html>
@@ -94,7 +113,7 @@ const person = {
 
     <slot name="head" />
 
-    {isHome && <script type="application/ld+json" set:html={JSON.stringify(person)} />}
+    {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
 
     <!-- Google Tag Manager -->
     <script is:inline>

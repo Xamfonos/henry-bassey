@@ -1,5 +1,6 @@
 ---
 import Layout from './Layout.astro';
+import { site } from '../data/site';
 
 interface Props {
   title: string;
@@ -28,7 +29,7 @@ const {
 const formatted = date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
 const isoDate = date.toISOString();
 const label = category || tag || '';
-const canonical = new URL(Astro.url.pathname, 'https://henrybassey.com').toString();
+const canonical = new URL(Astro.url.pathname.replace(/\/+$/, ''), site.url).toString();
 
 const articleLd = {
   '@context': 'https://schema.org',
@@ -37,11 +38,11 @@ const articleLd = {
   datePublished: isoDate,
   dateModified: isoDate,
   description: excerpt,
-  author: { '@type': 'Person', name: author, url: 'https://henrybassey.com' },
-  publisher: { '@type': 'Person', name: 'Henry Bassey', url: 'https://henrybassey.com' },
+  author: { '@type': 'Person', '@id': `${site.url}/#person`, name: author, url: site.url },
+  publisher: { '@type': 'Person', '@id': `${site.url}/#person`, name: site.name, url: site.url },
   mainEntityOfPage: canonical,
   ...(ogImage
-    ? { image: ogImage.startsWith('http') ? ogImage : new URL(ogImage, 'https://henrybassey.com').toString() }
+    ? { image: ogImage.startsWith('http') ? ogImage : new URL(ogImage, site.url).toString() }
     : {}),
 };
 ---

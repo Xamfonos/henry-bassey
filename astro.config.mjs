@@ -6,7 +6,9 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://henrybassey.com',
+  site: 'https://www.henrybassey.com',
+  // One canonical form for every URL: /about, never /about/.
+  trailingSlash: 'never',
   output: 'static',
   adapter: vercel(),
   integrations: [tailwind({ applyBaseStyles: false }), react(), mdx(), sitemap()],
