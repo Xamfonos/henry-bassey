@@ -1,0 +1,29 @@
+---
+interface Props {
+  quote: string;
+  name: string;
+  /** Role, organisation or context, shown under the name. */
+  role?: string;
+  /** "pull" is the large homepage quote; "inline" sits inside a /work section. */
+  variant?: 'pull' | 'inline';
+}
+
+const { quote, name, role, variant = 'pull' } = Astro.props;
+---
+
+{variant === 'inline' ? (
+  <blockquote class="work-quote">
+    <p>“{quote}”</p>
+    <footer>{name}{role && <> · {role}</>}</footer>
+  </blockquote>
+) : (
+  <aside class="pullquote reveal">
+    <blockquote>
+      <p>{quote}</p>
+    </blockquote>
+    <p class="quote-by">
+      {name}
+      {role && <span>{role}</span>}
+    </p>
+  </aside>
+)}

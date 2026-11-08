@@ -11,59 +11,65 @@ interface Props {
   backLabel: string;
   ogImage?: string;
   author?: string;
-  categorySlug?: string;
 }
 
-const { title, date, category, tag, excerpt, backHref, backLabel, ogImage, author = 'Henry Bassey', categorySlug } = Astro.props;
+const {
+  title,
+  date,
+  category,
+  tag,
+  excerpt,
+  backHref,
+  backLabel,
+  ogImage,
+  author = 'Henry Bassey',
+} = Astro.props;
 
-const formatted = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+const formatted = date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
 const isoDate = date.toISOString();
 const label = category || tag || '';
+const canonical = new URL(Astro.url.pathname, 'https://henrybassey.com').toString();
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  datePublished: isoDate,
+  dateModified: isoDate,
+  description: excerpt,
+  author: { '@type': 'Person', name: author, url: 'https://henrybassey.com' },
+  publisher: { '@type': 'Person', name: 'Henry Bassey', url: 'https://henrybassey.com' },
+  mainEntityOfPage: canonical,
+  ...(ogImage
+    ? { image: ogImage.startsWith('http') ? ogImage : new URL(ogImage, 'https://henrybassey.com').toString() }
+    : {}),
+};
 ---
 
-<Layout title={`${title} — Henry Bassey`} description={excerpt} ogImage={ogImage}>
-  <!-- Article-specific OG overrides -->
-  <meta slot="head" property="og:type" content="article" />
-  <meta slot="head" property="article:published_time" content={isoDate} />
-  <meta slot="head" property="article:author" content={author} />
-  <meta slot="head" property="article:section" content="Blog" />
-  <div style="max-width:720px; margin:0 auto; padding:8rem 2.5rem 5rem;">
+<Layout title={`${title} | Henry Bassey`} description={excerpt} ogImage={ogImage} ogType="article">
+  <Fragment slot="head">
+    <meta property="article:published_time" content={isoDate} />
+    <meta property="article:author" content={author} />
+    {label && <meta property="article:section" content={label} />}
+    <script type="application/ld+json" set:html={JSON.stringify(articleLd)} />
+  </Fragment>
 
-    <div style="margin-bottom:2.5rem;">
-      <a href={backHref} style="font-size:0.75rem; color:var(--text-dim); text-decoration:none; display:inline-flex; align-items:center; gap:0.5rem; transition:color 0.18s;" onmouseover="this.style.color='var(--green)'" onmouseout="this.style.color='var(--text-dim)'">
-        ← {backLabel}
-      </a>
-    </div>
-
-    {(category || label) && (
-      <div style="margin-bottom:1rem; display:flex; align-items:center; gap:0.75rem;">
+  <article class="page article">
+    <div class="wrap">
+      <a class="back-link" href={backHref}>← {backLabel}</a>
+      <div class="article-meta">
         {category && (
-          <a href={`/blog?category=${encodeURIComponent(category)}`}
-            style="font-size:0.68rem; color:var(--green); letter-spacing:0.14em; text-transform:uppercase; background:var(--green-dim); border:1px solid rgba(0,232,122,0.2); padding:0.2rem 0.65rem; border-radius:3px; text-decoration:none; transition:background 0.15s;"
-          >{category}</a>
+          <a href={`/blog?category=${encodeURIComponent(category)}`}>{category}</a>
         )}
-        {!category && label && (
-          <div style="font-size:0.68rem; color:var(--green); letter-spacing:0.14em; text-transform:uppercase;">{label}</div>
-        )}
+        {!category && label && <span>{label}</span>}
+        <time class="article-date" datetime={isoDate}>{formatted}</time>
       </div>
-    )}
-
-    <h1 style="font-family:var(--font-sans); font-size:clamp(1.8rem,4vw,2.8rem); font-weight:800; color:#fff; line-height:1.15; margin-bottom:1rem; letter-spacing:-0.02em;">
-      {title}
-    </h1>
-
-    <div style="font-size:0.75rem; color:var(--text-dim); margin-bottom:3rem; padding-bottom:2rem; border-bottom:1px solid var(--border);">
-      {formatted}
-    </div>
-
-    <div class="prose">
+      <h1>{title}</h1>
       <slot />
     </div>
-
-  </div>
+  </article>
 
   <script>
-    // Wrap tables in a horizontally-scrollable container
     document.querySelectorAll('.prose table').forEach((table) => {
       if (table.parentElement?.classList.contains('table-wrap')) return;
       const wrap = document.createElement('div');
@@ -72,7 +78,6 @@ const label = category || tag || '';
       wrap.appendChild(table);
     });
 
-    // Add a copy button to every code block
     const copyIcon = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
 
     document.querySelectorAll('.prose pre').forEach((pre) => {
@@ -91,16 +96,17 @@ const label = category || tag || '';
       btn.addEventListener('click', async () => {
         const code = pre.querySelector('code');
         const text = (code?.textContent ?? pre.textContent ?? '').replace(/\n$/, '');
+        const label = btn.querySelector('span');
         try {
           await navigator.clipboard.writeText(text);
           btn.classList.add('copied');
-          btn.querySelector('span')!.textContent = 'Copied';
+          if (label) label.textContent = 'Copied';
           setTimeout(() => {
             btn.classList.remove('copied');
-            btn.querySelector('span')!.textContent = 'Copy';
+            if (label) label.textContent = 'Copy';
           }, 1800);
         } catch {
-          btn.querySelector('span')!.textContent = 'Error';
+          if (label) label.textContent = 'Error';
         }
       });
 

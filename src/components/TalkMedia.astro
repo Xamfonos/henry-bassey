@@ -1,0 +1,77 @@
+---
+/**
+ * The Builders Summit walk-on clip beside the DevRel Compass and Reo.Dev banners.
+ * The clip only loads and plays when someone presses "Watch the clip".
+ */
+import ResponsiveImage from './ResponsiveImage.astro';
+import images from '../data/images.json';
+
+interface Props {
+  /** Caption under the walk-on clip. */
+  caption: string;
+  class?: string;
+}
+
+const { caption, class: className } = Astro.props;
+---
+
+<div class:list={['talk-media', className]}>
+  <figure class="walkon">
+    <div class="walkon-frame">
+      <button class="walkon-button" type="button" aria-controls="walkon-video">
+        <ResponsiveImage
+          image={images.walkon}
+          alt="Henry Bassey walking on stage at The Builders Summit with a microphone, in front of a slide titled Developer Marketing: Yes, No, or Not Yet?"
+          sizes="(max-width: 800px) 300px, 340px"
+        />
+        <span class="walkon-label">Watch the clip</span>
+      </button>
+      <video
+        id="walkon-video"
+        controls
+        playsinline
+        preload="none"
+        hidden
+        width="576"
+        height="1024"
+        poster={`${images.walkon.src}-576.webp`}
+      ></video>
+    </div>
+    <figcaption>{caption}</figcaption>
+  </figure>
+  <div class="talk-banners">
+    <figure class="figure">
+      <a class="figure-link" href="https://www.linkedin.com/posts/anita-ihuman_devrelcompass-devrel-developerrelations-activity-7492520231962247168-xvud">
+        <ResponsiveImage
+          image={images.devrel}
+          alt="Video call from the DevRel Compass panel. Henry Bassey is the bottom-right tile, wearing a headset and glasses."
+          sizes="(max-width: 800px) 100vw, 620px"
+        />
+      </a>
+      <figcaption>The DevRel Compass panel. I’m the bottom-right tile.</figcaption>
+    </figure>
+    <figure class="figure">
+      <a class="figure-link" href="https://www.youtube.com/watch?v=RBRXCrTdUqE">
+        <ResponsiveImage
+          image={images.reo}
+          alt="YouTube thumbnail for the Reo.Dev episode Why 90% of Developer Content Fails, with a portrait of Henry Bassey."
+          sizes="(max-width: 800px) 100vw, 620px"
+        />
+      </a>
+      <figcaption>Reo.Dev DevGTM: Why 90% of Developer Content Fails (and How to Fix It).</figcaption>
+    </figure>
+  </div>
+</div>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>('.walkon-button');
+  const video = document.querySelector<HTMLVideoElement>('#walkon-video');
+  button?.addEventListener('click', () => {
+    if (!video) return;
+    video.hidden = false;
+    if (!video.src) video.src = '/video/builders-summit-walkon.mp4';
+    button.remove();
+    video.focus();
+    video.play().catch(() => {});
+  });
+</script>

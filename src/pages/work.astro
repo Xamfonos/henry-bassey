@@ -1,0 +1,711 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ResponsiveImage from '../components/ResponsiveImage.astro';
+import PullQuote from '../components/PullQuote.astro';
+import TalkMedia from '../components/TalkMedia.astro';
+import ConsultingClose from '../components/ConsultingClose.astro';
+import BarChart from '../components/BarChart.astro';
+import images from '../data/images.json';
+
+const description =
+  'Developer marketing, paid media, tools and AI workflows I’ve built for developer tools companies.';
+
+const sections = [
+  { href: '#actian', label: 'Actian VectorAI DB' },
+  { href: '#openrouter', label: 'OpenRouter' },
+  { href: '#zenrows', label: 'ZenRows' },
+  { href: '#clients', label: 'More client work' },
+  { href: '#developer-adoption-architecture', label: 'Developer Adoption Architecture' },
+  { href: '#writing-skill', label: 'Writing skill' },
+  { href: '#speaking', label: 'Speaking' },
+  { href: '#africa', label: 'Africa research' },
+  { href: '#openstrategy', label: 'OpenStrategy' },
+];
+
+const clients: { name: string; href?: string }[] = [
+  { name: 'Hackmamba', href: 'https://hackmamba.io' },
+  { name: 'Actian', href: '#actian' },
+  { name: 'OpenRouter', href: '#openrouter' },
+  { name: 'Databricks' },
+  { name: 'ZenRows', href: '#zenrows' },
+  { name: 'Doppler' },
+  { name: 'Infisical' },
+  { name: 'DoiT' },
+  { name: 'LangChain' },
+  { name: 'Fireworks AI' },
+  { name: 'Bitcloud', href: 'https://bit.dev' },
+  { name: 'Aikido', href: 'https://www.aikido.dev/' },
+  { name: 'MetalBear', href: 'https://metalbear.co' },
+  { name: 'Neon', href: 'https://neon.tech' },
+  { name: 'Roadmap.sh', href: 'https://roadmap.sh' },
+  { name: 'Mintlify', href: 'https://mintlify.com' },
+  { name: 'Mia-Platform', href: 'https://mia-platform.eu' },
+  { name: 'Cloudinary', href: 'https://cloudinary.com' },
+  { name: 'Flutterwave', href: 'https://flutterwave.com' },
+  { name: 'CodeRabbit', href: 'https://coderabbit.ai' },
+  { name: 'Novu', href: 'https://novu.co' },
+  { name: 'Sourcegraph', href: 'https://sourcegraph.com' },
+  { name: 'Appwrite', href: 'https://appwrite.io' },
+  { name: 'Replit', href: 'https://replit.com' },
+  { name: 'Hygraph', href: 'https://hygraph.com' },
+  { name: 'Localazy', href: 'https://localazy.com' },
+  { name: 'Code First Girls', href: 'https://codefirstgirls.com' },
+];
+
+const stages = ['Discover', 'Evaluate', 'Integrate', 'Advocate', 'Compound'];
+---
+
+<Layout title="Work | Henry Bassey" description={description}>
+  <article class="page work-page">
+    <div class="wrap">
+      <header>
+        <h1>Work</h1>
+        <!-- TODO(henry): an intro line for the portfolio page, if you want one. None was in the copy, so none is shown. -->
+        <nav class="work-index" aria-label="On this page">
+          {sections.map((s, i) => <a href={s.href}><b>{String(i + 1).padStart(2, '0')}</b>{s.label}</a>)}
+        </nav>
+      </header>
+
+      <!-- ACTIAN -->
+      <section class="case" id="actian" aria-labelledby="actian-heading">
+        <header class="case-head reveal">
+          <p class="case-n" aria-hidden="true">01</p>
+          <h2 id="actian-heading">Actian VectorAI DB</h2>
+        </header>
+        <div class="case-grid">
+          <aside class="case-rail" aria-label="At a glance">
+            <div class="rail-block">
+              <p class="rail-label">Role</p>
+              <p class="rail-text">Content lead, then developer marketing lead</p>
+            </div>
+            <div class="rail-block">
+              <p class="rail-label">Results</p>
+              <p class="rail-stat"><b>5M+</b> <span>developers reached</span></p>
+              <p class="rail-stat"><b>300K+</b> <span>developers by launch day</span></p>
+              <p class="rail-stat"><b>5,000+</b> <span>newsletter clicks from sponsorships</span></p>
+            </div>
+            <div class="rail-block">
+              <p class="rail-label">Links</p>
+              <ul class="rail-links">
+                <li><a href="https://hackmamba.io/case-studies/actian-vectorai-db/">Actian case study</a></li>
+                <li><a href="https://hackmamba.io/case-study/actian-vectorai-db-developer-marketing-case-study/">The interview</a></li>
+              </ul>
+            </div>
+          </aside>
+          <div class="case-body">
+          <div class="prose">
+            <p>I joined the Actian VectorAI DB launch as content lead. After launch, content, paid and community were each running on their own.</p>
+            <p>I was promoted to developer marketing lead on the account and brought all of it under one plan. That meant running paid media, building tools developers could use, and keeping content tied to the same goals.</p>
+
+            <h3 id="paid-media">Paid media</h3>
+            <p>I ran paid media with Tahir Mohammed, a senior growth marketer at Hackmamba. He managed Google Ads, LinkedIn, Reddit and YouTube. I handled newsletter sponsorships, X ads, influencer partnerships and outreach, alongside content. We kept the channels that delivered and dropped the ones that didn’t. A click isn’t an install, so the number I care about is developers who run the product.</p>
+
+            <h4>Campaign results</h4>
+            <!-- The LinkedIn result is left out on Henry's instruction (8 Nov 2026): Tahir owned that campaign. -->
+            <!-- The YouTube result is also left out on Henry's instruction (8 Nov 2026): Tahir managed YouTube. -->
+            <ul class="results-list">
+              <li><strong>X ads:</strong> over 1.3 million impressions in two months, with link-click campaigns built around the sizing calculator and the self-hosted AI hub.</li>
+              <li><strong>Newsletters:</strong> over 5,000 clicks from sponsorships across more than a dozen publications, including AlphaSignal, DataTalks.Club, Real Python and 7wData.</li>
+              <li><strong>Influencers:</strong> over 110,000 impressions from creator campaigns on X, LinkedIn, YouTube and newsletters, including a 45-minute RAG crash course on AI with Hassan.</li>
+            </ul>
+          </div>
+          <PullQuote
+            variant="inline"
+            quote="The last Actian campaign performed really well … far exceeding our 500-click benchmark!"
+            name="Jana Marinovic"
+            role="Account Manager, AlphaSignal"
+          />
+
+          <div class="prose">
+            <h3>What I built</h3>
+            <h4>Vector database sizing calculator</h4>
+            <p>Tells you what your workload needs. Sometimes that’s a flat file or pgvector, not a dedicated vector database. It became the landing page for our paid and newsletter campaigns.</p>
+            <p class="tool-links"><a href="https://actian-devs.github.io/vector-db-calculator/">Size a vector workload</a></p>
+          </div>
+          <figure class="figure">
+            <ResponsiveImage
+              image={images.calculator}
+              alt="The Actian VectorAI DB sizing calculator. For a workload of 100,000 vectors, its verdict reads: You don't need a vector database yet."
+              sizes="(max-width: 800px) 100vw, 960px"
+            />
+            <figcaption>The sizing calculator. It can tell a developer to skip a dedicated vector database.</figcaption>
+          </figure>
+
+          <div class="prose">
+            <h4>Agent Memory Hub</h4>
+            <p>Free resources on persistent memory for AI agents.</p>
+            <p class="tool-links"><a href="https://github.com/actian-devs/agent-memory-hub">Agent Memory Hub</a></p>
+
+            <h4>awesome-selfhosted-ai</h4>
+            <p>An open-source list of self-hosted AI tools, from models and embeddings to agents and deployment. It launched with 179 projects.</p>
+            <p class="tool-links"><a href="https://github.com/actian-devs/awesome-selfhosted-ai">awesome-selfhosted-ai</a></p>
+          </div>
+          <!-- Captions below are Claude's, not from the copy doc. -->
+          <div class="figure-pair">
+            <figure class="figure">
+              <ResponsiveImage
+                image={images.memoryHub}
+                alt="The actian-devs/agent-memory-hub repository on GitHub, with Henry Bassey listed as a contributor."
+                sizes="(max-width: 800px) 100vw, 470px"
+              />
+              <figcaption>Agent Memory Hub on GitHub.</figcaption>
+            </figure>
+            <figure class="figure">
+              <ResponsiveImage
+                image={images.awesome}
+                alt="The actian-devs/awesome-selfhosted-ai repository on GitHub, a curated list of self-hosted AI tools, with Henry Bassey listed as a contributor."
+                sizes="(max-width: 800px) 100vw, 470px"
+              />
+              <figcaption>awesome-selfhosted-ai on GitHub.</figcaption>
+            </figure>
+          </div>
+
+          <div class="prose">
+            <h4>Product landing page</h4>
+            <p>As the launch went on, our messaging changed, but the product landing page still said the old thing. We couldn’t say one thing on social and another on the website. So I rewrote the copy and rebuilt the page myself.</p>
+            <p class="tool-links"><a href="https://xamfonos.github.io/vectoraidb-prototype/">See the rebuilt page</a></p>
+          </div>
+          <figure class="figure">
+            <ResponsiveImage
+              image={images.landingPage}
+              alt="The rebuilt Actian VectorAI DB landing page. The headline reads: Deploy AI agents with persistent memory. Ship them anywhere."
+              sizes="(max-width: 800px) 100vw, 960px"
+            />
+            <figcaption>The rebuilt VectorAI DB landing page.</figcaption>
+          </figure>
+          <PullQuote
+            variant="inline"
+            quote="Lindsay, Ron and Nick love the website."
+            name="Gergely Mate"
+            role="Project Manager, Hackmamba"
+          />
+
+          <div class="prose">
+            <h3 id="content-search">Content and search</h3>
+            <p>Seven days after we published an article on vector database pricing, it was on Google’s first page and cited in AI Overviews. A piece on choosing on-premises or cloud vector databases did the same on a topic almost no one had covered yet, so Actian was already there when developers started comparing the two after launch.</p>
+          </div>
+          <div class="figure-pair">
+            <figure class="figure">
+              <ResponsiveImage
+                image={images.serpPricing}
+                alt="Henry's team update, seven days after publishing: Google results for vector database pricing, with Actian's article The Hidden Cost of Vector Database Pricing Models cited in the AI Overview."
+                sizes="(max-width: 800px) 100vw, 470px"
+              />
+              <figcaption>Vector database pricing, on Google’s first page and in AI Overviews within a week.</figcaption>
+            </figure>
+            <figure class="figure">
+              <ResponsiveImage
+                image={images.serpOnPrem}
+                alt="Henry's team update: Google results for on prem or cloud vector, with Actian's article When to Choose On-Premises vs. Cloud for Vector Databases cited in the AI Overview and ranked first."
+                sizes="(max-width: 800px) 100vw, 470px"
+              />
+              <figcaption>On-premises or cloud vector databases, ranking before the topic got crowded.</figcaption>
+            </figure>
+          </div>
+
+          <div class="prose">
+            <h3>Outcome</h3>
+            <!-- "reached over 5 million developers" matches the homepage. Henry confirmed developers reached, not impressions (8 Nov 2026). -->
+            <p>The launch reached more than 300,000 developers by launch day. The wider programme has since reached over 5 million developers. Actian extended the engagement from six months to a year, then hired its first head of developer marketing to take the work in-house.</p>
+          </div>
+          <PullQuote
+            variant="inline"
+            quote="Hackmamba didn’t just execute a plan. They helped us build the right plan."
+            name="Jennifer Jackson"
+            role="CMO, Actian"
+          />
+          </div>
+        </div>
+      </section>
+
+      <!-- OPENROUTER -->
+      <section class="case" id="openrouter" aria-labelledby="openrouter-heading">
+        <header class="case-head reveal">
+          <p class="case-n" aria-hidden="true">02</p>
+          <h2 id="openrouter-heading">OpenRouter</h2>
+        </header>
+        <div class="case-grid">
+          <aside class="case-rail" aria-label="At a glance">
+            <div class="rail-block">
+              <p class="rail-label">Role</p>
+              <p class="rail-text">Content lead</p>
+            </div>
+            <div class="rail-block">
+              <p class="rail-label">Results</p>
+              <p class="rail-stat"><b>110,000+</b> <span>blog search clicks</span></p>
+              <p class="rail-stat"><b>60,000+</b> <span>from Hackmamba’s articles</span></p>
+              <p class="rail-stat"><b>70+</b> <span>technical articles</span></p>
+            </div>
+            <div class="rail-block">
+              <p class="rail-label">Links</p>
+              <ul class="rail-links">
+                <li><a href="https://hackmamba.io/case-study/how-openrouter-generated-49k-organic-clicks-from-technical-content/">OpenRouter case study</a></li>
+              </ul>
+            </div>
+          </aside>
+          <div class="case-body">
+          <div class="prose">
+            <p>OpenRouter had an agent producing drafts, but those drafts still needed product verification, tested code and editorial judgment before developers could trust them. I led the content work on Hackmamba’s side, turning those drafts into monthly delivery batches with technical checks, review guides and a human editorial pass, while OpenRouter retained topic selection and final approval. The programme produced over 70 technical articles. Between June and October 2026, the articles Hackmamba wrote earned over 60,000 search clicks and nearly 7 million impressions, and the wider blog went from under 100 clicks to over 110,000 in the same length of time.</p>
+          </div>
+          <!-- Chart figures are the rounded figures from Henry's copy. -->
+          <BarChart
+            title="OpenRouter blog search clicks, over two periods of the same length"
+            rows={[
+              { label: 'Before the programme', value: 100, display: 'under 100' },
+              { label: 'June to October 2026', value: 110000, display: 'over 110,000' },
+            ]}
+            note="Rounded figures. Hackmamba’s articles earned over 60,000 of those clicks."
+          />
+          </div>
+        </div>
+      </section>
+
+      <!-- ZENROWS -->
+      <section class="case" id="zenrows" aria-labelledby="zenrows-heading">
+        <header class="case-head reveal">
+          <p class="case-n" aria-hidden="true">03</p>
+          <h2 id="zenrows-heading">ZenRows</h2>
+        </header>
+        <div class="case-grid">
+          <aside class="case-rail" aria-label="At a glance">
+            <div class="rail-block">
+              <p class="rail-label">Role</p>
+              <p class="rail-text">Content strategy, technical SEO and AI-assisted research</p>
+            </div>
+            <div class="rail-block">
+              <p class="rail-label">Results</p>
+              <p class="rail-stat"><b>7,000+</b> <span>blog search clicks, up more than 50%</span></p>
+              <p class="rail-stat"><b>11,000+</b> <span>site search clicks, up more than 30%</span></p>
+              <p class="rail-stat"><b>30%+</b> <span>of tracked AI answers included ZenRows</span></p>
+            </div>
+            <div class="rail-block">
+              <p class="rail-label">Links</p>
+              <ul class="rail-links">
+                <li><a href="https://www.zenrows.com/blog/live-web-data-agent-agno-zenrows">Live web data with Agno</a></li>
+                <li><a href="https://www.zenrows.com/blog/ollama-agents-live-web-access-zenrows-mcp">Ollama agents with ZenRows MCP</a></li>
+              </ul>
+            </div>
+          </aside>
+          <div class="case-body">
+          <div class="prose">
+            <p>I’m helping reposition ZenRows as web data infrastructure for AI. The work started with finding out why traffic had dropped. Then came fixing redirects, refreshing old pages, building comparison pages and tracking how often AI search tools mention the brand.</p>
+            <p>The challenge was to connect the product’s newer capabilities to the work AI developers were already doing: giving agents live web access, collecting data for research and keeping information fresh. I brought technical SEO, editorial direction and AI-assisted research into the same programme.</p>
+
+            <h3>What I did</h3>
+            <p>I investigated the traffic decline across Search Console, analytics and the existing content library. The work covered more than 400 posts, looking at which topics still brought people in, where search demand had changed and where the content no longer matched the product.</p>
+            <p>I worked on redirecting dead pages and identifying content worth keeping and updating. As the product evolved, I developed refresh briefs for the comparison articles so they reflected what ZenRows could actually do, rather than repeating an older version of the product.</p>
+
+            <h3>Content and search</h3>
+            <p>I led the content work across competitor comparisons and practical agent tutorials. The comparison articles helped developers evaluate ZenRows against tools such as Firecrawl, Apify and ScraperAPI. The tutorials showed how to use live web data in workflows built with LangChain, LlamaIndex, CrewAI and other agent frameworks.</p>
+            <p>I also researched how ZenRows appeared in AI-generated answers. I separated questions that already named the brand from broader questions about choosing a tool, then used the gaps to inform content briefs. That connected search work to the questions developers ask AI assistants, not just the keywords they type into Google.</p>
+
+            <h3>What I built</h3>
+            <p>I set up an AI-assisted content-intelligence workflow to monitor web-scraping news, competitor releases and developer discussions. It turns signals from GitHub, Stack Overflow, Reddit, Hacker News and industry coverage into sourced briefings and content opportunities.</p>
+            <p>Before an idea becomes a brief, I check it against search demand, product capabilities and the existing content library. That helps me decide whether it needs a new article, an update to an older one or a social post tied to something we’ve already published.</p>
+            <p>Alongside that, I built a weekly performance tracker that brings search, article performance, AI visibility and distribution into one place. It keeps the whole site’s trend separate from the performance of the articles we’re producing.</p>
+
+            <h3>Results</h3>
+            <p>Comparing October 2026 with the four weeks before it:</p>
+            <ul class="results-list">
+              <li><strong>Blog search:</strong> over 7,000 clicks, up more than 50%.</li>
+              <li><strong>Whole site:</strong> over 11,000 search clicks, up more than 30%.</li>
+              <li><strong>AI visibility:</strong> ZenRows appeared in over 30% of the AI answers in our tracked October prompt set, across both branded and non-branded questions.</li>
+            </ul>
+          </div>
+          <BarChart
+            title="ZenRows search clicks, growth in October 2026 over the four weeks before"
+            rows={[
+              { label: 'Blog search', value: 50, display: 'more than 50%' },
+              { label: 'Whole site', value: 30, display: 'more than 30%' },
+            ]}
+            note="Rounded floors: over 7,000 blog clicks and over 11,000 site clicks in October."
+          />
+          <div class="prose">
+
+            <h3>Outcome</h3>
+            <p>Search traffic is growing again across the blog and the whole site. The work now connects traffic recovery, product positioning and a repeatable research-to-content process. I continue to lead the content and reporting work as ZenRows expands its role in AI workflows.</p>
+          </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MORE CLIENT WORK -->
+      <section class="case case-index" id="clients" aria-labelledby="clients-heading">
+        <header class="case-head reveal">
+          <p class="case-n" aria-hidden="true">04</p>
+          <h2 id="clients-heading">More client work</h2>
+        </header>
+        <div class="case-index-body">
+          <div class="prose">
+            <p>Actian, OpenRouter and ZenRows are the long stories. Here’s the rest of the work, from the teams I support now back to where it started.</p>
+          </div>
+          <ul class="client-roll">
+          {clients.map((c) => <li>{c.href ? <a href={c.href}>{c.name}</a> : c.name}</li>)}
+        </ul>
+            <div class="client-group">
+              <h3 class="client-group-title">Developer growth today</h3>
+              <div class="client-row">
+                <h4 class="client-name">Databricks</h4>
+                <div class="client-text">
+                  <p>I run technical SEO content around the decisions developers make about databases, from managed Postgres and database branching to evaluating databases for AI agents. Alongside the briefs and editorial work, I built a reporting baseline tied to the first article’s publication and track our pages separately from Databricks’ wider site. Our English-language article programme earned over 500 search clicks and over 60,000 impressions in October 2026, more than doubling clicks and more than tripling impressions from September.</p>
+                  <BarChart
+                    title="Databricks article programme, growth from September to October 2026"
+                    rows={[
+                    { label: 'Search clicks', value: 2, display: 'more than 2×' },
+                    { label: 'Impressions', value: 3, display: 'more than 3×' },
+                    ]}
+                    note="Rounded floors: over 500 search clicks and over 60,000 impressions in October."
+                  />
+                </div>
+              </div>
+              <div class="client-row">
+                <h4 class="client-name">Doppler</h4>
+                <div class="client-text">
+                  <p>I develop technical briefs and editorial guidance around secrets management, machine identity and AI-agent security, as part of a programme with over 60 published articles by October 2026. Every brief is checked against the product docs, and every code example is checked to make sure it’s safe to copy, so the programme stays technically credible as it grows. I also keep the topic library mapped so new work extends the series rather than repeating it.</p>
+                </div>
+              </div>
+              <div class="client-row">
+                <h4 class="client-name">Infisical</h4>
+                <div class="client-text">
+                  <p>I turn the questions developers are already asking in the community into briefs that make Infisical’s approach to secrets and agent security concrete. Each brief gives writers the audience, the argument, the questions to answer for search and AI answers, and the product details to verify, so the articles in a series work together rather than repeat one another.</p>
+                </div>
+              </div>
+              <div class="client-row">
+                <h4 class="client-name">DoiT</h4>
+                <div class="client-text">
+                  <p>I researched a FinOps ebook on cloud data platform costs, built around the decisions practitioners actually struggle with rather than another list of cost-saving tips. I combined practitioner discussions, a sourced quote bank, competitor coverage and product documentation into a structure the writing team could build on.</p>
+                </div>
+              </div>
+              <div class="client-row">
+                <h4 class="client-name">LangChain and Fireworks AI</h4>
+                <div class="client-text">
+                  <p>I edit technical articles for both through Growth Plays, a B2B content agency. John-Henry Scherck, its founder, called one draft “one of the best pieces of content we’ve drafted as a company.”</p>
+                </div>
+              </div>
+            </div>
+            <div class="client-group">
+              <h3 class="client-group-title">Developer content and search</h3>
+              <!-- Flutterwave research note: the later topic sheet is team-owned evidence of programme scope, not proof Henry personally authored every topic. No measured acquisition outcome found. -->
+              <div class="client-row">
+                <h4 class="client-name">Flutterwave</h4>
+                <div class="client-text">
+                  <p>I built Flutterwave’s developer content strategy from scratch, translating payments messaging into topics developers could use to understand and implement the product. The programme covers payment rails, settlement, stablecoin integration, cross-border failures and compliance, with topics mapped from education through implementation and evaluation. It gives the team a connected editorial plan rather than a collection of product announcements.</p>
+                </div>
+              </div>
+              <div class="client-row">
+                <h4 class="client-name">Neon</h4>
+                <div class="client-text">
+                  <p>I developed search-led briefs around the practical barriers to adopting serverless Postgres, including connection pooling, free hosting and choosing a serverless stack. The wider content programme showed developers how to use Neon with tools such as Kysely, Prisma, Cloudflare Workers and pgvector, rather than explaining the database in isolation. The linked Dev.to tutorial set recorded over 30,000 views.</p>
+                </div>
+              </div>
+              <div class="client-row">
+                <h4 class="client-name">Mintlify</h4>
+                <div class="client-text">
+                  <p>I turned feedback from documentation teams and Mintlify’s webinar into a content strategy around AI-readable docs, technical-writing workflows and platform evaluation. The plan moved beyond generic documentation advice into testing AI retrieval, finding gaps through search and support signals, keeping assistants aligned with changing docs and guiding migrations. I translated those themes into titles and writer-ready outlines tied to Mintlify’s search, automation and preview workflows.</p>
+                </div>
+              </div>
+              <!-- TODO(henry): the Roadmap.sh growth figure comes from an internal case-study draft with approximate figures, not a verified analytics export. Remove the last sentence if the underlying data can't be supplied. -->
+              <div class="client-row">
+                <h4 class="client-name">Roadmap.sh</h4>
+                <div class="client-text">
+                  <p>I worked alongside Roadmap’s SEO team to turn search opportunities into practical learning content, including Python multithreading exercises, interview preparation and guides for new developers. My briefs specified the teaching sequence, code examples, task prompts and interactive elements, not just the keywords to include. During the engagement, estimated site-wide organic traffic grew by more than 60% between late June 2024 and March 2025, a wider team result rather than growth attributable to my articles alone.</p>
+                </div>
+              </div>
+              <div class="client-row">
+                <h4 class="client-name">Hygraph</h4>
+                <div class="client-text">
+                  <p>I helped run their developer marketing strategy, organised SEO around technical topics, and wrote content that competed on crowded React keywords.</p>
+                </div>
+              </div>
+              <!-- TODO(henry): confirm your involvement in Novu's documentation workstream. The detailed documentation work is credited to Hackmamba in the case-study draft. No measured adoption outcome found. -->
+              <div class="client-row">
+                <h4 class="client-name">Novu</h4>
+                <div class="client-text">
+                  <p>I worked on developer content and onboarding for Novu as its notification platform evolved. Hackmamba’s documentation work included rewriting the quickstarts, separating tutorials and reference material in Core Concepts, and establishing a release-documentation workflow that could start from an engineering PR. That gave the team a repeatable way to document new features without leaving the writing entirely with the engineers who built them.</p>
+                </div>
+              </div>
+              <div class="client-row">
+                <h4 class="client-name">Appwrite</h4>
+                <div class="client-text">
+                  <p>I built a content strategy around Appwrite’s product roadmap and the work developers needed to get done. That included turning new Functions capabilities into tutorial plans for GitHub deployments, multi-function repositories, subscription access with user labels and migrating between Functions versions. The result was a product-led content plan with concrete implementation examples, not broad backend-development topics disconnected from the release.</p>
+                </div>
+              </div>
+              <div class="client-row">
+                <h4 class="client-name">Sourcegraph</h4>
+                <div class="client-text">
+                  <p>I developed briefs that connected Sourcegraph’s AI-coding capabilities to real development work: understanding unfamiliar code, debugging, generating tests and planning migrations. Each brief spelled out the reader, search intent, examples and product context, including how Cody should appear naturally in the workflow. That gave writers a concrete route from a broad AI topic to an article a developer could act on.</p>
+                </div>
+              </div>
+              <!-- Cloudinary research note: the case-study outcome section is unfinished. Do not substitute modelled leads for actual client results. -->
+              <div class="client-row">
+                <h4 class="client-name">Cloudinary</h4>
+                <div class="client-text">
+                  <p>Cloudinary had a clear content direction but needed more capacity to turn it into useful developer material. I translated those themes into search-led briefs and outlines, with specific audiences, implementation detail and guidance on where Cloudinary belonged in the story. The work supported a dedicated writing and editorial process built around demos and real media workflows, rather than adding production work back onto Cloudinary’s team.</p>
+                </div>
+              </div>
+              <div class="client-row">
+                <h4 class="client-name">Mia-Platform</h4>
+                <div class="client-text">
+                  <p>I ran content strategy for Mia-Platform across technical articles and whitepapers, helping an internal team that was spending too much time producing and rewriting content. Hackmamba gave them a clearer production and review process, with an outside perspective that kept the content from becoming too self-referential. Their senior technical writer, Paolo Martinoli, reported quicker reviews and better-prepared, better-targeted leads, with more time left for strategic work.</p>
+                </div>
+              </div>
+              <!-- Jozu research note: the case-study draft leaves the delivery period unresolved, so none is given. No claim is made that content caused fundraising or GitHub growth. -->
+              <div class="client-row">
+                <h4 class="client-name">Jozu / KitOps</h4>
+                <div class="client-text">
+                  <p>I helped turn Jozu’s product demos, briefs and roadmap updates into developer-focused content for KitOps and JozuHub. The work combined editorial direction with a repeatable delivery process, giving an early-stage team a way to explain model packaging, registries and deployment without pulling its engineers away from the product. Hackmamba delivered more than 20 articles through the programme.</p>
+                </div>
+              </div>
+              <div class="client-row">
+                <h4 class="client-name">CodeRabbit</h4>
+                <div class="client-text">
+                  <p>I turned early topic ideas into structured briefs, tuned them for search and audience, and guided writers to a consistent voice. Their team said they were “very impressed” with the finished articles.</p>
+                </div>
+              </div>
+              <div class="client-row">
+                <h4 class="client-name">Replit</h4>
+                <div class="client-text">
+                  <p>Docs and video support. Writing our collaboration announcement is where I developed the Halo Signal and SHARE frameworks.</p>
+                </div>
+              </div>
+              <div class="client-row">
+                <h4 class="client-name">Bitcloud</h4>
+                <div class="client-text">
+                  <p>I ran Bitcloud’s content strategy and reworked its messaging several times as the AI software development market shifted, tying each change to a positioning analysis and an editorial plan the team could act on.</p>
+                </div>
+              </div>
+              <div class="client-row">
+                <h4 class="client-name">Aikido</h4>
+                <div class="client-text">
+                  <p>I developed security-content briefs around the gaps between storing a secret safely and using it safely in CI/CD. The briefs specified failure scenarios, trust-boundary diagrams, code examples and the limits of vaults and static scanning, with product context grounded in Aikido’s security workflow. They gave writers an argument to develop and technical details to verify, not just a keyword and a word count.</p>
+                </div>
+              </div>
+              <div class="client-row">
+                <h4 class="client-name">MetalBear</h4>
+                <div class="client-text">
+                  <p>I built a content framework around the friction in Kubernetes development: local environments that do not match production, slow testing loops and the cost of maintaining extra clusters. I separated engineering-leadership arguments from hands-on developer guides and search comparisons, then connected them through pillar topics and a publishing rotation. That gave the team a plan for explaining mirrord through specific workflow problems rather than a stream of disconnected tool posts.</p>
+                </div>
+              </div>
+              <div class="client-row">
+                <h4 class="client-name">Localazy</h4>
+                <div class="client-text">
+                  <p>I developed migration-content briefs for teams deciding whether to leave their translation-management system. The work separated the questions developers, designers, product managers and content owners needed answered, then connected the evaluation guide to platform-specific migrations and automation workflows. The briefs made switching a concrete technical decision, covering imports, translation memory, glossaries, CLI integration and the risks to check before a move.</p>
+                </div>
+              </div>
+            </div>
+            <div class="client-group">
+              <h3 class="client-group-title">Where it started</h3>
+              <div class="client-row">
+                <h4 class="client-name">Hackmamba</h4>
+                <div class="client-text">
+                  <p>I joined when Hackmamba was a side hustle with no roadmap and took on landing pages, ads, lead funnels and messaging. As the agency grew, I became Head of Marketing and built the editorial standards behind our client work. I now combine that discipline with agent-assisted research, client performance trackers and a content-distribution workflow that extends an article into community posts, newsletters and video. I also created Developer Adoption Architecture and led the rebrand from a technical-content agency to a full-cycle developer-growth agency.</p>
+                </div>
+              </div>
+              <div class="client-row">
+                <h4 class="client-name">The New Stack</h4>
+                <div class="client-text">
+                  <p>I write for a technical audience that expects evidence, practical examples and an argument worth reading. My published work includes a guide to earning developers’ trust through useful content, covering topic research, product education and how to recommend a tool without turning the article into a pitch. That same approach shapes the briefs and editorial standards I use with clients.</p>
+                  <p class="tool-links">
+                  <a href="https://thenewstack.io/sponsorship/developer-marketing-how-to-write-for-a-technical-audience/">How to write for a technical audience</a>
+                  <a href="https://thenewstack.io/sponsorship/developer-marketing/">How to advertise to developers</a>
+                  </p>
+                </div>
+              </div>
+              <div class="client-row">
+                <h4 class="client-name">Detopsy Engineering</h4>
+                <div class="client-text">
+                  <p>Their first and only marketing executive. I built the e-commerce site, optimised product listings to rank, secured official Schneider Electric retailer approval and ranked for ABB products across regions.</p>
+                </div>
+              </div>
+              <div class="client-row">
+                <h4 class="client-name">Code First Girls</h4>
+                <div class="client-text">
+                  <p>I taught React and JavaScript to women starting out in development, as the only male instructor in my cohort.</p>
+                </div>
+              </div>
+            </div>
+        </div>
+      </section>
+
+      <!-- DEVELOPER ADOPTION ARCHITECTURE -->
+      <section class="case" id="developer-adoption-architecture" aria-labelledby="daa-heading">
+        <header class="case-head reveal">
+          <p class="case-n" aria-hidden="true">05</p>
+          <h2 id="daa-heading">Developer Adoption Architecture</h2>
+        </header>
+        <div class="case-grid">
+          <aside class="case-rail" aria-label="At a glance">
+            <div class="rail-block">
+              <p class="rail-label">Role</p>
+              <p class="rail-text">Creator, and lead on Hackmamba’s rebrand</p>
+            </div>
+            <div class="rail-block">
+              <p class="rail-label">In numbers</p>
+              <p class="rail-stat"><b>29.04.26</b> <span>the rebrand went public</span></p>
+            </div>
+            <div class="rail-block">
+              <p class="rail-label">Links</p>
+              <ul class="rail-links">
+                <li><a href="https://hackmamba.io/developer-marketing/full-cycle-developer-growth-agency/">The rebrand announcement</a></li>
+                <li><a href="https://hackmamba.io/developer-marketing/the-halo-signal-and-share-framework/">The Halo Signal and SHARE framework</a></li>
+              </ul>
+            </div>
+          </aside>
+          <div class="case-body">
+          <div class="prose">
+            <p>Hackmamba was known for technical content, but the work had grown into launches, communities, paid media and events. Across our client work, one stage of the developer journey kept being left to chance.</p>
+            <p>So I built the Developer Adoption Architecture (DAA) and led Hackmamba’s rebrand into a full-cycle developer growth agency. DAA changed the first question we ask clients. Instead of “What services do you need?” we ask “Where is adoption getting stuck?”</p>
+          </div>
+          <figure class="diagram">
+            <figcaption class="diagram-label">Developer Adoption Architecture</figcaption>
+            <ol class="stages">
+              {stages.map((stage, i) => (
+                <li>
+                  {stage}
+                  {i < stages.length - 1 && <span class="stage-arrow" aria-hidden="true">→</span>}
+                </li>
+              ))}
+            </ol>
+          </figure>
+          <div class="prose">
+            <p>Two earlier frameworks came from the same habit. The Halo Signal shows proof before a case study exists. SHARE helps you write a client story without straining the relationship. Both started in client work.</p>
+          </div>
+          <figure class="figure">
+            <ResponsiveImage
+              image={images.rebrand}
+              alt="Hackmamba article, Hackmamba is now a full-cycle developer growth agency, by Henry Bassey, 29 April 2026."
+              sizes="(max-width: 800px) 100vw, 960px"
+            />
+            <figcaption>The rebrand announcement.</figcaption>
+          </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- WRITING SKILL -->
+      <section class="case" id="writing-skill" aria-labelledby="writing-heading">
+        <header class="case-head reveal">
+          <p class="case-n" aria-hidden="true">06</p>
+          <h2 id="writing-heading">Technical writing skill and glossary</h2>
+        </header>
+        <div class="case-grid">
+          <aside class="case-rail" aria-label="At a glance">
+            <div class="rail-block">
+              <p class="rail-label">Role</p>
+              <p class="rail-text">Author</p>
+            </div>
+            <div class="rail-block">
+              <p class="rail-label">In numbers</p>
+              <p class="rail-stat"><b>26</b> <span>writing principles across 5 areas</span></p>
+            </div>
+            <div class="rail-block">
+              <p class="rail-label">Links</p>
+              <ul class="rail-links">
+                <li><a href="https://github.com/Xamfonos/technical-writing-best-practices">The writing skill</a></li>
+                <li><a href="https://hackmamba.io/technical-writing-glossary/">The glossary</a></li>
+                <li><a href="https://boki.io">Boki</a></li>
+              </ul>
+            </div>
+          </aside>
+          <div class="case-body">
+          <div class="prose">
+            <p>I’ve edited hundreds of technical articles. The good ones have a clear point, a logical flow and code that backs up every claim.</p>
+            <p>So I wrote down what makes them work. The result is 26 principles across five areas, from structure to sentence craft to reasoning. I packaged them as an open-source skill any writer or AI agent can use, alongside the Hackmamba Technical Writing Glossary. Both fed into Boki, Hackmamba’s system for research, briefs, writing, review and distribution.</p>
+          </div>
+          <figure class="figure">
+            <ResponsiveImage
+              image={images.writingSkill}
+              alt="The Xamfonos/technical-writing-best-practices repository on GitHub: a Claude Code skill for technical content, with 26 principles across 5 domains and an MIT licence."
+              sizes="(max-width: 800px) 100vw, 960px"
+            />
+            <figcaption>The public writing skill.</figcaption>
+          </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- SPEAKING -->
+      <section class="case" id="speaking" aria-labelledby="speaking-heading">
+        <header class="case-head reveal">
+          <p class="case-n" aria-hidden="true">07</p>
+          <h2 id="speaking-heading">Speaking</h2>
+        </header>
+        <div class="case-grid">
+          <aside class="case-rail" aria-label="At a glance">
+          </aside>
+          <div class="case-body">
+          <div class="prose">
+            <h3>The Builders Summit, Lagos · April 2026</h3>
+            <p>“Developer Marketing: Yes, No, or Not Yet?” The question behind this talk became my research on developer marketing in Africa.</p>
+
+            <h3>Reo.Dev DevGTM series · 2025</h3>
+            <p>With Disha Agarwal, on why most developer content fails to earn trust and why page views are a weak way to measure it.</p>
+            <p class="tool-links"><a href="https://www.youtube.com/watch?v=RBRXCrTdUqE">Watch on YouTube</a></p>
+
+            <h3>DevRel Compass panel · March 2026</h3>
+            <p>Hosted by Anita Ihuman, with Divine Odazie and Amarachi Iheanacho, on how developer marketing and DevRel work together.</p>
+            <p class="tool-links"><a href="https://www.linkedin.com/posts/anita-ihuman_devrelcompass-devrel-developerrelations-activity-7492520231962247168-xvud">The panel</a></p>
+          </div>
+          <TalkMedia caption="The Builders Summit, Lagos, April 2026." />
+          </div>
+        </div>
+      </section>
+
+      <!-- AFRICA -->
+      <section class="case" id="africa" aria-labelledby="africa-heading">
+        <header class="case-head reveal">
+          <p class="case-n" aria-hidden="true">08</p>
+          <h2 id="africa-heading">Developer marketing in Africa</h2>
+        </header>
+        <div class="case-grid">
+          <aside class="case-rail" aria-label="At a glance">
+            <div class="rail-block">
+              <p class="rail-label">Status</p>
+              <p class="rail-text">Research in progress</p>
+            </div>
+            <div class="rail-block">
+              <p class="rail-label">In numbers</p>
+              <p class="rail-stat"><b>30.2%</b> <span>of African developers have a say in buying tools, against 21.7% globally</span></p>
+            </div>
+            <div class="rail-block">
+              <p class="rail-label">Links</p>
+              <ul class="rail-links">
+                <li><a href="https://survey.stackoverflow.co/2024/work">Stack Overflow 2024</a></li>
+                <li><a href="https://www.linkedin.com/posts/thegeekcirclex_builderssummit-builderssummit-geekcircle-activity-7448383230204055552-nWzi">The Builders Summit</a></li>
+              </ul>
+            </div>
+          </aside>
+          <div class="case-body">
+          <div class="prose">
+            <p>I work from Lagos, mostly for companies based elsewhere, so this question is hard to ignore. I first asked it on stage at The Builders Summit. Now I’m turning it into open research for builders and investors, starting with public survey data and moving on to interviews and a yearly report.</p>
+            <p>The early data is small, so treat it as a direction, not a market size. In Stack Overflow’s 2024 survey, 30.2% of African developers have a say in buying tools, compared with 21.7% globally. They also use AI assistants to evaluate tools far more often, which makes showing up in AI answers more important here. Most lean on open source and free tiers, and paying in dollars is still a real barrier.</p>
+          </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- OPENSTRATEGY -->
+      <section class="case" id="openstrategy" aria-labelledby="openstrategy-heading">
+        <header class="case-head reveal">
+          <p class="case-n" aria-hidden="true">09</p>
+          <h2 id="openstrategy-heading">How can humans and AI agents make better strategy decisions in this AI era?</h2>
+        </header>
+        <div class="case-grid">
+          <aside class="case-rail" aria-label="At a glance">
+            <div class="rail-block">
+              <p class="rail-label">Status</p>
+              <p class="rail-text">Work in progress</p>
+            </div>
+          </aside>
+          <div class="case-body">
+          <div class="prose">
+            <p>I’m turning business strategy frameworks into tools humans and AI agents can use to make better decisions. It’s called OpenStrategy (formerly Marketing Console), and it’s still being built.</p>
+          </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </article>
+
+  <ConsultingClose />
+</Layout>

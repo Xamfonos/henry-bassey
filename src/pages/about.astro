@@ -1,0 +1,150 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ResponsiveImage from '../components/ResponsiveImage.astro';
+import ConsultingClose from '../components/ConsultingClose.astro';
+import { site } from '../data/site';
+import images from '../data/images.json';
+
+const description =
+  'The story behind Xamfonos, the developer marketing work I lead at Hackmamba, and the tools and AI workflows I build alongside it.';
+
+---
+
+<Layout title="About | Henry Bassey" description={description}>
+  <article class="page about-page">
+    <div class="wrap">
+      <header class="about-hero">
+        <div class="about-hero-copy">
+          <h1>About me</h1>
+          <div class="about-intro">
+            <p>I’m Henry, Head of Developer Marketing at Hackmamba, a full-cycle developer growth agency. Online, I go by Xamfonos.</p>
+            <p>I help developer tools get found, tried and adopted. Some of that is paid and organic marketing, and some of it is building the tools and AI workflows that keep the growth going.</p>
+          </div>
+        </div>
+        <figure class="about-hero-photo">
+          <ResponsiveImage
+            image={images.summit}
+            alt="Henry Bassey at The Builders Summit, wearing a cap, glasses and a Builders Summit lanyard."
+            sizes="(max-width: 800px) 300px, 340px"
+            priority
+          />
+        </figure>
+      </header>
+
+      <section class="essay" aria-labelledby="name-heading">
+        <h2 id="name-heading" class="essay-head reveal">Xamfonos is “son of Max”, spelt backwards.</h2>
+        <div class="essay-body">
+          <div class="name-puzzle reveal" aria-hidden="true">
+            <p class="name-row"><b>X</b>amfonos</p>
+            <p class="name-arrow">↓</p>
+            <p class="name-row">son of ma<b>X</b></p>
+          </div>
+          <div class="prose">
+            <p>People often ask what the name means. It’s “son of Max” spelt backwards.</p>
+            <p>That small puzzle says a lot about how my mind works. I like turning an idea over, forwards and backwards, until something from one field explains something in another.</p>
+            <p>I grew up a quiet kid who loved time alone and a good daydream, and most of that stayed with me. I still do my best thinking alone. I’d rather build an idea that doesn’t exist yet than copy one that does, because reading what everyone else did and doing the same thing is the boring part.</p>
+            <p>I can’t go a day without music, especially songs with deep meaning and puzzles hidden in them. Writing comes a close second. AI has made it easy to produce words nobody needed, which is a big part of why I enjoy editing. Someone has to clean it up and make it say something.</p>
+            <p>Away from the desk, I play basketball and run 10 km every other day. I take fitness seriously.</p>
+            <p>I’m not much of a talker, but the world runs on talking, so I’ve adapted. I’m also not a fan of meetings. Please don’t tell my team at Hackmamba.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="essay" aria-labelledby="both-heading">
+        <h2 id="both-heading" class="essay-head reveal">I found a place for both.</h2>
+        <div class="essay-body">
+          <div class="prose">
+            <p>I started out building things, breaking things and figuring out how they worked. Then I realised I was also good with words, and a little obsessed with storytelling.</p>
+            <p>Marketing gave that curiosity somewhere to go. At Detopsy Engineering, I was the first and only marketing executive. I built the e-commerce website, optimised the product listings for search and secured official Schneider Electric retailer approval. The job was more than writing about a product. I built the place people found it and made it easier to buy.</p>
+            <p>Developer marketing brought all of it together. I get to understand the technology, find the story in it and help people decide whether the product is right for them.</p>
+            <p>Along the way, I earned an MBA from Quantic School of Business &amp; Technology on a full scholarship. I also taught React and JavaScript with Code First Girls, helping women starting out in development build their skills and confidence.</p>
+          </div>
+          <!-- Caption is Claude's; the copy doc only marks the photo's position. -->
+          <figure class="figure about-portrait reveal">
+            <ResponsiveImage
+              image={images.about}
+              alt="Henry Bassey in a grey Quantic School of Business and Technology graduation gown and cap."
+              sizes="(max-width: 800px) 100vw, 380px"
+            />
+            <figcaption>Graduating from Quantic School of Business &amp; Technology.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="essay" aria-labelledby="hackmamba-heading">
+        <h2 id="hackmamba-heading" class="essay-head reveal">At Hackmamba, the role grew with the work.</h2>
+        <div class="essay-body">
+          <div class="prose">
+            <p>I joined Hackmamba when it was a side hustle with no roadmap, just a belief. I did a bit of everything, from landing pages and ads to lead funnels, brand voice and messaging.</p>
+            <p>I went on to become Head of Marketing. As the company grew, we needed someone on the frontline to hold the quality of our client work, so I moved into client work. I set the editorial standards, shaped briefs, guided writers and made sure our technical content had something useful to say.</p>
+            <p>The work kept expanding into launches, communities, paid media and events, but Hackmamba was still known mainly for technical content. And across our client work, one stage of the developer journey kept being left to chance.</p>
+            <p>So I built the Developer Adoption Architecture and led Hackmamba’s rebrand into a full-cycle developer growth agency. It changed the first question we ask clients. Instead of “What services do you need?” we now ask “Where is adoption getting stuck?”</p>
+            <p class="essay-links"><a href="/work#developer-adoption-architecture">How the Developer Adoption Architecture works</a></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="essay" aria-labelledby="useful-heading">
+        <h2 id="useful-heading" class="essay-head reveal">I want the work to be useful, not just visible.</h2>
+        <div class="essay-body">
+          <div class="prose">
+            <p>A click isn’t an install, and an article isn’t a strategy. The channels matter, but so does what happens after someone arrives.</p>
+            <p>On Actian VectorAI DB, I joined as content lead and went on to lead developer marketing on the account. I brought content, paid media and community under one plan, and ran newsletter sponsorships, X ads and influencer partnerships alongside the content. I also built free tools developers could use without talking to sales, and rewrote and rebuilt the product landing page when our messaging changed.</p>
+            <p>The vector database sizing calculator is a good example. Depending on the workload, it might recommend a flat file or pgvector instead of a dedicated vector database. Being useful sometimes means telling someone they don’t need the product yet.</p>
+            <p>That’s how I like to work. I try to understand the problem, connect the parts and build whatever is missing. Sometimes that’s a campaign. Other times it’s a clearer product page, a research workflow or a tool that helps a developer make a decision.</p>
+            <p class="essay-links"><a href="/work#actian">Read the Actian story</a></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="essay" aria-labelledby="reusable-heading">
+        <h2 id="reusable-heading" class="essay-head reveal">If a method works, I try to make it reusable.</h2>
+        <div class="essay-body">
+          <div class="prose">
+            <p>I’ve edited hundreds of technical articles, and I take that work personally. The good ones have a clear point, a logical flow and code that backs up every claim.</p>
+            <p>So I wrote down what makes them work and turned it into an open-source skill for writers and AI agents. That skill, along with the Hackmamba Technical Writing Glossary I developed, fed into Boki, Hackmamba’s content system.</p>
+            <p>I take the same approach to research and operations. I build agent-assisted workflows that monitor developer discussions, find content opportunities and track performance. They make good judgement easier to apply every time, without replacing it.</p>
+            <p class="essay-links">
+              <a href="/work#writing-skill">See the writing skill</a>
+              <a href={site.github}>My GitHub</a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="essay" aria-labelledby="strategy-heading">
+        <h2 id="strategy-heading" class="essay-head reveal">How can humans and AI agents make better strategy decisions in this AI era?</h2>
+        <div class="essay-body">
+          <div class="prose">
+            <p>That’s the question behind OpenStrategy, the project I’m building now. I’m researching business strategy frameworks and models, then turning them into tools that people and AI agents can use to make sound decisions. It used to be called Marketing Console.</p>
+            <p>It’s still a work in progress, so this part of the story isn’t finished yet.</p>
+            <p class="essay-links"><a href="/work#openstrategy">More about OpenStrategy</a></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="essay" aria-labelledby="questions-heading">
+        <h2 id="questions-heading" class="essay-head reveal">Some questions take me beyond client work.</h2>
+        <div class="essay-body">
+          <div class="prose">
+            <p>I write about developer marketing and technology for The New Stack, and share my own thinking on the blog. I’ve spoken at The Builders Summit and AI Summit in Uyo, joined Reo.Dev’s DevGTM conversations and sat on the DevRel Compass panel.</p>
+            <p>One question has stayed with me. Does developer marketing work the same way in Africa, and for which tools?</p>
+            <p>I work from Lagos, mostly for companies based elsewhere, so it’s a hard question to ignore. I first asked it on stage at The Builders Summit. Now I’m turning it into open research for builders and investors, looking at how developers here discover, evaluate and pay for tools.</p>
+            <p class="essay-links">
+              <a href="/blog">Writing</a>
+              <a href="/work#speaking">Talks and panels</a>
+              <a href="/work#africa">The Africa research</a>
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </article>
+
+  <ConsultingClose>
+    <Fragment slot="actions">
+      <a href={site.linkedin}>Let’s talk on LinkedIn</a>
+      <a href="/work">See the work</a>
+    </Fragment>
+  </ConsultingClose>
+</Layout>

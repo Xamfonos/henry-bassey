@@ -2,11 +2,13 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="404 — Page Not Found">
-  <div style="min-height:80vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:2rem;">
-    <div style="font-size:0.72rem; color:var(--green); letter-spacing:0.18em; text-transform:uppercase; margin-bottom:1rem;">Error 404</div>
-    <h1 style="font-family:var(--font-sans); font-size:clamp(2rem,5vw,3.5rem); font-weight:800; color:#fff; margin-bottom:1rem;">Page not found.</h1>
-    <p style="font-size:0.9rem; color:var(--text-dim); margin-bottom:2rem;">Looks like this path doesn't exist. Yet.</p>
-    <a href="/" class="btn btn-primary">← Back home</a>
+<Layout title="Page not found | Henry Bassey" description="This page is not on henrybassey.com." noindex>
+  <div class="page">
+    <div class="wrap">
+      <p class="page-kicker">404</p>
+      <h1>This page isn’t here.</h1>
+      <p class="page-intro">The story starts on the homepage.</p>
+      <p><a href="/">Back to Henry Bassey</a></p>
+    </div>
   </div>
 </Layout>

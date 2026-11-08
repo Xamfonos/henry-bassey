@@ -1,203 +1,158 @@
 ---
+import '@fontsource-variable/inter';
 import '../styles/global.css';
+import { site } from '../data/site';
 
 interface Props {
   title: string;
   description?: string;
   ogImage?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+  /** Adds the Person JSON-LD. Homepage only. */
+  isHome?: boolean;
 }
 
-const { 
-  title, 
-  description = 'Henry Bassey Developer Marketer, Content & SEO Specialist',
-  ogImage = '/assets/testimonials and proof of work/hero image.PNG'
+const {
+  title,
+  description = site.description,
+  ogImage = '/images/og/henry-bassey.jpg',
+  ogType = 'website',
+  noindex = false,
+  isHome = false,
 } = Astro.props;
 
-const siteUrl = 'https://henrybassey.com';
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const current = (href: string) => (path === href || path.startsWith(`${href}/`) ? 'page' : undefined);
+
+const siteUrl = site.url;
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
-const imageUrl = ogImage?.startsWith('http') ? ogImage : new URL(ogImage, siteUrl).toString();
+const imageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, siteUrl).toString();
+
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.name,
+  url: site.url,
+  jobTitle: site.jobTitle,
+  description: site.description,
+  image: new URL('/images/og/henry-bassey.jpg', siteUrl).toString(),
+  worksFor: {
+    '@type': 'Organization',
+    name: site.worksFor,
+    url: 'https://hackmamba.io',
+  },
+  alumniOf: {
+    '@type': 'CollegeOrUniversity',
+    name: 'Quantic School of Business and Technology',
+  },
+  knowsAbout: [
+    'Developer marketing',
+    'Paid media',
+    'Organic growth',
+    'AI automation',
+    'Developer Adoption Architecture',
+    'Technical writing systems',
+  ],
+  sameAs: [site.linkedin, site.x, site.github, 'https://hackmamba.io'],
+};
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content={description} />
-  
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Henry Bassey" />
-  <meta property="og:url" content={canonicalUrl} />
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
-  <meta property="og:image" content={imageUrl} />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" content="#f7f9fc" />
 
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content="@henrybasseycom" />
-  <meta name="twitter:url" content={canonicalUrl} />
-  <meta name="twitter:title" content={title} />
-  <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content={imageUrl} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
 
-  <link rel="canonical" href={canonicalUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content={site.twitter} />
+    <meta name="twitter:creator" content={site.twitter} />
+    <meta name="twitter:url" content={canonicalUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
 
-  <title>{title}</title>
-  <link rel="icon" type="image/png" href="/assets/testimonials and proof of work/hero image.PNG" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
 
-  <!-- Google Tag Manager -->
-  <script is:inline>
-    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-NKDGVTZ2');
-  </script>
-  <!-- End Google Tag Manager -->
-</head>
-<body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDGVTZ2"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
+    <slot name="head" />
 
-  <nav>
-    <a href="/" class="nav-logo">henry<span class="dim">@bassey</span><span style="color:var(--green)">:~$</span></a>
-    <ul class="nav-links">
-      <li><a href="/#about">about</a></li>
-      <li><a href="/#skills">skills</a></li>
-      <li><a href="/#portfolio">portfolio</a></li>
-      <li><a href="/#articles">writing</a></li>
-      <li><a href="/blog">blog</a></li>
-      <li><a href="/#proof">proof</a></li>
-      <li><a href="/#contact">contact</a></li>
-    </ul>
-    <div class="nav-badge">
-      <span class="pulse"></span>
-      <span>available for work</span>
-    </div>
-    <button class="menu-toggle" aria-label="Toggle Menu">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="icon-menu" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="3" y1="12" x2="21" y2="12"></line>
-        <line x1="3" y1="6" x2="21" y2="6"></line>
-        <line x1="3" y1="18" x2="21" y2="18"></line>
-      </svg>
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="icon-close" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
-        <line x1="18" y1="6" x2="6" y2="18"></line>
-        <line x1="6" y1="6" x2="18" y2="18"></line>
-      </svg>
-    </button>
-  </nav>
+    {isHome && <script type="application/ld+json" set:html={JSON.stringify(person)} />}
 
-  <main>
-    <slot />
-  </main>
+    <!-- Google Tag Manager -->
+    <script is:inline>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-NKDGVTZ2');
+    </script>
+    <!-- End Google Tag Manager -->
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDGVTZ2"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
-  <footer>
-    <div style="display:flex; align-items:center; gap:1.5rem;">
-      <span>henry@bassey <span style="color:var(--green)">main ⎇</span></span>
-      <span>© 2026 Henry Bassey</span>
-    </div>
-    <div style="display:flex; align-items:center; gap:1.5rem;">
-      <span style="color:var(--amber)">INSERT</span>
-      <span>Built with code & conviction</span>
-      <span style="display:flex; align-items:center; gap:0.4rem;">
-        <span class="pulse"></span>
-        <span>All systems normal.</span>
-      </span>
-    </div>
-  </footer>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <header class="masthead">
+      <div class="wrap masthead-inner">
+        <a class="wordmark" href="/">Henry Bassey.</a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+          Menu
+        </button>
+        <nav class="nav" id="site-nav" aria-label="Main">
+          <a href="/work" aria-current={current('/work')}>Work</a>
+          <a href="/blog" aria-current={current('/blog')}>Blog</a>
+          <a href="/work#speaking">Speaking</a>
+          <a href="/about" aria-current={current('/about')}>About</a>
+          <a href="/#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
 
-  <script>
-    // Active nav link on scroll
-    document.querySelectorAll('section[id]').forEach(s => {
-      new IntersectionObserver(entries => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-            // Match href loosely to handle both "/#id" and "#id"
-            const a = document.querySelector(`.nav-links a[href$="#${e.target.id}"]`) as HTMLElement;
-            if (a) a.classList.add('active');
-          }
+    <main id="content">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>Henry Bassey · Developer marketing and AI automation · Working with teams worldwide · © {new Date().getFullYear()}</p>
+      </div>
+    </footer>
+
+    <script>
+      const toggle = document.querySelector('.menu-toggle');
+      const nav = document.querySelector('.nav');
+      if (toggle && nav) {
+        toggle.addEventListener('click', () => {
+          const open = nav.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+          toggle.textContent = open ? 'Close' : 'Menu';
         });
-      }, { rootMargin: '-25% 0px -35% 0px' }).observe(s);
-    });
-
-    // Mobile nav toggle
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
-    const iconMenu = document.querySelector('.icon-menu');
-    const iconClose = document.querySelector('.icon-close');
-
-    if (menuToggle && navLinks) {
-      menuToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('open');
-        const isOpen = navLinks.classList.contains('open');
-        if (iconMenu && iconClose) {
-          (iconMenu as HTMLElement).style.display = isOpen ? 'none' : 'block';
-          (iconClose as HTMLElement).style.display = isOpen ? 'block' : 'none';
-        }
-      });
-
-      // Close menu when clicking a link
-      document.querySelectorAll('.nav-links a').forEach(a => {
-        a.addEventListener('click', () => {
-          navLinks.classList.remove('open');
-          if (iconMenu && iconClose) {
-            (iconMenu as HTMLElement).style.display = 'block';
-            (iconClose as HTMLElement).style.display = 'none';
-          }
+        nav.querySelectorAll('a').forEach((link) => {
+          link.addEventListener('click', () => {
+            nav.classList.remove('open');
+            toggle.setAttribute('aria-expanded', 'false');
+            toggle.textContent = 'Menu';
+          });
         });
-      });
-    }
-  </script>
-
-  <!-- Lenis Smooth Scrolling -->
-  <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
-  <script>
-    const lenis = new window.Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
-    });
-
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
-
-    // Patch Astro's default anchor scrolling to work nicely with Lenis
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        if (targetId && targetId !== '#') {
-          lenis.scrollTo(targetId, { offset: -50, duration: 1.2 });
-        }
-      });
-    });
-    
-    // Also patch navigating from another page to an anchor hash
-    document.querySelectorAll('a[href^="/#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        const id = this.getAttribute('href').replace('/', '');
-        const target = document.querySelector(id);
-        if (target && window.location.pathname === '/') {
-          e.preventDefault();
-          lenis.scrollTo(target, { offset: -50, duration: 1.2 });
-          // Update URL manually
-          window.history.pushState(null, '', id);
-        }
-      });
-    });
-  </script>
-
-</body>
+      }
+    </script>
+  </body>
 </html>

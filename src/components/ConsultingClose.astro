@@ -1,0 +1,29 @@
+---
+/**
+ * The consulting close band. Copy is Henry's, from the homepage copy doc.
+ * Pages can replace the links with a `slot="actions"` element.
+ */
+import { site } from '../data/site';
+---
+
+<section class="close" id="contact" aria-labelledby="contact-title">
+  <div class="wrap">
+    <div class="close-inner reveal">
+      <p class="section-kicker">Consulting</p>
+      <h2 id="contact-title">Tell me what you’re building, and where it’s stuck.</h2>
+      <p>
+        Alongside leading developer marketing at Hackmamba, I take on a few consulting and advisory projects. That could be developer adoption, paid or organic growth, AI workflows, or a problem you haven’t named yet.
+      </p>
+      <p>If I can’t help, I’ll tell you.</p>
+      <div class="close-actions">
+        <slot name="actions">
+          <a href={site.linkedin}>Let’s talk on LinkedIn</a>
+          <a href={site.x}>X {site.twitter}</a>
+          <a href={site.github}>GitHub</a>
+          {/* TODO(henry): public email. The Email button appears once site.email is set in src/data/site.ts. */}
+          {site.email && <a href={`mailto:${site.email}`}>Email</a>}
+        </slot>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,49 @@
+---
+/**
+ * A static, single-series horizontal bar chart, rendered at build time (no client JS).
+ * It is marked up as a table, so screen readers get the figures; the bars are decoration.
+ * Every value is direct-labelled, so there is no axis and no legend.
+ *
+ * Only plot figures Henry has cleared. When the copy gives a floor ("over 7,000") or a
+ * ceiling ("under 100"), plot that number and say so in `display`.
+ */
+interface Row {
+  label: string;
+  value: number;
+  /** The label shown at the end of the bar, e.g. "over 110,000". */
+  display: string;
+}
+
+interface Props {
+  title: string;
+  rows: Row[];
+  /** Short note under the chart: period, scope, rounding. */
+  note?: string;
+  /** Scale maximum. Defaults to the largest value plus room for its label beside the bar. */
+  max?: number;
+}
+
+const { title, rows, note, max } = Astro.props;
+const top = max ?? Math.max(...rows.map((r) => r.value)) * 1.6;
+const width = (v: number) => `${Math.max((v / top) * 100, 0.4)}%`;
+---
+
+<figure class="chart">
+  <table class="chart-table">
+    <caption class="chart-title">{title}</caption>
+    <tbody>
+      {rows.map((row) => (
+        <tr>
+          <th scope="row">{row.label}</th>
+          <td>
+            <span class="chart-track">
+              <span class="chart-bar" aria-hidden="true" style={`width: ${width(row.value)}`}></span>
+              <span class="chart-value">{row.display}</span>
+            </span>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  {note && <figcaption>{note}</figcaption>}
+</figure>

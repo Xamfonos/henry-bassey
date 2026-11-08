@@ -1,547 +1,431 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ResponsiveImage from '../components/ResponsiveImage.astro';
+import PullQuote from '../components/PullQuote.astro';
+import TalkMedia from '../components/TalkMedia.astro';
+import ConsultingClose from '../components/ConsultingClose.astro';
+import { site } from '../data/site';
 import { getCollection } from 'astro:content';
-import TestimonialCard from '../components/TestimonialCard.astro';
-import ThreadBlock from '../components/ThreadBlock.astro';
-import ResultCard from '../components/ResultCard.astro';
+import { externalWriting } from '../data/writing';
+import { testimonialGroups } from '../data/testimonials';
+import images from '../data/images.json';
 
-const allPosts = (await getCollection('blog')).sort(
-  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+const posts = (await getCollection('blog')).sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
 );
-const recentPosts = allPosts.slice(0, 2).map(p => ({
-  slug: p.id,
-  title: p.data.title,
-  brief: p.data.excerpt,
-  publishedAt: p.data.date,
-  coverImage: p.data.coverImage ? { url: p.data.coverImage } : undefined,
-}));
+
+// TODO(henry): swap these names for logos if you have them. LangChain and Fireworks AI were editing work through Growth Plays.
+const companies = [
+  'Actian',
+  'OpenRouter',
+  'Databricks',
+  'LangChain',
+  'Fireworks AI',
+  'DoiT',
+  'ZenRows',
+  'Doppler',
+  'Infisical',
+];
+
+const chapters = [
+  { n: '01', label: 'Make it useful', href: '#useful' },
+  { n: '02', label: 'Get it found', href: '#found' },
+  { n: '03', label: 'Build the system', href: '#system' },
+  { n: '04', label: 'Teach the craft', href: '#craft' },
+  { n: '05', label: 'Take it on stage', href: '#speaking' },
+  { n: '06', label: 'Ask from home', href: '#africa' },
+];
+
+const stages = ['Discover', 'Evaluate', 'Integrate', 'Advocate', 'Compound'];
 ---
 
-<Layout title="Henry Bassey — The Technical Marketer">
-
-<!-- ─── HERO ─── -->
-<div style="min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding:6rem 2.5rem 4rem; max-width:960px; margin:0 auto; position:relative;">
-
-  <div style="font-size:0.72rem; color:var(--green); letter-spacing:0.18em; text-transform:uppercase; margin-bottom:1.5rem; display:flex; align-items:center; gap:0.75rem; animation:fadeUp 0.6s ease 0.1s both;">
-    <span style="width:28px; height:1px; background:var(--green); display:inline-block;"></span>
-    Developer Marketer Content Strategist Technical Marketer
-  </div>
-
-  <h1 style="font-family:var(--font-sans); font-size:clamp(2.6rem,6.5vw,5.2rem); font-weight:800; line-height:1.06; color:#fff; letter-spacing:-0.025em; margin-bottom:0.3rem; animation:fadeUp 0.6s ease 0.2s both;">
-    Some say I'm a<br/>
-    <span style="color:var(--green)">badass technical</span><br/>
-    <span style="color:var(--green)">marketer.</span>
-  </h1>
-
-  <p style="font-family:var(--font-sans); font-size:clamp(1rem,2.2vw,1.35rem); font-weight:600; color:var(--text-dim); margin-bottom:1.75rem; animation:fadeUp 0.6s ease 0.3s both;">
-    What do you say?
-  </p>
-
-  <div style="display:flex; align-items:center; flex-wrap:wrap; gap:0.5rem; font-size:clamp(0.85rem,2vw,0.9rem); line-height:1.5; margin-bottom:2rem; color:var(--text-dim); animation:fadeUp 0.6s ease 0.35s both;">
-    <span style="color:var(--green)">$</span>
-    <span>I help devtools companies</span>
-    <span style="display:inline-flex; align-items:center;">
-      <span id="typed" style="color:var(--amber)"></span>
-      <span style="display:inline-block; width:2px; height:1.2em; background:var(--amber); margin-left:2px; animation:blink 1s step-end infinite;"></span>
-    </span>
-  </div>
-
-
-
-  <div style="display:flex; gap:1rem; flex-wrap:wrap; animation:fadeUp 0.6s ease 0.5s both;">
-    <a href="#portfolio" class="btn btn-primary">↳ See my work</a>
-    <a href="#contact" class="btn btn-ghost">Work with me</a>
-  </div>
-
-  <div class="hero-photo-wrap">
-    <img src="/assets/testimonials%20and%20proof%20of%20work/hero%20image.PNG" alt="Henry Bassey" />
-  </div>
-
-  <div class="marquee-wrap" style="position:absolute; bottom:2.5rem; left:0; right:0; animation:fadeUp 0.6s ease 0.7s both;">
-    <div class="marquee-track">
-      {['Developer Marketing','Content Strategy','Technical Writing','SEO & Growth','GTM Strategy','Developer Relations','Community Building','API & DevTools','Product Marketing',
-        'Developer Marketing','Content Strategy','Technical Writing','SEO & Growth','GTM Strategy','Developer Relations','Community Building','API & DevTools','Product Marketing'
-      ].map(item => (
-        <span class="marquee-item">{item}<span class="dot"> ·</span></span>
-      ))}
-    </div>
-  </div>
-</div>
-
-<!-- ─── RECENT POSTS ─── -->
-{recentPosts.length > 0 && (
-  <section id="recent-posts" class="section-wrap" style="padding-top: 2rem;">
-    <div class="section-tag" style="white-space: normal; margin-bottom: 0.5rem;"><span class="br">&lt;</span> Latest thoughts <span class="br">/&gt;</span></div>
-    
-    <div class="recent-posts-grid">
-      {/* Primary Latest Post */}
-      {recentPosts[0] && (
-        <a href={`/blog/${recentPosts[0].slug}`} class="featured-post-card">
-          {recentPosts[0].coverImage && (
-            <div class="fp-image-wrap">
-              <img src={recentPosts[0].coverImage.url} alt={recentPosts[0].title} />
+<Layout title={site.title} description={site.description} isHome>
+  <div class="wrap">
+    <section class="hero" id="about">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <h1 class="site-title">{site.h1}</h1>
+          <p class="hook">{site.hook}</p>
+          <div class="intro-copy">
+            <p>
+              I’m Henry. I lead developer marketing at Hackmamba. My work for Actian VectorAI DB has reached over 5 million developers.
+            </p>
+            <p>
+              I started as a developer, moved into marketing, and found that the best work happens between the two.
+              Along the way, I earned an MBA from Quantic (full scholarship, thank you). Each chapter below is one piece of my work.
+            </p>
+            <div class="actions">
+              <a href="/work">See full portfolio</a>
+              <a href="#contact">Reach out</a>
             </div>
-          )}
-          <div class="fp-content">
-            <div class="fp-meta">
-              <span class="fp-date">{new Date(recentPosts[0].publishedAt).toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' })}</span>
-              <span class="fp-badge">NEW</span>
-            </div>
-            <h3 class="fp-title">{recentPosts[0].title}</h3>
-            <p class="fp-excerpt">{recentPosts[0].brief}</p>
-            <div class="fp-read">Read Article →</div>
           </div>
-        </a>
-      )}
-
-      {/* Stacked Post */}
-      {recentPosts[1] && (
-        <a href={`/blog/${recentPosts[1].slug}`} class="stacked-post-card">
-          <div class="sp-content">
-            <div class="sp-meta">
-              <span class="sp-date">{new Date(recentPosts[1].publishedAt).toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' })}</span>
-            </div>
-            <h4 class="sp-title">{recentPosts[1].title}</h4>
-            <p class="sp-excerpt">{recentPosts[1].brief}</p>
-            <div class="sp-read">Read Article →</div>
-          </div>
-        </a>
-      )}
-    </div>
-  </section>
-)}
-
-<!-- ─── ABOUT ─── -->
-<section id="about" class="section-wrap">
-
-  <div class="about-grid" data-parallax="0.1">
-    <div>
-      <div class="section-tag" style="white-space: normal; margin-bottom: 0.5rem;"><span class="br">&lt;</span> Hi, I'm Henry Bassey <span class="br">/&gt;</span></div>
-      <div style="font-size:0.85rem; color:var(--text-dim); font-family:var(--font-mono); margin-bottom:1.5rem;">A Developer Marketer, Content & SEO Specialist, and a Cloud Engineering Student.</div>
-      <p style="font-size:0.88rem; line-height:2.1; color:var(--text); margin-bottom:1.1rem;">I started out in tech. Built things. Broke things. Learned a lot. Then I realized I was also good with words. And obsessed with storytelling.</p>
-      <p style="font-size:0.88rem; line-height:2.1; color:var(--text); margin-bottom:1.1rem;">So I wandered into marketing. Got curious. Got serious. Picked up an MBA (full scholarship, thank you) from a business school in Washington.</p>
-      <p style="font-size:0.88rem; line-height:2.1; color:var(--text); margin-bottom:1.1rem;">Later, I found technical marketing. Finally, a place where tech, creativity, and strategy could live in the same room.</p>
-      <p style="font-size:0.88rem; line-height:2.1; color:var(--text); margin-bottom:1.1rem;">These days, I lead content at a SaaS agency, helping teams talk to developers like humans. People often say I bring creativity into a space that usually feels rigid. I take that personally.</p>
-      <p style="font-size:0.88rem; line-height:2.1; color:var(--text); margin-bottom:2rem;">This is where I share my work, think out loud, and keep figuring it all out.</p>
-
-      <div class="section-tag" style="white-space: normal; font-size: clamp(1rem, 2vw, 1.25rem); margin-bottom: 1.25rem;"><span class="br">&lt;</span> Some brands I've worked with. Not a flex. Just context. <span class="br">/&gt;</span></div>
-      <div class="brands-grid">
-        {[
-          ['Hackmamba','https://hackmamba.io'],['Actian','https://www.actian.com/'],['Bitcloud','https://bit.dev'],['Aikido','https://www.aikido.dev/'],['MetalBear','https://metalbear.co'],
-          ['Neon','https://neon.tech'],['Code First Girls','https://codefirstgirls.com'],
-          ['Roadmap.sh','https://roadmap.sh'],['Mintlify','https://mintlify.com'],
-          ['Mia-Platform','https://mia-platform.eu'],['Cloudinary','https://cloudinary.com'],
-          ['Flutterwave','https://flutterwave.com'],['CodeRabbit','https://coderabbit.ai'],
-          ['Novu','https://novu.co'],['Sourcegraph','https://sourcegraph.com'],
-          ['Appwrite','https://appwrite.io'],['Replit','https://replit.com'],
-          ['Hygraph','https://hygraph.com'],['Localazy','https://localazy.com'],
-        ].map(([name, url]) => (
-          <a href={url} target="_blank" rel="noopener" class="brand-chip">{name}</a>
+        </div>
+        <figure class="hero-photo">
+          <ResponsiveImage
+            image={images.hero}
+            alt="Henry Bassey, developer marketing and AI automation consultant"
+            sizes="(max-width: 800px) 300px, (max-width: 980px) 34vw, 420px"
+            priority
+          />
+        </figure>
+      </div>
+      <p class="byline">
+        <span class="byline-lead">I’ve worked with teams at</span>
+        {companies.map((name, i) => (
+          <>
+            <span class="byline-name">{name}</span>
+            {i < companies.length - 1 && <span class="byline-sep" aria-hidden="true"> · </span>}
+          </>
         ))}
-      </div>
-    </div>
+      </p>
+    </section>
 
-    <div>
-      <div class="terminal-card">
-        <div class="tc-head">
-          <span class="wdot dr"></span><span class="wdot dy"></span><span class="wdot dg"></span>
-          <span class="tc-filename">henry_bassey.json</span>
-        </div>
-        <div class="tc-body">
-          <div class="tl"><span class="tp">$</span><span class="tc2">cat henry_bassey.json</span></div>
-          <div class="tb"></div>
-          <div class="tl"><span class="tg">{'{'}</span></div>
-          <div class="tl"><span class="ind"></span><span class="tk">"name"</span><span class="tc2">:&nbsp;</span><span class="tv">"Henry Bassey"</span><span class="tc2">,</span></div>
-          <div class="tl"><span class="ind"></span><span class="tk">"role"</span><span class="tc2">:&nbsp;</span><span class="tv">"Technical Marketer & Builder"</span><span class="tc2">,</span></div>
-          <div class="tl"><span class="ind"></span><span class="tk">"handle"</span><span class="tc2">:&nbsp;</span><span class="tv">"@xamfonos_"</span><span class="tc2">,</span></div>
-          <div class="tl"><span class="ind"></span><span class="tk">"education"</span><span class="tc2">: [</span></div>
-          <div class="tl"><span class="ind2"></span><span class="tv">"MBA (Full Scholarship)"</span><span class="tc2">,</span></div>
-          <div class="tl"><span class="ind2"></span><span class="tv">"Cloud Engineering (in progress)"</span></div>
-          <div class="tl"><span class="ind"></span><span class="tc2">],</span></div>
-          <div class="tl"><span class="ind"></span><span class="tk">"focus"</span><span class="tc2">: [</span></div>
-          <div class="tl"><span class="ind2"></span><span class="tv">"Developer Marketing Strategy"</span><span class="tc2">,</span></div>
-          <div class="tl"><span class="ind2"></span><span class="tv">"AI Software Development"</span><span class="tc2">,</span></div>
-          <div class="tl"><span class="ind2"></span><span class="tv">"Marketing Frameworks & Systems"</span><span class="tc2">,</span></div>
-          <div class="tl"><span class="ind2"></span><span class="tv">"Performance Marketing"</span></div>
-          <div class="tl"><span class="ind"></span><span class="tc2">],</span></div>
-          <div class="tl"><span class="ind"></span><span class="tk">"available"</span><span class="tc2">:&nbsp;</span><span style="color:var(--green)">true</span></div>
-          <div class="tl"><span class="tg">{'}'}</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── SKILLS ─── -->
-<section id="skills" class="section-wrap">
-  <div class="section-tag" style="white-space: normal; margin-bottom: 0.5rem;"><span class="br">&lt;</span> My Skills & Expertise. <span class="br">/&gt;</span></div>
-  <div style="font-size:0.85rem; color:var(--text-dim); font-family:var(--font-mono); margin-bottom:2.5rem;">The intersections where I bring the most value.</div>
-
-  <div class="skills-grid">
-    <div class="skill-group">
-      <div class="sg-title">Developer Marketing & Strategy</div>
-      <div class="skill-tags">
-        {['GTM strategy', 'Product marketing', 'Developer audience messaging', 'Launch strategy', 'Competitive positioning', 'PLG', 'Developer relations advisory'].map(s => <span class="skill-tag">{s}</span>)}
-      </div>
-    </div>
-    <div class="skill-group">
-      <div class="sg-title">Brand Building & Positioning</div>
-      <div class="skill-tags">
-        {['Zero-to-one brand building', 'Brand voice development', 'Messaging frameworks', 'Product positioning'].map(s => <span class="skill-tag">{s}</span>)}
-      </div>
-    </div>
-    <div class="skill-group">
-      <div class="sg-title">AI & Software Development</div>
-      <div class="skill-tags">
-        {['AI-powered websites', 'Automations & workflows', 'App development', 'Marketing tools & systems', 'AI-assisted content operations'].map(s => <span class="skill-tag">{s}</span>)}
-      </div>
-    </div>
-    <div class="skill-group">
-      <div class="sg-title">SEO & Performance Marketing</div>
-      <div class="skill-tags">
-        {['Keyword research', 'Topic cluster mapping', 'Inbound lead generation', 'PPC', 'Paid media', 'On/off-page optimization', 'E-commerce SEO', 'Content-led growth'].map(s => <span class="skill-tag">{s}</span>)}
-      </div>
-    </div>
-    <div class="skill-group">
-      <div class="sg-title">Content & Technical Writing</div>
-      <div class="skill-tags">
-        {['Technical copywriting', 'Performance copy', 'Ghostwriting', 'Thought leadership', 'Editorial systems', 'Briefs'].map(s => <span class="skill-tag">{s}</span>)}
-      </div>
-    </div>
-    <div class="skill-group">
-      <div class="sg-title">Social Media & Community</div>
-      <div class="skill-tags">
-        {['Social media strategy & management', 'Community building', 'Developer relations', 'Mentorship', 'Technical instruction'].map(s => <span class="skill-tag">{s}</span>)}
-      </div>
-    </div>
-    <div class="skill-group">
-      <div class="sg-title">Content Operations</div>
-      <div class="skill-tags">
-        {['Content strategy', 'Writer management', 'Editorial standards', 'SME interviews', 'Content audits', 'Agency-side delivery', 'Content pillar architecture'].map(s => <span class="skill-tag">{s}</span>)}
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── SERVICES ─── -->
-<section id="services" class="section-wrap">
-  <div class="section-tag" style="white-space: normal; margin-bottom: 0.5rem;"><span class="br">&lt;</span> What's going on here? <span class="br">/&gt;</span></div>
-  <div style="font-size:0.85rem; color:var(--text-dim); font-family:var(--font-mono); margin-bottom:2.5rem;">Honestly? A little bit of everything.</div>
-
-  <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:2.5rem;" data-parallax="0.05">
-    <div class="skill-group">
-      <div class="sg-title">If you're building something for developers, I can help you</div>
-      <div style="display:grid; gap:0.1rem; margin-top:0.5rem;">
-        <div class="svc-item">Build a developer marketing strategy that actually maps to how developers discover, evaluate, and adopt tools.</div>
-        <div class="svc-item">Launch products to the right audience with messaging, timing, and channels that don't embarrass the engineering team.</div>
-        <div class="svc-item">Write performance copy for ads, homepages, docs, and product pages that converts without reading like a pitch deck.</div>
-        <div class="svc-item">Build SEO/GEO/AEO pages that earn rankings and actually get read.</div>
-        <div class="svc-item">Design and implement AI-powered marketing systems, workflows, and tools that scale what your team can do.</div>
-        <div class="svc-item">Connect the dots between product, content, brand, and GTM so none of them are pulling in different directions.</div>
-      </div>
-    </div>
-    <div class="skill-group">
-      <div class="sg-title">If you're a marketer, writer, or strategist trying to level up</div>
-      <div style="display:grid; gap:0.1rem; margin-top:0.5rem;">
-        <div class="svc-item">I share behind-the-scenes breakdowns of real campaigns, strategies, and frameworks like the good, the messy, and the fixed.</div>
-        <div class="svc-item">I write about positioning, narrative, and the difference between publishing and actually saying something.</div>
-        <div class="svc-item">I break down how to think about developer audiences without dumbing things down or going full Clippy.</div>
-        <div class="svc-item">I share the frameworks I've built from real client work and not theory, not templates from a listicle.</div>
-        <div class="svc-item">And I talk a lot about the hard part of operating at a strategic level when everyone just wants more content.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── FRAMEWORKS ─── -->
-<section id="frameworks" class="section-wrap">
-  <div class="section-tag" style="white-space: normal; margin-bottom: 0.5rem;"><span class="br">&lt;</span> These are mine. <span class="br">/&gt;</span></div>
-  <div style="font-size:0.85rem; color:var(--text-dim); font-family:var(--font-mono); margin-bottom:2.5rem; line-height:1.7;">Frameworks I built from scratch. Named, documented, and used in real client work.</div>
-
-  <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:1.1rem;" data-parallax="0.08">
-    {[
-      { url: 'https://hackmamba.io/developer-marketing/the-halo-signal-and-share-framework/', name: 'Halo Signal Strategy', desc: 'How to build brand trust and demonstrate value before you have a formal case study.', applied: 'Replit, Hackmamba' },
-      { url: 'https://hackmamba.io/developer-marketing/the-halo-signal-and-share-framework/', name: 'SHARE Framework', desc: 'How to craft respectful, strategic client spotlights that protect relationships while proving impact.', applied: 'Hackmamba' },
-      { url: '#', name: 'Developer Advocacy Architecture (DAA)', desc: 'How to build a systematic, scalable developer advocacy program from the ground up.', applied: 'Hackmamba' },
-      { url: 'https://github.com/Xamfonos/technical-writing-best-practices', name: 'Technical Editing Claude Skills', desc: 'How to review and restructure technical content so each section earns the next.', applied: 'Hackmamba, client content reviews' },
-      { url: 'https://hackmamba.io/technical-writing-glossary/', name: 'Hackmamba Technical Writing Glossary', desc: 'How to structure, write, and edit technical content so it\'s clear, confident, and genuinely useful for developers.', applied: 'Hackmamba, client content reviews' }
-    ].map(f => (
-      <a href={f.url} target="_blank" rel="noopener" class="f-card">
-        <div class="f-name">{f.name}</div>
-        <div class="f-desc"><strong style="color:var(--text); font-weight:600;">Problem it solves:</strong> {f.desc}</div>
-        <div class="f-applied">Applied at: {f.applied}</div>
-      </a>
-    ))}
-  </div>
-</section>
-
-<!-- ─── PORTFOLIO ─── -->
-<section id="portfolio" class="section-wrap">
-  <div class="section-tag" style="white-space: normal; margin-bottom: 0.5rem;"><span class="br">&lt;</span> Most of my work falls into strategy, messaging, and content operations. <span class="br">/&gt;</span></div>
-  <div style="font-size:0.85rem; color:var(--text-dim); font-family:var(--font-mono); margin-bottom:2.5rem;">But at the end of the day, it's all about helping you figure out how to win your customer’s heart. Here’s how that looks like in practice.</div>
-
-  <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:1.1rem;" data-parallax="0.04">
-    {[
-      { url:'https://www.hackmamba.io', type:'Developer Marketing Agency SaaS', name:'Hackmamba', desc:"Joined when it was a side hustle with no roadmap, just a belief. Started as the fullstack developer marketer doing everything from landing pages, ads, lead funnels, brand voice and messaging. As the company grew and client quality became an issue, I moved into the Head of Marketing role to raise the editorial bar and implement the standards that now define how the agency operates.", tags:['Brand Leadership','Head of Marketing','Content Strategy','SEO','Dev Marketing','DAA'] },
-      { url:'https://www.actian.com/', type:'Data Management Platform Vector AI Database', name:'Actian', desc:"Onboarded as Head of Content to lead the launch of their new VectorAI database product. Built the product page copy from scratch, created SEO, technical content, and video strategy for both launch and relaunch. Three months in, the early results were significant enough that they extended the engagement from 6 months to a full year.", tags:['Head of Content','Product Launch','VectorAI','SEO','Video Strategy','Technical Copy'] },
-      { url:'#', type:'AI Software Development', name:'Bitcloud', desc:"I managed their entire content strategy and helped them pivot their messaging multiple times as the AI software development market evolved. We became their most trusted GTM arm.", tags:['Content Strategy','Messaging Pivot'] },
-      { url:'https://thenewstack.io', type:'Tech Media Developer Insights', name:'The New Stack', desc:"First media brand I collaborated with. Sharpened raw ideas into editorially rigorous articles. Became a contributor writing on developer marketing, GenAI, and data science for names like Boomi, BMC, Towards Data Science, and Plotly.", tags:['Thought Leadership','Technical Writing','SEO'] },
-      { url:'https://mia-platform.eu', type:'DevOps Platform Backend Infrastructure', name:'Mia-Platform', desc:"One of our earliest long-term partners. Executed their content strategy, which involved articles and whitepapers for a deeply technical audience. Their sustained trust became one of our strongest proof points.", tags:['Content Strategy','Whitepapers','Technical Messaging'] },
-      { url:'https://cloudinary.com', type:'Digital Asset Management Media APIs', name:'Cloudinary', desc:"Translated their goals into structured content pillars, mapped SEO-driven topic clusters, and built briefs that matched technical expectations with search demand. Earned their trust and repeat projects.", tags:['SEO Strategy','Content Pillars','Briefs'] },
-      { url:'https://kitops.org', type:'AI/ML Platforms DevTools', name:'Jozu / KitOps', desc:"Turned complex product ideas into focused, high-utility content. Shaped editorial direction, fine-tuned titles for discoverability, and built briefs that gave technical writers a strong foundation to work from.", tags:['AI/ML Content','Editorial Strategy','DevTools'] },
-      { url:'https://flutterwave.com', type:'Fintech API Developer Marketing', name:'Flutterwave', desc:"First unicorn we worked with, and they had zero developer marketing content strategy. I stepped in to shape it from scratch, defined messaging for their developer audience, and launched content that supported product education and discovery.", tags:['Zero-to-One Strategy','Fintech','Dev Marketing'] },
-      { url:'https://www.coderabbit.ai', type:'AI Code Review DevTools SaaS', name:'CodeRabbit', desc:"Helped turn early topic drafts into structured briefs, refined themes for SEO and audience fit, and guided technical writers through execution, giving their product a clear, consistent voice in a fast-growing space.", tags:['AI DevTools','Content Briefs','SEO'] },
-      { url:'https://roadmap.sh', type:'Developer Education SEO Strategy', name:'Roadmap.sh', desc:"Worked with their deeply experienced SEO team. Shaped raw keyword data into structured briefs and produced content that answered real developer questions. Their rigorous process made me a sharper operator.", tags:['SEO Strategy','Dev Education','Content Briefs'] },
-      { url:'https://mintlify.com', type:'Documentation Platform Developer Tools', name:'Mintlify', desc:"Partnered with Tiffany Chen to shape abstract content goals into execution-ready assets. Co-developed titles, briefs, and outlines. Interviewed SMEs to deepen material and sharpen its perspective.", tags:['Docs Strategy','SME Interviews','Technical Content'] },
-      { url:'https://neon.tech', type:'Serverless Postgres Database Tools', name:'Neon', desc:"Translated a sharp technical vision into structured strategy, from keyword research to briefs to final execution. Built content to engage developers, match search intent, and reflect Neon's next-gen database positioning.", tags:['Database Content','Dev Engagement','SEO'] },
-      { url:'https://novu.co', type:'Notification Infrastructure Open Source', name:'Novu', desc:"Helped Novu stay top-of-mind for developers solving notification problems. From onboarding guides to integration tutorials, everything was structured to reflect their open-source roots and real developer workflows.", tags:['Open Source','Dev Tutorials','Content Ops'] },
-      { url:'https://sourcegraph.com', type:'Code Search Developer Tools', name:'Sourcegraph', desc:"Created content that reflected the depth of their platform without losing developers in complexity. Refined positioning, shaped strategy into clear briefs, and guided content from first draft to final edits.", tags:['Code Tools','Technical Accuracy','Dev-First Content'] },
-      { url:'https://hygraph.com', type:'Headless CMS Developer Marketing', name:'Hygraph', desc:"Helped implement their developer marketing strategy, structured SEO efforts around technical topics, and produced content that competed at the top of the funnel, even on highly competitive React keywords.", tags:['Headless CMS','Dev Marketing','SEO'] },
-      { url:'https://appwrite.io', type:'Open Source Backend Developer Tools', name:'Appwrite', desc:"A rare zero-to-one project. Built their content strategy from scratch, structuring it around product goals and a developer-first audience. We helped a dev-first brand find its rhythm and its voice.", tags:['Zero-to-One','Open Source','Brand Voice'] },
-      { url:'https://replit.com', type:'Cloud IDE Developer Platform', name:'Replit', desc:"Supported with docs and video content. Writing the collaboration announcement sparked the invention of the Halo Signal Strategy and SHARE Framework, methods for showing proof of value without a formal case study.", tags:['DevRel','Halo Signal','SHARE Framework'] },
-      { url:'https://codefirstgirls.com', type:'Edutech Community Mentorship', name:'Code First Girls', desc:"Joined as the only male instructor in my cohort, teaching React and JavaScript to an all-women group of aspiring developers. Built confidence, shared real-world experience, and helped more women break into tech.", tags:['React','JavaScript','Mentorship'] },
-      { url:'#', type:'Industrial Electricals E-commerce SEO', name:'Detopsy Engineering', desc:"First and only marketing executive. Built the e-commerce website, optimized product listings for top-ranking search performance, and secured official Schneider Electric retailer approval. Also ranked for ABB, pulling organic traffic from across regions.", tags:['E-commerce SEO','Brand Partnerships','Web Development'] },
-    ].map(p => (
-      <a href={p.url} target="_blank" rel="noopener" class="p-card">
-        <div class="p-type">{p.type}</div>
-        <div class="p-name">{p.name}</div>
-        <div class="p-desc">{p.desc}</div>
-        <div class="p-tags">
-          {p.tags.map(t => <span class="p-tag">{t}</span>)}
-        </div>
-      </a>
-    ))}
-  </div>
-</section>
-
-<!-- ─── FEATURED WRITING ─── -->
-<section id="articles" class="section-wrap">
-  <div class="section-tag" style="white-space: normal; margin-bottom: 0.5rem;"><span class="br">&lt;</span> The point of all this? <span class="br">/&gt;</span></div>
-  <div style="font-size:0.85rem; color:var(--text-dim); font-family:var(--font-mono); margin-bottom:2.5rem;">Because most people either overthink developer marketing or copy what everyone else is doing. Because I believe technical content can be clear and creative. Because I want to share what I know, learn in the open, and keep experimenting.</div>
-
-  <div class="section-tag" style="white-space: normal; margin-bottom: 0.5rem;"><span class="br">&lt;</span> Some articles I’ve written <span class="br">/&gt;</span></div>
-  <div style="font-size:0.85rem; color:var(--text-dim); font-family:var(--font-mono); margin-bottom:2.5rem;">I've written, rewritten, ghostwritten, and edited hundreds of technical pieces from DevOps to AI/ML, platform engineering to DevX, and nearly every developer-focused stack in between. But these ones deserve an honorable mention.</div>
-
-  <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:2.5rem;" data-parallax="0.06">
-    {[
-      { url:'https://thenewstack.io/sponsorship/developer-marketing-how-to-write-for-a-technical-audience/', pub:'The New Stack', title:'How to write for a technical audience', desc:"How technical audiences think, what content they trust, and how to promote your product without sounding like a pitch deck. Psychological insights, real examples, and frameworks for long-term credibility." },
-      { url:'https://thenewstack.io/sponsorship/developer-marketing/', pub:'The New Stack', title:'How to advertise to developers', desc:"Most ads fail because they interrupt instead of help. Smart targeting, platform picks, and copy that actually works; everything I've learned about paid dev marketing that doesn't get blocked, ignored, or dragged." },
-      { url:'https://thenewstack.io/building-a-realistic-pathway-to-production-ready-genai/', pub:'BMC Software × The New Stack', title:'Building a realistic pathway to production-ready GenAI', desc:"Genuine risks of using GenAI in service management, from flawed data to opaque decisions, and how BMC Helix GPT tackles them with composite AI, fine-tuning, and real reasoning." },
-      { url:'https://thenewstack.io/genai-wont-work-until-you-nail-these-4-fundamentals/', pub:'Boomi × HBR × The New Stack', title:"GenAI won't work until you nail these 4 fundamentals", desc:"Everyone's hyped about GenAI but skipping the hard part. Data, governance, culture, backed by insights from HBR, KPMG, and industry leaders. Sponsored by Boomi." },
-      { url:'https://hackmamba.io/blog/2025/02/the-halo-signal-and-share-framework/', pub:'Hackmamba', title:'No case study yet? Meet the "Halo Signal" and SHARE Framework', desc:"When results are under wraps, you need a new kind of proof. The Halo Signal strategy and SHARE Framework I developed help brands build trust without relying on metrics." },
-      { url:'https://hackmamba.io/blog/2025/03/developer-marketing-deep-dive/', pub:'Hackmamba', title:"If your developer marketing isn't working, read this", desc:"Real campaigns, community insights, and content systems to shift your mindset, build trust, and make developer outreach actually work. No fluff. No theory. Just results." },
-    ].map(a => (
-      <a href={a.url} target="_blank" rel="noopener" class="article-card">
-        <div class="article-pub">{a.pub}</div>
-        <div class="article-body">
-          <div class="article-title">{a.title}</div>
-          <div class="article-desc">{a.desc}</div>
-          <div class="article-link">Read on {a.pub.split(' ×')[0]} →</div>
-        </div>
-      </a>
-    ))}
-  </div>
-</section>
-
-
-
-<!-- ─── PROOF ─── -->
-<section id="proof" class="section-wrap">
-  <div class="section-tag" style="white-space: normal; margin-bottom: 0.5rem;"><span class="br">&lt;</span> People read my stuff. They liked it. <span class="br">/&gt;</span></div>
-  <div style="font-size:0.85rem; color:var(--text-dim); font-family:var(--font-mono); margin-bottom:2.5rem;">Every now and then, someone messages me to say, "This hit." I collect those little moments here to remind myself I'm on the right track.</div>
-
-  <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:1.5rem;">
-    {[
-      { quote: "I know you're probably been told this a lot, but you're so good at writing. Your writing reads like a song. When someone starts, they don't know when they finish. I wonder the years of experience it took to attain such next-level writing. I hope you never stop writing because people like me will never stop reading your work.", attribution: "Reader, via LinkedIn", screenshot: "/assets/testimonials and proof of work/Screenshot 2026-02-25 at 03.11.03.png" },
-      { quote: "I read one in the middle of the night one time and I felt the holy ghost. It was too good. It's amazing how he's able to create awesome work in a rigid space like tech. He writes with so much grace, like he's floating. I could talk about his work all day. It mesmerizes me.", attribution: "Praise James, Discord", screenshot: "/assets/testimonials and proof of work/Screenshot 2026-02-25 at 03.17.06.png" },
-      { quote: "I used to struggle with creating a compelling intro, but when I read the edits he did on one of my project. I got more insights for other tasks.", attribution: "Emilson, Discord", screenshot: "/assets/testimonials and proof of work/Screenshot 2026-02-25 at 03.12.37.png" },
-      { quote: "I read some of your work on Hackmamba's blog and 🔥🔥🔥 Your storytelling is amazing and your writing is so clear and easy to follow. How did you become this good?", attribution: "Reader, via DM", screenshot: "/assets/testimonials and proof of work/Screenshot 2026-02-25 at 03.15.02.png" },
-      { quote: "This is great! And you finally put a word to it. You do a great job highlighting the client. The post itself is really good. I need to reread to see if I can break down a template to follow. I think that would be a valuable asset for you. Some sort of template for each step. Of the Halo Strat.", attribution: "Director of Content, via DM", screenshot: "/assets/testimonials and proof of work/Screenshot 2026-02-25 at 03.14.35.png" },
-      { quote: "The insights you shared in the video were genuinely strong and thoughtful. They added a lot of depth to the conversation and made the content truly valuable for the audience. I also really appreciate the effort you and the team put into distributing the video across channels. That amplification made a meaningful difference.", attribution: "Isha Srivastava, via email", screenshot: "/assets/testimonials and proof of work/IMG_6485.jpg" },
-      { quote: "the articles are all reviewed and i'm very impressed by them and the work your team did. Awesome job will have these on our website in the next few days", attribution: "CodeRabbit, via Slack", screenshot: "/assets/testimonials and proof of work/IMG_7025.jpg" },
-      { quote: "Fantastic work on the content strategy", attribution: "William, via Discord · January 12, 2026", screenshot: "/assets/testimonials and proof of work/IMG_6975.jpg" },
-    ].map(t => (
-      <TestimonialCard quote={t.quote} attribution={t.attribution} screenshot={t.screenshot} />
-    ))}
-  </div>
-
-  <ThreadBlock />
-
-  <div style="margin-top:4rem;">
-    <div class="section-tag" style="white-space: normal; margin-bottom: 0.5rem;"><span class="br">&lt;</span> Turns out Google likes my copies too <span class="br">/&gt;</span></div>
-    <div style="font-size:0.85rem; color:var(--text-dim); font-family:var(--font-mono); margin-bottom:2.5rem;">My SEO and copywriting efforts have helped generate monthly inbound leads from actual companies with real problems to solve.</div>
-    
-    <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:1.5rem;">
-      {[
-        { label: "SEO → Inbound lead", context: "New inbound lead from web search, followed by second lead from contact page the same day. (March 24, 2025)", screenshot: "/assets/testimonials and proof of work/Proof.png" },
-        { label: "SEO → New client closed", context: "Client found the agency through web search. Objective: drive revenue growth through developer marketing content.", screenshot: "/assets/testimonials and proof of work/Screenshot 2026-02-25 at 03.17.23.png" },
-        { label: "SEO → Inbound documentation brief", context: "Prospect found the agency through web search and booked a call to discuss documentation work.", screenshot: "/assets/testimonials and proof of work/Screenshot 2026-02-25 at 03.17.35.png" },
-        { label: "Strategy → Deal closed", context: "Hat tip to @Xamfonos for the content strategy that matched client outcomes and helped close an STT/TTS documentation contract.", screenshot: "/assets/testimonials and proof of work/IMG_7720.jpg" }
-      ].map(r => (
-        <ResultCard label={r.label} context={r.context} screenshot={r.screenshot} />
+    <nav class="journey-index" aria-label="Chapters">
+      {chapters.map((c) => (
+        <a href={c.href}><b>{c.n}</b> {c.label}</a>
       ))}
+    </nav>
+
+    <div class="story">
+      <section class="chapter" id="useful" aria-labelledby="ch1-title">
+        <header>
+          <div class="chapter-n" aria-hidden="true">01</div>
+          <p class="chapter-label reveal">Make something useful</p>
+          <h2 class="reveal" id="ch1-title">What if the marketing was a tool?</h2>
+          <p class="chapter-subtitle reveal">Leading developer marketing for Actian VectorAI DB</p>
+        </header>
+        <div class="chapter-body reveal">
+          <div class="prose">
+            <p class="tension">
+              I joined the Actian VectorAI DB launch as content lead. After launch, the work started moving in silos.
+            </p>
+            <p>
+              I was promoted to developer marketing lead on the account and brought content, paid media and community under one plan. Part of that plan was building free tools developers could use without talking to sales. When our messaging moved on, I also rewrote and rebuilt the product landing page so the website and social said the same thing.
+            </p>
+          </div>
+          <aside class="evidence-col" aria-label="Chapter 01 in numbers">
+            <div class="evidence">
+              <div class="big-stat">~5M</div>
+              <p>developers reached across the Actian launch so far</p>
+              <small>Starting from 300K+ on launch day.</small>
+            </div>
+            <p class="annotation">
+              “Hackmamba didn’t just execute a plan. They helped us build the right plan.” Jennifer Jackson, CMO, Actian.
+            </p>
+          </aside>
+        </div>
+        <figure class="figure reveal">
+          <ResponsiveImage
+            image={images.calculator}
+            alt="The Actian VectorAI DB sizing calculator. For a workload of 100,000 vectors, its verdict reads: You don't need a vector database yet."
+            sizes="(max-width: 800px) 100vw, 960px"
+          />
+          <figcaption>The sizing calculator. Sometimes it tells you to skip the vector database.</figcaption>
+        </figure>
+        <!-- One image per chapter on the homepage. Agent Memory Hub, awesome-selfhosted-ai, the rebuilt landing page (images.landingPage) and the on-prem SERP (images.serpOnPrem) are reserved for /work#actian and /work#content-search. -->
+        <p class="chapter-link reveal"><a href="/work#actian">Read the Actian story</a></p>
+      </section>
+
+      <PullQuote
+        quote="Lindsay, Ron and Nick love the website."
+        name="Gergely Mate"
+        role="Project Manager · Hackmamba"
+      />
+
+      <section class="chapter" id="found" aria-labelledby="ch2-title">
+        <header>
+          <div class="chapter-n" aria-hidden="true">02</div>
+          <p class="chapter-label reveal">Run the full funnel</p>
+          <h2 class="reveal" id="ch2-title">A useful tool still has to be found.</h2>
+          <p class="chapter-subtitle reveal">Paid and organic growth for developer tools</p>
+        </header>
+        <div class="chapter-body has-spotlight reveal">
+          <div class="prose">
+            <p class="tension">
+              For Actian, I ran paid media with Tahir Mohammed, from X ads and newsletter sponsorships to influencer partnerships.
+            </p>
+            <p>
+              On the organic side, an Actian article on vector database pricing reached Google’s first page and AI Overviews within seven days. I also led content for OpenRouter, whose blog passed 110,000 organic clicks in 126 days.
+            </p>
+          </div>
+          <aside class="evidence-col" aria-label="Chapter 02 in numbers">
+            <div class="evidence">
+              <div class="big-stat">5,000+</div>
+              <p>newsletter clicks from sponsorships</p>
+              <small>Across more than a dozen publications, including AlphaSignal, DataTalks.Club and Real Python.</small>
+            </div>
+            <p class="annotation">
+              “The last Actian campaign performed really well … far exceeding our 500-click benchmark!” Jana Marinovic, Account Manager, AlphaSignal.
+            </p>
+          </aside>
+          <!-- The Actian campaign results (X ads, influencers) live on /work#paid-media. Henry did not own the LinkedIn campaign (Tahir did), so it is not credited to him anywhere. -->
+          <div class="prose spotlight" aria-labelledby="spotlight-zenrows">
+            <p class="spotlight-label">Client spotlight</p>
+            <h3 id="spotlight-zenrows">ZenRows</h3>
+            <p class="spotlight-role">Content strategy, technical SEO and AI-assisted research</p>
+            <p>
+              I’m helping reposition ZenRows as web data infrastructure for AI. The work started with finding out why traffic had dropped. I led the content work across competitor comparisons and practical agent tutorials, and researched how ZenRows appeared in AI-generated answers.
+            </p>
+            <dl class="spotlight-stats">
+              <div>
+                <dt>7,000+</dt>
+                <dd>blog search clicks, up more than 50%</dd>
+              </div>
+              <div>
+                <dt>30%+</dt>
+                <dd>of the AI answers in our tracked prompt set included ZenRows</dd>
+              </div>
+            </dl>
+            <p class="spotlight-note">October 2026, compared with the four weeks before.</p>
+            <p class="spotlight-link"><a href="/work#zenrows">Read the ZenRows story</a></p>
+          </div>
+        </div>
+        <!-- The pricing and on-prem SERP screenshots (images.serpPricing, images.serpOnPrem) move to /work#content-search. -->
+        <p class="chapter-link reveal"><a href="/work#paid-media">See the paid and organic work</a></p>
+      </section>
+
+      <section class="chapter" id="system" aria-labelledby="ch3-title">
+        <header>
+          <div class="chapter-n" aria-hidden="true">03</div>
+          <p class="chapter-label reveal">Give the work a system</p>
+          <h2 class="reveal" id="ch3-title">The fix wasn’t another piece of content.</h2>
+          <p class="chapter-subtitle reveal">Developer Adoption Architecture</p>
+        </header>
+        <div class="chapter-body reveal">
+          <div class="prose">
+            <p class="tension">
+              Hackmamba was known for technical content, but the work had grown into launches, communities, paid media and events.
+            </p>
+            <p>
+              Across our client work, one stage of the developer journey kept being left to chance. So I built the Developer Adoption Architecture and led Hackmamba’s rebrand into a full-cycle developer growth agency.
+            </p>
+          </div>
+          <aside class="evidence-col" aria-label="Chapter 03 in numbers">
+            <div class="evidence compact">
+              <div class="big-stat">29.04.26</div>
+              <p>The day the rebrand went public.</p>
+            </div>
+          </aside>
+        </div>
+        <figure class="diagram reveal">
+          <figcaption class="diagram-label">Developer Adoption Architecture</figcaption>
+          <ol class="stages">
+            {stages.map((stage, i) => (
+              <li>
+                {stage}
+                {i < stages.length - 1 && <span class="stage-arrow" aria-hidden="true">→</span>}
+              </li>
+            ))}
+          </ol>
+        </figure>
+        <figure class="figure reveal">
+          <ResponsiveImage
+            image={images.rebrand}
+            alt="Hackmamba article, Hackmamba is now a full-cycle developer growth agency, by Henry Bassey, 29 April 2026."
+            sizes="(max-width: 800px) 100vw, 960px"
+          />
+          <figcaption>The rebrand announcement I wrote for Hackmamba.</figcaption>
+        </figure>
+        <p class="chapter-link reveal">
+          <a href="/work#developer-adoption-architecture">How the Developer Adoption Architecture works</a>
+        </p>
+      </section>
+
+      <section class="chapter" id="craft" aria-labelledby="ch4-title">
+        <header>
+          <div class="chapter-n" aria-hidden="true">04</div>
+          <p class="chapter-label reveal">Teach the system to write</p>
+          <h2 class="reveal" id="ch4-title">Good writing shouldn’t depend on luck.</h2>
+          <p class="chapter-subtitle reveal">A technical writing skill for people and AI agents</p>
+        </header>
+        <div class="chapter-body reveal">
+          <div class="prose">
+            <p class="tension">
+              I’ve edited hundreds of technical articles. The good ones have a clear point, a logical flow and code that backs up every claim.
+            </p>
+            <p>
+              So I wrote down what makes them work and turned it into an open-source skill for writers and AI agents. It later fed into Boki, Hackmamba’s content system.
+            </p>
+          </div>
+          <aside class="evidence-col" aria-label="Chapter 04 in numbers">
+            <div class="evidence">
+              <div class="big-stat">26</div>
+              <p>writing principles across 5 areas</p>
+              <small>Open source under the MIT licence.</small>
+            </div>
+          </aside>
+        </div>
+        <figure class="figure reveal">
+          <ResponsiveImage
+            image={images.writingSkill}
+            alt="The Xamfonos/technical-writing-best-practices repository on GitHub: a Claude Code skill for technical content, with 26 principles across 5 domains and an MIT licence."
+            sizes="(max-width: 800px) 100vw, 960px"
+          />
+          <figcaption>The technical writing skill on GitHub.</figcaption>
+        </figure>
+        <p class="chapter-link reveal"><a href="/work#writing-skill">See the writing skill</a></p>
+      </section>
+
+      <PullQuote
+        quote="Great edits here. I think this is one of the best pieces of content we’ve drafted as a company."
+        name="John-Henry Scherck"
+        role="Founder & CEO, Growth Plays"
+      />
+
+      <section class="chapter" id="speaking" aria-labelledby="ch5-title">
+        <header>
+          <div class="chapter-n" aria-hidden="true">05</div>
+          <p class="chapter-label reveal">Take it on stage</p>
+          <h2 class="reveal" id="ch5-title">I test these ideas on stage, too.</h2>
+          <p class="chapter-subtitle reveal">Talks and panels on developer marketing</p>
+        </header>
+        <div class="chapter-body is-single reveal">
+          <div class="prose">
+            <p class="tension">A framework only proves itself when you explain it to real people.</p>
+            <p>
+              I’ve spoken at The Builders Summit in Lagos and AI Summit in Uyo, and joined conversations on Reo.Dev’s DevGTM series and the DevRel Compass panel.
+            </p>
+          </div>
+        </div>
+        <TalkMedia caption="The Builders Summit, Lagos, April 2026" class="reveal" />
+        <p class="chapter-link reveal"><a href="/work#speaking">All talks</a></p>
+      </section>
+
+      <PullQuote
+        quote="Developer Marketing is company-first. DevRel is developer-first. But at the end of the day, we need to work together."
+        name="DevRel Compass panel, March 2026"
+      />
+
+      <section class="chapter" id="africa" aria-labelledby="ch6-title">
+        <header>
+          <div class="chapter-n" aria-hidden="true">06</div>
+          <p class="chapter-label reveal">Ask a question closer to home</p>
+          <h2 class="reveal" id="ch6-title">I do this from Lagos.<br />What does that change?</h2>
+          <p class="chapter-subtitle reveal">Developer marketing in Africa and the diaspora</p>
+        </header>
+        <div class="chapter-body reveal">
+          <div class="prose">
+            <p class="tension">Does developer marketing work the same way in Africa? And for which tools?</p>
+            <p>
+              I work from Lagos, mostly for companies based elsewhere, so this question is hard to ignore. I’m turning it into open research for builders and investors.
+            </p>
+          </div>
+          <aside class="evidence-col" aria-label="Chapter 06 in numbers">
+            <div class="evidence">
+              <div class="big-stat">30.2%</div>
+              <p>of African developers have a say in tool purchases</p>
+              <small>Compared with 21.7% globally. Stack Overflow 2024, small sample.</small>
+            </div>
+          </aside>
+        </div>
+        <figure class="figure figure-narrow reveal">
+          <ResponsiveImage
+            image={images.speakerCard}
+            alt="Geek Circle speaker card for The Builders Summit, naming Henry Bassey as Developer Marketer and Head of Technical Content at Hackmamba, at the Ananse Center for Design in Lekki."
+            sizes="(max-width: 800px) 100vw, 560px"
+          />
+          <figcaption>The speaker card for my Lagos talk, as printed by Geek Circle.</figcaption>
+        </figure>
+        <p class="chapter-link reveal"><a href="/work#africa">Read the early findings</a></p>
+      </section>
     </div>
 
-    <div style="margin-top:2rem;">
-      <div style="font-size:0.8rem; color:var(--text-dim); font-family:var(--font-mono); margin-bottom:1rem; text-align:center;">// Actian VectorAI — content strategy & SEO</div>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:1.5rem;">
-        {[
-          { label: "SEO → Page 1, pre-launch", context: "Greenfield topic. Content ranked on page one before the product launched. Written as part of the Actian VectorAI content strategy.", screenshot: "/assets/testimonials and proof of work/IMG_8037.jpg" },
-          { label: "SEO → Page 1 + cited by AI Overview · 7 days", context: '"vector database pricing" — first page ranking and cited in Google\'s AI Overview, 7 days after publish.', screenshot: "/assets/testimonials and proof of work/IMG_8064.jpg" }
-        ].map(r => (
-          <ResultCard label={r.label} context={r.context} screenshot={r.screenshot} />
+    <section class="next reveal" id="openstrategy" aria-labelledby="openstrategy-title">
+      <p class="next-label">Work in progress</p>
+      <h2 id="openstrategy-title">How can humans and AI agents make better strategy decisions in this AI era?</h2>
+      <p>
+        I’m turning business strategy frameworks into tools humans and AI agents can use to make better decisions. It’s called OpenStrategy (formerly Marketing Console), and it’s still being built.
+      </p>
+    </section>
+
+    <section class="love is-open" id="wall-of-love" aria-labelledby="love-title">
+      <h2 id="love-title">Wall of love</h2>
+      <p class="love-intro">Kind words from clients, teammates and readers.</p>
+      <div class="love-groups" id="love-groups">
+        {testimonialGroups.map((group) => (
+          <div class="love-group reveal" aria-labelledby={`love-${group.id}`}>
+            <h3 class="love-group-title" id={`love-${group.id}`}>{group.title}</h3>
+            {group.chat ? (
+              <ul class="love-chat">
+                {group.items.map((line) => (
+                  <li>
+                    <span class="love-chat-name">{line.name}:</span> “{line.quote}”
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <ul class="love-list">
+                {group.items.map((item, i) => (
+                  <li class:list={['love-item', { 'love-extra': i > 0 }]}>
+                    <blockquote>
+                      <p>{item.quote}</p>
+                    </blockquote>
+                    <p class="love-by">
+                      {item.name}
+                      {item.role && <span>{item.role}</span>}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         ))}
       </div>
-    </div>
-  </div>
-</section>
+      <button class="love-more" type="button" aria-controls="love-groups" aria-expanded="false" hidden>
+        Show more
+      </button>
+    </section>
 
-<!-- ─── CONTACT ─── -->
-<section id="contact" class="section-wrap">
-  <div class="section-tag" style="white-space: normal; margin-bottom: 0.5rem;"><span class="br">&lt;</span> Find me online (finally) <span class="br">/&gt;</span></div>
-  <div style="font-size:0.85rem; color:var(--text-dim); font-family:var(--font-mono); margin-bottom:2.5rem;">Damn. I've managed social media for lots of companies but been too lazy to grow mine. Follow me and let's put this embarrassing follower count to shame 😭</div>
+    <section class="callout reveal" aria-labelledby="callout-title">
+      <h2 id="callout-title">There’s more where this came from.</h2>
+      <p>The portfolio has the full stories, the tools and the numbers behind them.</p>
+      <p class="callout-action"><a href="/work">See the portfolio</a></p>
+    </section>
 
-  <div class="contact-grid">
-    <div>
-      <div style="display:grid; gap:0.55rem;">
-        {[
-          { icon:'𝕏', label:'@xamfonos_', href:'https://x.com/xamfonos_' },
-          { icon:'◎', label:'@xamfonos', href:'https://www.instagram.com/xamfonos/' },
-          { icon:'in', label:'linkedin.com/in/henrybassey', href:'https://www.linkedin.com/in/henrybassey/' },
-        ].map(link => (
-          <a href={link.href} target="_blank" rel="noopener" class="contact-link">
-            <span class="cl-icon">{link.icon}</span>
-            <span class="cl-label">{link.label}</span>
-            <span class="cl-arr">→</span>
-          </a>
+    <section class="writing-block reveal" id="writing" aria-labelledby="writing-title">
+      <h2 id="writing-title">Selected writing</h2>
+      <p class="writing-intro">A few favourites. The rest are <a href="/blog">on the blog</a>.</p>
+      <ul class="writing-list">
+        {externalWriting.map((piece) => (
+          <li>
+            <a href={piece.href}>
+              <span class="writing-outlet">{piece.outlet}</span>
+              <span class="writing-title">{piece.title}</span>
+              <span class="writing-note">{piece.note}</span>
+            </a>
+          </li>
         ))}
-      </div>
-    </div>
-
-    <div class="hire-box">
-      <div class="hire-head"><span class="pulse"></span> AVAILABLE FOR PROJECTS</div>
-      <div class="hire-body">
-        <h3>Want to work together?</h3>
-        <p>Drop your email and a short note. I'll get back to you if it's a good fit. I work with developer-focused companies to clarify their message, grow their community, and ship content that actually converts.</p>
-        <ul class="hire-services">
-          <li>Developer Marketing Strategy</li>
-          <li>AI-Powered Marketing Tools & Systems</li>
-          <li>Framework & Systems Design</li>
-          <li>Performance Marketing (SEO + PPC)</li>
-          <li>Technical Content & Copywriting</li>
-        </ul>
-        <a href="https://www.linkedin.com/in/henrybassey/" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%; justify-content:center;">Start a conversation →</a>
-      </div>
-    </div>
+        {posts.map((post) => (
+          <li>
+            <a href={`/blog/${post.id}`}>
+              <span class="writing-outlet">
+                Blog · {new Date(post.data.date).toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' })}
+              </span>
+              <span class="writing-title">{post.data.title}</span>
+              <span class="writing-note">{post.data.excerpt}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
   </div>
-</section>
 
-<!-- ─── IMAGE OVERLAY MODAL ─── -->
-<div id="image-modal" class="modal">
-  <span class="modal-close">&times;</span>
-  <img class="modal-content" id="modal-img" />
-</div>
+  <ConsultingClose />
 
+  <script>
+    // Wall of love: on small screens, show one quote per group until "Show more" is pressed.
+    const love = document.querySelector<HTMLElement>('.love');
+    const more = document.querySelector<HTMLButtonElement>('.love-more');
+    if (love && more) {
+      love.classList.remove('is-open');
+      more.hidden = false;
+      more.addEventListener('click', () => {
+        love.classList.add('is-open');
+        more.setAttribute('aria-expanded', 'true');
+        more.hidden = true;
+        love.querySelector<HTMLElement>('.love-extra')?.setAttribute('tabindex', '-1');
+        love.querySelector<HTMLElement>('.love-extra')?.focus();
+      });
+    }
+  </script>
 </Layout>
-
-<script>
-  // Global Parallax logic
-  window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
-
-    // Hero image parallax
-    const photoWrap = document.querySelector('.hero-photo-wrap');
-    if (photoWrap) {
-      (photoWrap as HTMLElement).style.transform = `translateY(${scrollY * 0.25}px)`;
-    }
-
-    // Data-parallax elements
-    document.querySelectorAll('[data-parallax]').forEach(el => {
-      const speed = parseFloat(el.getAttribute('data-parallax') || '0');
-      // Only apply parallax if screen is reasonably wide (desktop) to save mobile performance
-      if (window.innerWidth > 768) {
-        // Calculate offset based on element position relative to viewport
-        const rect = el.getBoundingClientRect();
-        // Distance from center of viewport
-        const offset = (window.innerHeight / 2 - (rect.top + rect.height / 2)) * speed;
-        (el as HTMLElement).style.transform = `translateY(${-offset}px)`;
-      } else {
-        (el as HTMLElement).style.transform = 'none';
-      }
-    });
-  });
-
-  const phrases = [
-    "grow developer trust.",
-    "build advocacy systems.",
-    "ship AI-powered tools.",
-    "turn frameworks into pipeline.",
-    "tell technical stories.",
-    "connect product to market."
-  ];
-  let pi=0,ci=0,del=false;
-  const el=document.getElementById('typed');
-
-  if(el){
-    function type(){
-      const cur=phrases[pi];
-      if(del){
-        el.textContent=cur.slice(0,--ci);
-        if(ci===0){
-          del=false;
-          pi=(pi+1)%phrases.length;
-          setTimeout(type,400);
-          return;
-        }
-        setTimeout(type,38);
-      } else {
-        el.textContent=cur.slice(0,++ci);
-        if(ci===cur.length){
-          del=true;
-          setTimeout(type,2200);
-          return;
-        }
-        setTimeout(type,62);
-      }
-    }
-
-    setTimeout(type, 900);
-  }
-
-  // Image Modal Logic
-  const modal = document.getElementById('image-modal');
-  const modalImg = document.getElementById('modal-img') as HTMLImageElement;
-  const closeBtn = document.querySelector('.modal-close');
-
-  if (modal && modalImg && closeBtn) {
-    document.querySelectorAll('.tc-screenshot, .rc-screenshot, .tb-img, .proof-img-card img, .seo-img-card img').forEach(img => {
-      
-      const triggerModal = function(e: Event) {
-        e.preventDefault(); // Prevents both touch and click firing
-        modal.style.display = 'flex';
-        // force reflow for opacity transition
-        void modal.offsetWidth;
-        modal.classList.add('show');
-        modalImg.src = (e.currentTarget as HTMLImageElement).src;
-      };
-
-      img.addEventListener('click', triggerModal);
-      img.addEventListener('touchend', triggerModal);
-    });
-
-    const closeModal = () => {
-      modal.classList.remove('show');
-      setTimeout(() => { modal.style.display = 'none'; }, 300);
-    };
-
-    closeBtn.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal();
-    });
-    
-    // Close on escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.classList.contains('show')) closeModal();
-    });
-  }
-</script>

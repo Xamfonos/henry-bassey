@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://henrybassey.com/sitemap-index.xml
